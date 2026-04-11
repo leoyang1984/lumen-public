@@ -6,7 +6,11 @@
 
 ## English Version
 
-- **v3.5.8 (2026-04-11)**: **Pro Version Milestone** — Official rebranding to "Lumen Pro" with enhanced activation stability and performance optimizations.
+- **v3.5.8 (2026-04-11)**: **Pro Version Milestone** — Official rebranding to "Lumen Pro" with core engine refinements:
+    - **Smart Node Sensing**: Automatically maps File Nodes (dragged .md files) as `{{input}}` in Canvas Flow without explicit tags.
+    - **Dual-Track Memory**: Integrated Passive Vector RAG (70/30 weighting) with Active Session Summarization (structured Decision/Rationale memory).
+    - **Visual Reasoning**: Introduced the `to_canvas_edge` operator for AI-driven logical connection building on whiteboards.
+    - **Context Awareness**: Upgraded fallback logic to sense Line -> Paragraph -> Whole Document (Reading Mode).
 - **v3.1.5 (2026-04-01)**: **Batch Distribution & Dot-Notation** — Upgraded the Pipeline engine to support multi-topic "Broadcasting" (e.g., create files for each stock in a list) and precise field extraction via `{{StepID.FieldName}}` (supports Chinese). Added `overwrite: true` for file creation.
 - **v3.1.3 (2026-04-01)**: **Smart Context & Reading Mode** — Introduced universal context sensing. The plugin now automatically extracts current lines or paragraphs even if no text is selected. In Reading Mode, it defaults to capturing the entire document, enabling "one-click" full-note analysis/summarization via Command Palette.
 - **v3.1.2 (2026-04-01)**: **Pipeline Visibility & UI Refinement** — Introduced real-time word counts and continuation tracking. Added automatic completion reports with AI summaries. **UI Enhancement**: Implemented auto-expanding height and vertical resizing for the Pipeline approval textarea to support long-form editing. Fixed a path parsing bug for quoted strings.
@@ -26,7 +30,11 @@
 
 ## 中文版
 
-- **v3.5.8 (2026-04-11)**: **Pro 版本里程碑** — 品牌正式升级为 "Lumen Pro"，增强了激活稳定性并优化了核心引擎性能。
+- **v3.5.8 (2026-04-11)**: **Pro 版本里程碑** — 品牌正式升级为 "Lumen Pro"，并对核心引擎进行了深度打磨：
+    - **智能节点感应**: 在 Canvas Flow 中支持自动感应文件节点（拖入的 .md 文件）为 `{{input}}`，无需手动标记。
+    - **双轨记忆系统**: 整合了被动向量 RAG（70/30 加权）与主动 Session 总结（结构化的决策/原由记忆）。
+    - **视觉推理算子**: 引入 `to_canvas_edge` 动作，支持 AI 驱动的白板逻辑连线生成。
+    - **上下文感应优化**: 升级了无选区执行逻辑，支持“行 -> 段落 -> 全文 (阅读模式)”的自动层次抓取。
 - **v3.3.2 (2026-04-03)**：**Pipeline 自动续写结构优化 (大纲锚点)**。引入了预生成大纲机制。在执行长文本生成前，引擎会自动构建任务大纲作为结构锚点，并在续写请求中通过“原始任务 + 完整大纲 + 500字上下文”的组合提示词，彻底解决了长篇创作逻辑中断与内容重复的问题。
 - **v3.1.7 (2026-04-01)**：**Batch Distribution 算法优化 (齐位对齐)**。修复了占位符乘积导致的指数级文件创建 Bug（笛卡尔积问题）。引入了并行对齐（Zip-Aligned）逻辑，确保 $N$ 个提取项仅生成 $N$ 个文件，大幅提升性能与逻辑正确性。
 - **v3.1.6 (2026-04-01)**：**Batch Distribution 作用域隔离**。修复了点号变量 (`{{StepID.Field}}`) 在批量分发循环中的串扰问题。
