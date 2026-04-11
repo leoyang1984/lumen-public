@@ -1,0 +1,1268 @@
+/* Lumen Styles - FLOWnote Edition */
+
+:root {
+    /* Base mapping to Obsidian variables */
+    --lumen-bg-main: var(--background-primary);
+    --lumen-bg-surface: var(--background-secondary);
+    --lumen-bg-input: var(--background-primary-alt);
+    --lumen-text-prio: var(--text-normal);
+    --lumen-text-normal: var(--text-normal);
+    --lumen-text-muted: var(--text-muted);
+    --lumen-border: var(--background-modifier-border);
+    --lumen-radius-lg: 16px;
+    --lumen-radius-xl: 24px;
+    --lumen-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+    /* --- Layer 1: Base Palette Tokens --- */
+    --palette-gold-main: #e8c96a;
+    --palette-gold-hover: #f3d47a;
+    --palette-gold-rgb: 232, 200, 80;
+    --palette-gold-slash: #facc15;
+    
+    --palette-blue-main: #7e8cb3;
+    --palette-blue-hover: #96a5ca;
+    --palette-blue-rgb: 126, 140, 179;
+    
+    --palette-indigo-main: #7a73d8;
+    --palette-indigo-hover: #928cf0;
+    --palette-indigo-rgb: 122, 115, 216;
+
+    /* --- Layer 2: Semantic Tokens (Functionally Decoupled) --- */
+    --lumen-brand-key: var(--palette-blue-main);
+    --lumen-msg-user-accent: var(--palette-blue-main);
+    --lumen-action-primary: var(--palette-indigo-main);
+    --lumen-status-active: var(--palette-blue-main);
+    
+    /* Constraint 1: Dedicated Switchable Token for Status Dot */
+    --lumen-status-indicator: var(--lumen-brand-key);
+
+    /* --- Layer 3: Derived Tokens (with Constraint 2 Fallbacks) --- */
+    
+    /* Brand Derivatives */
+    --lumen-brand-dim: rgba(var(--palette-blue-rgb), 0.4);
+    --lumen-brand-dim: color-mix(in srgb, var(--lumen-brand-key), transparent 60%);
+    
+    --lumen-brand-glow: rgba(var(--palette-blue-rgb), 0.25);
+    --lumen-brand-glow: color-mix(in srgb, var(--lumen-brand-key), transparent 75%);
+
+    /* Message Derivatives */
+    --lumen-msg-user-subtle: rgba(var(--palette-blue-rgb), 0.08);
+    --lumen-msg-user-subtle: color-mix(in srgb, var(--lumen-msg-user-accent), transparent 92%);
+    
+    --lumen-msg-user-border: rgba(var(--palette-blue-rgb), 0.14);
+    --lumen-msg-user-border: color-mix(in srgb, var(--lumen-msg-user-accent), transparent 86%);
+
+    /* Action Derivatives */
+    --lumen-action-hover: #928cf0;
+    --lumen-action-hover: color-mix(in srgb, var(--lumen-action-primary), white 15%);
+    
+    --lumen-action-dim: rgba(var(--palette-indigo-rgb), 0.4);
+    --lumen-action-dim: color-mix(in srgb, var(--lumen-action-primary), transparent 60%);
+    
+    --lumen-action-border: rgba(var(--palette-indigo-rgb), 0.14);
+    --lumen-action-border: color-mix(in srgb, var(--lumen-action-primary), transparent 86%);
+
+    /* Status Derivatives */
+    --lumen-status-dim: rgba(var(--palette-blue-rgb), 0.4);
+    --lumen-status-dim: color-mix(in srgb, var(--lumen-status-active), transparent 60%);
+    
+    --lumen-status-glow: rgba(var(--palette-blue-rgb), 0.25);
+    --lumen-status-glow: color-mix(in srgb, var(--lumen-status-active), transparent 75%);
+
+    --lumen-status-slash: #96a5ca;
+    --lumen-status-slash: color-mix(in srgb, var(--lumen-status-active), white 20%);
+}
+
+.theme-dark {
+    --lumen-bg-main: #0f1115;
+    --lumen-bg-surface: #1a1b1e;
+    --lumen-bg-input: #25262b;
+    --lumen-bg-soft: rgba(255, 255, 255, 0.03);
+    --lumen-border: rgba(255, 255, 255, 0.1);
+    --lumen-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    
+    /* Overrides for specific dark theme visibility */
+    --palette-gold-slash: #fbbf24; 
+}
+
+.theme-light {
+    --lumen-bg-main: #f9f8f6; 
+    --lumen-bg-surface: #f1f0ec; 
+    --lumen-bg-input: #f9f8f6;
+    --lumen-bg-soft: rgba(0, 0, 0, 0.04);
+    
+    --lumen-border: rgba(0, 0, 0, 0.08);
+    --lumen-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    
+    --lumen-text-prio: #2c2b29;
+    --lumen-text-normal: #4a4946;
+    --lumen-text-muted: #8c8b87;
+
+    /* --- Light Theme Palette Override --- */
+    --palette-gold-main: #b08a3e;
+    --palette-gold-hover: #967431;
+    --palette-gold-rgb: 176, 138, 62;
+    --palette-gold-slash: #b08a3e;
+}
+
+.lumen-chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0; /* Full-bleed feel */
+    background-color: var(--lumen-bg-main);
+    color: var(--lumen-text-normal);
+}
+
+.lumen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--lumen-bg-surface);
+    border-bottom: 1px solid var(--lumen-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.lumen-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lumen-status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--lumen-status-indicator);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--lumen-status-dim);
+    transition: all 0.3s ease;
+}
+
+.theme-light .lumen-status-dot {
+    box-shadow: 0 0 8px var(--lumen-status-glow);
+}
+
+.lumen-header-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--lumen-brand-key);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.lumen-header-right {
+    display: flex;
+    gap: 4px;
+}
+
+/* ── Shared button token ─────────────────────── */
+.lumen-icon-btn {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid var(--lumen-action-border);
+    padding: 0;
+    color: var(--lumen-text-muted);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+}
+
+.theme-light .lumen-icon-btn {
+    background: transparent;
+    border: 1px solid var(--lumen-action-border);
+    color: var(--lumen-text-normal);
+}
+
+.lumen-icon-btn:hover {
+    background: var(--lumen-bg-input);
+    border-color: var(--lumen-action-dim);
+    color: var(--lumen-text-normal);
+}
+
+.theme-light .lumen-icon-btn:hover {
+    background: var(--lumen-bg-main);
+    border-color: var(--lumen-action-dim);
+}
+
+.lumen-icon-btn svg {
+    width: 15px;
+    height: 15px;
+}
+
+.lumen-icon-btn.lumen-memory-btn {
+    position: relative;
+    color: var(--lumen-text-muted);
+}
+
+.lumen-icon-btn.lumen-memory-btn:hover {
+    color: var(--lumen-action-primary);
+    border-color: var(--lumen-action-dim);
+}
+
+.lumen-brain-svg {
+    width: 20px;
+    height: 20px;
+    color: var(--lumen-brand-key);
+    filter: drop-shadow(0 0 2px var(--lumen-brand-key));
+    animation: lumen-brain-breathe 4s infinite ease-in-out;
+}
+
+.lumen-brain-node {
+    animation: lumen-node-flash 2.5s infinite;
+}
+
+@keyframes lumen-brain-breathe {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 2px var(--lumen-brand-dim));
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 8px var(--lumen-brand-glow));
+        opacity: 1;
+    }
+}
+
+@keyframes lumen-node-flash {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.8; }
+}
+
+/* Thinking Indicator Styles */
+.lumen-thinking-container {
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    animation: lumen-fade-in 0.3s ease-out;
+}
+
+.lumen-thinking-header {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--lumen-status-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lumen-dim-dot {
+    opacity: 0.4;
+    font-size: 14px;
+}
+
+.lumen-thinking-dots {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--lumen-status-border, var(--lumen-status-dim));
+    border-radius: var(--lumen-radius-lg);
+    padding: 12px 16px;
+    color: var(--lumen-status-active);
+    font-size: 18px;
+    letter-spacing: 4px;
+    line-height: 1;
+}
+
+.lumen-thinking-dots .dot {
+    animation: lumen-dot-blink 1.4s infinite both;
+}
+
+.lumen-thinking-dots .dot:nth-child(2) { animation-delay: 0.2s; }
+.lumen-thinking-dots .dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes lumen-dot-blink {
+    0% { opacity: 0.2; }
+    20% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+.pipeline-instruction {
+    font-size: 0.9em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.pipeline-edit-area {
+    width: 100%;
+    margin-bottom: 10px;
+    font-family: var(--font-monospace);
+    border: 1px solid var(--background-modifier-border);
+    transition: border-color 0.3s;
+}
+
+.pipeline-edit-area:focus {
+    border-color: var(--interactive-accent);
+}
+
+.pipeline-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.pipeline-resolved {
+    border-left-color: #4caf50;
+    opacity: 0.8;
+}
+
+.pipeline-cancelled {
+    border-left-color: #f44336;
+    opacity: 0.6;
+}
+
+.pipeline-status {
+    font-size: 0.8em;
+    font-style: italic;
+    margin-left: 5px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 12px;
+    background-color: var(--lumen-bg-main);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* New Pill-style Input */
+.lumen-input-wrapper {
+    padding: 16px;
+    background: transparent;
+}
+
+.lumen-input-container {
+    position: relative; /* Anchor for slash-suggestions */
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    border-top: 1px solid var(--lumen-action-border);
+    padding: 12px 0;
+    transition: border-color 0.2s;
+}
+
+.lumen-input-container:focus-within {
+    border-top-color: var(--lumen-action-primary);
+}
+
+.lumen-input-field {
+    width: 100%;
+    min-height: 24px;
+    max-height: 150px;
+    background: transparent !important;
+    border: none !important;
+    padding: 4px 0;
+    color: var(--lumen-text-normal);
+    font-family: var(--font-monospace);
+    font-size: 13px;
+    line-height: 1.5;
+    resize: none;
+    outline: none !important;
+    box-shadow: none !important;
+    overflow-y: auto;
+}
+
+.lumen-input-field.is-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.lumen-input-field:empty::before {
+    content: attr(data-placeholder);
+    color: var(--lumen-text-muted);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.lumen-input-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.lumen-input-right-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lumen-icon-btn.lumen-memory-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid var(--lumen-action-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--lumen-text-muted);
+}
+
+.lumen-icon-btn.lumen-memory-btn:hover {
+    background: var(--lumen-bg-input);
+    color: var(--lumen-action-primary);
+    border-color: var(--lumen-action-dim);
+}
+
+.lumen-input-left-group {
+    display: flex;
+    gap: 4px;
+}
+
+.lumen-input-right-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lumen-send-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--lumen-text-muted);
+    border: 1px solid var(--lumen-action-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.lumen-send-btn:hover:not(:disabled) {
+    background: var(--lumen-bg-input);
+    border-color: var(--lumen-action-dim);
+    color: var(--lumen-text-normal);
+}
+
+.lumen-send-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    border-color: var(--lumen-border);
+}
+
+.lumen-send-btn.is-stopping {
+    border-color: #ef4444 !important;
+    color: #ef4444 !important;
+    background: transparent !important;
+    animation: lumen-stop-pulse 2s infinite ease-in-out;
+}
+
+@keyframes lumen-stop-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3); }
+    50% { transform: scale(1.05); box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+}
+
+.lumen-send-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.chat-msg {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: var(--lumen-radius-lg);
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
+    animation: lumen-fade-up 0.3s ease-out;
+}
+
+@keyframes lumen-fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-msg-user {
+    align-self: flex-end;
+    background-color: var(--lumen-msg-user-subtle);
+    color: var(--lumen-msg-user-accent);
+    border: 1px solid var(--lumen-msg-user-border);
+}
+
+.msg-content a {
+    color: var(--lumen-action-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--lumen-action-dim);
+    text-underline-offset: 3px;
+    font-weight: 500;
+}
+.msg-content a:hover {
+    color: var(--lumen-action-hover);
+    text-decoration-color: var(--lumen-action-primary);
+}
+
+.chat-msg-assistant {
+    align-self: flex-start;
+    background-color: var(--lumen-bg-soft);
+    color: var(--lumen-text-normal);
+    border: 1px solid var(--lumen-msg-user-border);
+}
+
+.chat-msg-system, .chat-msg-tool {
+    align-self: center;
+    max-width: 95%;
+    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0.03);
+    color: var(--lumen-text-muted);
+    border: 1px dashed var(--lumen-border);
+    text-align: center;
+}
+
+.msg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.chat-sender-label {
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.chat-msg-user .chat-sender-label {
+    display: none; /* Hide 'You' for cleaner look */
+}
+
+.chat-copy-btn {
+    opacity: 0;
+    transition: opacity 0.2s;
+    background: var(--lumen-bg-input);
+    border: 1px solid var(--lumen-border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 10px;
+    color: var(--lumen-text-muted);
+}
+
+.chat-msg:hover .chat-copy-btn {
+    opacity: 1;
+}
+
+.msg-content {
+    word-break: break-word;
+}
+
+.chat-whitespace-pre {
+    white-space: pre-wrap;
+}
+
+/* DeepSeek Hover UI Styles */
+/* [lumen archived] FloatingWidget — suspended, not deleted 
+.lumen-hover-container {
+    ... (all specific hover classes up to L760)
+}
+...
+.lumen-error {
+    color: var(--text-error);
+    font-weight: 500;
+    padding: 8px;
+    background: var(--background-modifier-error);
+    border-radius: 4px;
+}
+*/
+
+@keyframes lumen-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* [lumen archived] FloatingWidget — suspended, not deleted 
+.lumen-hover-result::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lumen-hover-result::-webkit-scrollbar-thumb {
+    background: var(--background-modifier-border);
+    border-radius: 10px;
+}
+*/
+/* Modal Styles */
+.lumen-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.lumen-generate-btn {
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: transform 0.1s ease;
+}
+
+.lumen-generate-btn:hover {
+    transform: scale(1.02);
+}
+
+.lumen-generate-btn:active {
+    transform: scale(0.98);
+}
+
+/* Canvas Prompt Modal - Glassmorphic Style */
+.lumen-canvas-prompt-modal {
+    background: var(--background-primary) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--background-modifier-border) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    max-width: 500px !important;
+}
+
+.lumen-canvas-prompt-modal .modal-title {
+    padding: 16px 20px 8px 20px;
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.lumen-canvas-prompt-modal .modal-content {
+    padding: 0 !important;
+}
+
+.lumen-prompt-body {
+    padding: 12px 20px;
+}
+
+.lumen-prompt-textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--background-secondary-alt) !important;
+    border: 1px solid var(--background-modifier-border) !important;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1em;
+    color: var(--text-normal);
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.lumen-prompt-textarea:focus {
+    border-color: var(--interactive-accent) !important;
+}
+
+.lumen-prompt-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: color-mix(in srgb, var(--background-secondary) 85%, transparent);
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.lumen-prompt-hints {
+    font-size: 0.75em;
+    color: var(--text-faint);
+}
+
+/* AI Thinking State - Enhances the breathing effect when AI is active */
+body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container,
+body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
+    border-color: rgba(200, 169, 110, 1) !important;
+    border-width: 3px !important;
+    box-shadow: 0 0 20px rgba(200, 169, 110, 0.8), 0 0 40px rgba(200, 169, 110, 0.4) !important;
+    /* Speed up animation to show "processing" activity */
+    animation: ai-pulse-glow 0.8s infinite alternate ease-in-out !important; 
+    transition: all 0.5s ease;
+}
+
+/* Global status indicator in the canvas */
+body.lumen-is-ai-thinking::after {
+    content: "AI is thinking...";
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background: var(--background-secondary);
+    color: var(--text-accent);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    border: 1px solid var(--background-modifier-border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    pointer-events: none;
+    animation: lumen-fade-in 0.3s ease;
+}
+
+@keyframes lumen-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Fallback Keyframes for AI Pulse - Ensuring the effect works even without user snippets */
+@keyframes ai-pulse-glow {
+    0% {
+        box-shadow: 0 0 5px rgba(200, 169, 110, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(200, 169, 110, 0.8), 0 0 40px rgba(200, 169, 110, 0.4);
+    }
+}
+
+/* ─── Note to Canvas Modal ──────────────────────────────────────────────── */
+
+.lumen-n2c-modal {
+    background: var(--background-primary) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-radius: 14px !important;
+    border: 1px solid var(--background-modifier-border) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25) !important;
+    max-width: 520px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+
+.lumen-n2c-modal .modal-title {
+    padding: 18px 22px 10px 22px;
+    font-size: 1.2em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.lumen-n2c-modal .modal-content {
+    padding: 0 !important;
+}
+
+/* Sections */
+.lumen-n2c-section {
+    padding: 12px 22px;
+}
+
+.lumen-n2c-section + .lumen-n2c-section {
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.lumen-n2c-section-label {
+    font-size: 0.78em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin: 0 0 10px 0;
+}
+
+/* Mode Cards (Radio) */
+.lumen-n2c-mode-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lumen-n2c-mode-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--background-modifier-border);
+    border-radius: 10px;
+    cursor: pointer;
+    background: var(--background-secondary);
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.lumen-n2c-mode-card:hover {
+    border-color: var(--interactive-accent);
+    background: var(--background-secondary-alt);
+}
+
+.lumen-n2c-mode-card.is-selected {
+    border-color: var(--interactive-accent);
+    background: color-mix(in srgb, var(--interactive-accent) 10%, var(--background-secondary));
+}
+
+.lumen-n2c-radio {
+    accent-color: var(--interactive-accent);
+    flex-shrink: 0;
+}
+
+.lumen-n2c-mode-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    cursor: pointer;
+}
+
+.lumen-n2c-mode-title {
+    font-weight: 600;
+    font-size: 0.95em;
+    color: var(--text-normal);
+}
+
+.lumen-n2c-mode-desc {
+    font-size: 0.78em;
+    color: var(--text-muted);
+}
+
+/* Textarea */
+.lumen-n2c-textarea {
+    width: 100%;
+    min-height: 80px;
+    background: var(--background-secondary-alt) !important;
+    border: 1.5px solid var(--background-modifier-border) !important;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.93em;
+    color: var(--text-normal);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.lumen-n2c-textarea:focus {
+    border-color: var(--interactive-accent) !important;
+}
+
+/* Checkbox Row */
+.lumen-n2c-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px 14px 22px;
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.lumen-n2c-checkbox {
+    accent-color: var(--interactive-accent);
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.lumen-n2c-checkbox-label {
+    font-size: 0.9em;
+    color: var(--text-normal);
+    cursor: pointer;
+}
+
+/* Footer Buttons */
+.lumen-n2c-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 22px;
+    background: color-mix(in srgb, var(--background-secondary) 85%, transparent);
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.lumen-n2c-btn-cancel {
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    padding: 8px 18px;
+    color: var(--text-muted);
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.lumen-n2c-btn-cancel:hover {
+    background: var(--background-secondary-alt);
+    color: var(--text-normal);
+}
+
+.lumen-n2c-btn-generate {
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: transform 0.1s ease, opacity 0.15s;
+}
+
+.lumen-n2c-btn-generate:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+.lumen-n2c-btn-generate:active {
+    transform: scale(0.98);
+}
+
+/* ── Progress: Status Bar ─────────────────────────────────────────────── */
+
+.lumen-n2c-status-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 22px;
+    border-top: 1px solid var(--background-modifier-border);
+    background: color-mix(in srgb, var(--background-secondary-alt) 60%, transparent);
+    min-height: 38px;
+    transition: opacity 0.25s;
+}
+
+.lumen-n2c-status-hidden {
+    display: none;
+}
+
+.lumen-n2c-status-bar.lumen-n2c-status-error {
+    background: color-mix(in srgb, var(--background-modifier-error-hover) 40%, transparent);
+    border-top-color: var(--text-error);
+}
+
+.lumen-n2c-status-text {
+    font-size: 0.85em;
+    color: var(--text-muted);
+    flex: 1;
+}
+
+.lumen-n2c-status-bar.lumen-n2c-status-error .lumen-n2c-status-text {
+    color: var(--text-error);
+}
+
+/* CSS Spinner */
+.lumen-n2c-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--background-modifier-border);
+    border-top-color: var(--interactive-accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: lumen-spin 0.8s linear infinite;
+}
+
+.lumen-n2c-spinner.lumen-n2c-spinner-done {
+    border-color: #4ade80;
+    border-top-color: #4ade80;
+    animation: none;
+}
+
+.lumen-n2c-spinner.lumen-n2c-spinner-hidden {
+    display: none;
+}
+
+@keyframes lumen-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Progress: Stop Button ────────────────────────────────────────────── */
+
+.lumen-n2c-btn-stop {
+    background: color-mix(in srgb, var(--text-error) 12%, var(--background-secondary)) !important;
+    color: var(--text-error) !important;
+    border: 1.5px solid var(--text-error) !important;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.lumen-n2c-btn-stop:hover {
+    opacity: 0.85;
+}
+
+/* ── Progress: AI Thinking – Modal Pulse Glow ─────────────────────────── */
+
+.lumen-n2c-modal.lumen-n2c-ai-thinking {
+    animation: lumen-n2c-border-pulse 1.2s infinite alternate ease-in-out !important;
+}
+
+@keyframes lumen-n2c-border-pulse {
+    0% {
+        box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 0 0 rgba(168, 85, 247, 0);
+        border-color: var(--background-modifier-border) !important;
+    }
+    100% {
+        box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 18px 4px rgba(168, 85, 247, 0.55);
+        border-color: rgba(168, 85, 247, 0.7) !important;
+    }
+}
+
+/* ── Progress: Success FadeOut ────────────────────────────────────────── */
+
+.lumen-n2c-modal.lumen-n2c-fadeout {
+    animation: lumen-n2c-fadeout 0.35s ease-out forwards !important;
+}
+
+@keyframes lumen-n2c-fadeout {
+    0%   { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.96); }
+}
+
+/* 1. Declare custom properties for smooth beam rotation */
+@property --lumen-flow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+body {
+    /* Obsidian classic highlight purple */
+    --lumen-color-main: #a855f7; 
+    /* 20% opacity gold for breathing background */
+    --lumen-color-dim: var(--lumen-msg-user-subtle); 
+    --lumen-color-main: var(--lumen-status-active);
+}
+
+/* Track 1: Outer container (responsible for gold fuzzy breathing glow) */
+body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container {
+    border-color: var(--lumen-status-dim) !important;
+    overflow: visible !important;
+    position: relative;
+    animation: lumen-breathe-aura-gold 1.5s infinite alternate ease-in-out;
+}
+
+/* Track 2: Energy beam (responsible for highlight lightning running) */
+body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after {
+    content: "";
+    position: absolute;
+    inset: -2px; 
+    border-radius: inherit;
+    padding: 4px; 
+    
+    background-image: conic-gradient(
+        from var(--lumen-flow-angle),
+        transparent 0%,
+        transparent 60%,
+        rgba(var(--palette-gold-rgb), 0.4) 80%,
+        rgba(var(--palette-gold-rgb), 1) 98%,
+        #fff 100%
+    );
+    
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    
+    z-index: 10; 
+    pointer-events: none; 
+    
+    animation: lumen-flow-gold 1.5s linear infinite;
+}
+
+/* Animation keyframes */
+@keyframes lumen-breathe-aura-gold {
+    0% { box-shadow: 0 0 8px var(--lumen-status-dim); }
+    100% { box-shadow: 0 0 20px var(--lumen-status-dim), 0 0 40px var(--lumen-status-glow); }
+}
+
+@keyframes lumen-flow-gold {
+    from { --lumen-flow-angle: 0deg; }
+    to { --lumen-flow-angle: 360deg; }
+}
+
+
+/* Node-specific Finished State (For Manual Image Gen) */
+.lumen-node-finished .canvas-node-container {
+    border: 2px solid #10b981 !important;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.3) !important;
+    animation: lumen-breathe-aura-green 2s infinite alternate ease-in-out !important;
+}
+
+@keyframes lumen-breathe-aura-green {
+    0% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
+    100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.3); }
+}
+
+/* --- Premium UI Hardening: Pulse Red & Lemon Yellow --- */
+
+/* 1. Stop Button Pulse Animation */
+.lumen-send-btn.is-stopping {
+    background: #ef4444 !important; /* Tailwind Red-500 */
+    color: white !important;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+    animation: lumen-pulse-red 1.8s infinite ease-in-out;
+    border: none !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lumen-send-btn.is-aborting {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.2);
+}
+
+@keyframes lumen-pulse-red {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 5px rgba(239, 68, 68, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.7), 0 0 35px rgba(239, 68, 68, 0.3);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 5px rgba(239, 68, 68, 0.4);
+    }
+}
+
+/* 2. Lemon Yellow Intervention Glassmorphism */
+.pipeline-intervention-card {
+    background: linear-gradient(135deg, rgba(250, 204, 21, 0.9) 0%, rgba(234, 179, 8, 0.95) 100%) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.2) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    margin: 12px 0 !important;
+    color: #1a1a1a !important; /* Deep contrast for readability on yellow */
+}
+
+/* Theme adaptation for better contrast on Light Mode */
+.theme-light .pipeline-intervention-card {
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 8px 20px rgba(181, 147, 5, 0.2) !important;
+}
+
+.intervention-title {
+    font-weight: 700 !important;
+    font-size: 1.1em !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.intervention-instruction {
+    font-size: 0.95em !important;
+    line-height: 1.5;
+    opacity: 0.9;
+    margin-bottom: 12px;
+}
+
+/* --- Skill Picker Suggestion Styles --- */
+.lumen-skill-suggestion {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 0;
+}
+
+.lumen-skill-name {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--text-normal);
+}
+
+.lumen-skill-description {
+    font-size: 0.85em;
+    color: var(--text-muted);
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lumen-pro-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: rgba(80,110,220,0.1);
+    border: 1px solid rgba(80,110,220,0.2);
+    color: rgba(80,110,220,0.85);
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+/* NUCLEAR FIX: Force Amber Golden Breathing Light */
+#lumen-status-dot-force {
+    background-color: var(--lumen-status-indicator) !important; /* Amber Gold */
+    animation: lumen-gold-pulse-force 3.5s infinite ease-in-out !important;
+    filter: blur(0.3px);
+}
+
+.theme-light #lumen-status-dot-force {
+    background-color: var(--palette-gold-main) !important;
+}
+
+@keyframes lumen-gold-pulse-force {
+    0%, 100% {
+        box-shadow: 
+            0 0 8px var(--lumen-status-dim),
+            0 0 16px var(--lumen-status-glow);
+        opacity: 0.65;
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 
+            0 0 20px var(--lumen-status-dim),
+            0 0 40px var(--lumen-status-dim),
+            0 0 70px var(--lumen-status-glow),
+            0 0 100px var(--lumen-status-glow);
+        opacity: 1;
+        transform: scale(1.18);
+    }
+}
+
+/* ── Shared canvas operator action button ──────── */
+.lumen-action-btn {
+    background: linear-gradient(135deg, var(--lumen-action-primary) 0%, var(--lumen-action-hover) 100%);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px var(--lumen-action-dim);
+}
+
+.lumen-action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px var(--lumen-action-dim);
+    filter: brightness(1.1);
+}
+
+.lumen-action-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    filter: none;
+}
+
