@@ -47,6 +47,21 @@ Lumen Pro features an open extension protocol via the hidden `.agents` directory
 
 ---
 
+### 📦 Installation
+#### Option 1: Using BRAT (Recommended)
+1. Install the **Obsidian 42 - BRAT** plugin from the Community Plugins.
+2. In BRAT settings, click **Add Beta plugin**.
+3. Enter the repository URL: `leoyang1984/lumen-public`
+4. Click **Add Plugin**, then enable **Lumen Pro** in your Community Plugins list.
+
+#### Option 2: Manual Installation
+1. Go to the [GitHub Releases](https://github.com/leoyang1984/lumen-public/releases) page.
+2. Download the latest release files (`main.js`, `manifest.json`, `styles.css`).
+3. Create a folder named `lumen-pro` in your vault's `.obsidian/plugins/` directory.
+4. Copy the downloaded files into that folder and enable the plugin.
+
+---
+
 ### 🔑 Activation & Setup
 - **FREE TRIAL**: Use the following universal Gift Code to experience all Pro features:
   > **`ANN-20261231-841F-BCF5`**
@@ -112,6 +127,21 @@ Lumen Pro 通过隐藏的 `.agents` 目录提供开放的协议扩展能力。
 - **动态技能**：在 `.agents/{plugin}/{name}.md` 中存放文件即可注册全局指令。
 - **动作执行**：通过 YAML 定义文件夹创建、笔记追加等机械化动作，与 AI 逻辑深度耦合。
 - **开发者友好**：无需编写插件代码，即可扩展 Lumen 的原生 UI 与处理逻辑。
+
+---
+
+### 📦 安装方法
+#### 选项 1：使用 BRAT (推荐)
+1. 在插件市场搜索并安装 **Obsidian 42 - BRAT** 插件。
+2. 进入 BRAT 设置，点击 **Add Beta plugin**。
+3. 输入本仓库地址：`leoyang1984/lumen-public`
+4. 点击 **Add Plugin**，然后在社区插件列表中开启 **Lumen Pro**。
+
+#### 选项 2：手动安装
+1. 前往 [GitHub Releases](https://github.com/leoyang1984/lumen-public/releases) 发布页。
+2. 下载最新的发布文件 (`main.js`, `manifest.json`, `styles.css`)。
+3. 在你的库目录 `.obsidian/plugins/` 下手动创建一个名为 `lumen-pro` 的文件夹。
+4. 将下载的文件放入该文件夹，并在插件列表中开启。
 
 ---
 
