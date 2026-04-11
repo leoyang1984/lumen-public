@@ -48,10 +48,9 @@ Lumen Pro features an open extension protocol via the hidden `.agents` directory
 ---
 
 ### 🔑 Activation & Setup
-1. **v3.5.8 Milestone**: Supports **Universal Gift Codes**.
-2. Go to **Settings > Lumen Pro > License Key**.
-3. Enter your **Machine ID-bound Key** or your **Universal Promo Code**.
-4. Click **Activate**.
+1. Go to **Settings > Lumen Pro > License Key**.
+2. Enter your **License Key**.
+3. Click **Activate** to unlock Pro features.
 
 ---
 
@@ -113,10 +112,9 @@ Lumen Pro 通过隐藏的 `.agents` 目录提供开放的协议扩展能力。
 ---
 
 ### 🔑 激活与配置
-1. **v3.5.8 里程碑**：支持**全宇宙通用礼品码**。
-2. 进入 **设置 > Lumen Pro > License Key**。
-3. 输入你的**机器码绑定 Key** 或 **通用促销码**。
-4. 点击 **Activate** 激活专业版功能。
+1. 进入 **设置 > Lumen Pro > License Key**。
+2. 输入你的 **License Key**。
+3. 点击 **Activate** 激活专业版功能。
 
 ---
 

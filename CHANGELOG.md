@@ -6,7 +6,7 @@
 
 ## English Version
 
-- **v3.5.8 (2026-04-11)**: **Universal Promo Code Support** — Introduced a secondary verification path. Users can now activate Pro features using hardware-independent Gift Codes. Rebranded fully to "Lumen Pro".
+- **v3.5.8 (2026-04-11)**: **Pro Version Milestone** — Official rebranding to "Lumen Pro" with enhanced activation stability and performance optimizations.
 - **v3.1.5 (2026-04-01)**: **Batch Distribution & Dot-Notation** — Upgraded the Pipeline engine to support multi-topic "Broadcasting" (e.g., create files for each stock in a list) and precise field extraction via `{{StepID.FieldName}}` (supports Chinese). Added `overwrite: true` for file creation.
 - **v3.1.3 (2026-04-01)**: **Smart Context & Reading Mode** — Introduced universal context sensing. The plugin now automatically extracts current lines or paragraphs even if no text is selected. In Reading Mode, it defaults to capturing the entire document, enabling "one-click" full-note analysis/summarization via Command Palette.
 - **v3.1.2 (2026-04-01)**: **Pipeline Visibility & UI Refinement** — Introduced real-time word counts and continuation tracking. Added automatic completion reports with AI summaries. **UI Enhancement**: Implemented auto-expanding height and vertical resizing for the Pipeline approval textarea to support long-form editing. Fixed a path parsing bug for quoted strings.
@@ -26,7 +26,7 @@
 
 ## 中文版
 
-- **v3.5.8 (2026-04-11)**: **全宇宙通用促销码支持** — 引入了第二校验路径。用户现在可以使用与硬件无关的“礼品码”激活 Pro 功能。品牌正式升级为 "Lumen Pro"。
+- **v3.5.8 (2026-04-11)**: **Pro 版本里程碑** — 品牌正式升级为 "Lumen Pro"，增强了激活稳定性并优化了核心引擎性能。
 - **v3.3.2 (2026-04-03)**：**Pipeline 自动续写结构优化 (大纲锚点)**。引入了预生成大纲机制。在执行长文本生成前，引擎会自动构建任务大纲作为结构锚点，并在续写请求中通过“原始任务 + 完整大纲 + 500字上下文”的组合提示词，彻底解决了长篇创作逻辑中断与内容重复的问题。
 - **v3.1.7 (2026-04-01)**：**Batch Distribution 算法优化 (齐位对齐)**。修复了占位符乘积导致的指数级文件创建 Bug（笛卡尔积问题）。引入了并行对齐（Zip-Aligned）逻辑，确保 $N$ 个提取项仅生成 $N$ 个文件，大幅提升性能与逻辑正确性。
 - **v3.1.6 (2026-04-01)**：**Batch Distribution 作用域隔离**。修复了点号变量 (`{{StepID.Field}}`) 在批量分发循环中的串扰问题。
