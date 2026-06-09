@@ -7,7 +7,11 @@
 ## English Version
 
 ### 🚀 Unleash your Second Brain
-Lumen Pro is a professional-grade **Agentic Workflow Engine** designed for Obsidian. In this version, we have streamlined the user interface and interactions to let you focus purely on conversations and note creation. We've removed complex status bars, star ratings, and heavy operators to keep your vault clean and pure.
+Lumen Pro is a professional-grade **Agentic Workflow Engine** designed for Obsidian.
+
+> [!NOTE]
+> **Future Plans / 未来计划**
+> In future releases, we plan to further streamline the user interface and interactions (e.g. removing project status bars, image rating stars, and deactivating AutoResearch/OpenCLI) to keep the Obsidian environment minimal. In the current release, all features are fully active and available.
 
 #### 🏛️ The Three Pillars of Lumen Pro
 
@@ -78,7 +82,11 @@ This project is licensed under a **Custom Non-Commercial License**.
 ## 中文版
 
 ### 🚀 释放第二大脑的潜能
-Lumen Pro 是专为 Obsidian 打造的**专业级 AI 代理工作流引擎**。在当前版本中，我们对用户界面和交互进行了全面精简与重构。移除了底部的浮动项目状态条、生图打星评价等复杂的中间流程，默认开启 Lean Agent 极简智能体模式，让一切交互回归到纯粹的对话与笔记自然落位中。
+Lumen Pro 是专为 Obsidian 打造的**专业级 AI 代理工作流引擎**。
+
+> [!NOTE]
+> **未来计划 / Future Plans**
+> 我们计划在未来的版本中全面精简与重构用户界面和交互（例如：移除底部的浮动项目状态条、生图打星评价，并挂起 AutoResearch 和 OpenCLI），使一切回归到最纯粹的笔记和白板交互中。当前版本中，所有核心功能依旧全部正常开启并保持完全可用。
 
 #### 🏛️ Lumen Pro 三大核心支柱
 
