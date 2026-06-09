@@ -1,7 +1,7 @@
 {
     "id": "lumen",
     "name": "Lumen",
-    "version": "3.5.8-pro",
+    "version": "4.0.6-pro",
     "minAppVersion": "0.15.0",
     "description": "Modify your local notes using Lumen in the right sidebar. Supports agentic tool calling, Rag and bidirectional links.",
     "author": "leoyang1984",

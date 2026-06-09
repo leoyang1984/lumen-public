@@ -12,6 +12,14 @@
     --lumen-radius-lg: 16px;
     --lumen-radius-xl: 24px;
     --lumen-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    --lumen-card: var(--background-primary);
+    --lumen-surface-soft: var(--background-primary-alt);
+    --lumen-border-soft: color-mix(in srgb, var(--background-modifier-border), transparent 35%);
+    --lumen-primary: #26345f;
+    --lumen-primary-hover: #1f2b50;
+    --lumen-accent: #c9a24f;
+    --lumen-accent-soft: rgba(201, 162, 79, 0.12);
+    --lumen-shadow-card: 0 12px 36px rgba(25, 28, 36, 0.06);
 
     /* --- Layer 1: Base Palette Tokens --- */
     --palette-gold-main: #e8c96a;
@@ -80,9 +88,15 @@
     --lumen-bg-soft: rgba(255, 255, 255, 0.03);
     --lumen-border: rgba(255, 255, 255, 0.1);
     --lumen-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    
+
+    /* Coordinate card surface + border with the custom #0f1115 panel bg.
+       Without these, the input container falls back to Obsidian's native
+       --background-primary + a dark drop-shadow, both invisible on #0f1115. */
+    --lumen-card: #1e2025;
+    --lumen-border-soft: rgba(255, 255, 255, 0.12);
+
     /* Overrides for specific dark theme visibility */
-    --palette-gold-slash: #fbbf24; 
+    --palette-gold-slash: #fbbf24;
 }
 
 .theme-light {
@@ -185,6 +199,12 @@
     background: var(--lumen-bg-input);
     border-color: var(--lumen-action-dim);
     color: var(--lumen-text-normal);
+}
+
+.lumen-icon-btn.is-active {
+    background: var(--lumen-bg-input);
+    border-color: var(--lumen-action-dim);
+    color: var(--lumen-action-primary);
 }
 
 .theme-light .lumen-icon-btn:hover {
@@ -346,11 +366,29 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+.lumen-main-area {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    overflow: hidden;
+    background: var(--lumen-bg-main);
+}
+
+.lumen-main-area .chat-messages {
+    min-width: 0;
+}
+
+.lumen-main-area.has-context .chat-messages {
+    border-right: 1px solid var(--lumen-border);
 }
 
 /* New Pill-style Input */
 .lumen-input-wrapper {
-    padding: 16px;
+    padding: 12px 14px 8px;
     background: transparent;
 }
 
@@ -358,24 +396,31 @@
     position: relative; /* Anchor for slash-suggestions */
     display: flex;
     flex-direction: column;
-    background: transparent;
-    border: none;
-    border-top: 1px solid var(--lumen-action-border);
-    padding: 12px 0;
-    transition: border-color 0.2s;
+    min-height: 92px;
+    background: var(--lumen-card);
+    border: 1px solid var(--lumen-border-soft);
+    border-radius: 8px;
+    padding: 14px 16px 52px;
+    box-shadow:
+        0 18px 42px rgba(25, 28, 36, 0.10),
+        0 2px 8px rgba(25, 28, 36, 0.05);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .lumen-input-container:focus-within {
-    border-top-color: var(--lumen-action-primary);
+    border-color: color-mix(in srgb, var(--lumen-action-primary), transparent 58%);
+    box-shadow:
+        0 22px 52px rgba(31, 43, 80, 0.14),
+        0 3px 10px rgba(25, 28, 36, 0.06);
 }
 
 .lumen-input-field {
     width: 100%;
-    min-height: 24px;
+    min-height: 28px;
     max-height: 150px;
     background: transparent !important;
     border: none !important;
-    padding: 4px 0;
+    padding: 0;
     color: var(--lumen-text-normal);
     font-family: var(--font-monospace);
     font-size: 13px;
@@ -399,10 +444,13 @@
 }
 
 .lumen-input-controls {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 4px;
+    margin-top: 0;
 }
 
 .lumen-input-right-group {
@@ -463,6 +511,18 @@
     color: var(--lumen-text-normal);
 }
 
+.lumen-send-btn:not(:disabled) {
+    background: linear-gradient(180deg, #2f3a5f 0%, #202944 100%);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(31, 40, 68, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.lumen-send-btn:not(:disabled):hover {
+    background: linear-gradient(180deg, #354269 0%, #253050 100%);
+    color: #fff;
+}
+
 .lumen-send-btn:disabled {
     opacity: 0.35;
     cursor: not-allowed;
@@ -494,6 +554,43 @@
     line-height: 1.5;
     position: relative;
     animation: lumen-fade-up 0.3s ease-out;
+}
+
+.chat-msg-image-result {
+    width: min(100%, 760px);
+    max-width: 94%;
+    padding: 16px;
+    border-radius: 18px;
+    background: var(--lumen-card);
+    border: 1px solid var(--lumen-border-soft);
+    box-shadow: var(--lumen-shadow-card);
+}
+
+.chat-msg-image-result .msg-header {
+    margin-bottom: 8px;
+}
+
+.chat-msg-image-result .chat-sender-label {
+    color: var(--lumen-brand-key);
+    opacity: 1;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+}
+
+.chat-msg-image-result .msg-content :is(.internal-embed, .image-embed) {
+    display: block;
+    margin: 0;
+}
+
+.chat-msg-image-result .msg-content img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    max-height: 440px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--lumen-border-soft);
 }
 
 @keyframes lumen-fade-up {
@@ -544,6 +641,8 @@
     margin-bottom: 4px;
     font-size: 11px;
     font-weight: 600;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .chat-sender-label {
@@ -573,10 +672,94 @@
 
 .msg-content {
     word-break: break-word;
+    cursor: text;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+}
+
+.msg-content *,
+.msg-reasoning,
+.msg-reasoning *,
+.reasoning-text,
+.reasoning-text * {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+}
+
+.msg-content a {
+    cursor: pointer;
 }
 
 .chat-whitespace-pre {
     white-space: pre-wrap;
+}
+
+.chat-user-with-images .internal-embed,
+.chat-user-with-images .image-embed {
+    display: block;
+    margin: 4px 0 6px;
+}
+
+.chat-user-with-images img {
+    display: block;
+    max-width: min(260px, 100%);
+    max-height: 220px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid var(--lumen-msg-user-border);
+}
+
+.chat-user-with-images small {
+    display: block;
+    color: var(--lumen-text-muted);
+    font-size: 11px;
+    line-height: 1.35;
+    margin-bottom: 6px;
+}
+
+/* Reasoning Content Styles */
+.msg-reasoning {
+    margin: 8px 0;
+    padding: 10px 14px;
+    background-color: var(--lumen-bg-input);
+    border-left: 3px solid var(--lumen-brand-key);
+    border-radius: 8px;
+    font-size: 13px;
+    background: color-mix(in srgb, var(--lumen-brand-key), transparent 95%);
+}
+
+.msg-reasoning summary {
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--lumen-brand-key);
+    user-select: none;
+    outline: none;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.msg-reasoning summary::before {
+    content: "●";
+    font-size: 8px;
+    animation: lumen-dot-blink 1.4s infinite;
+}
+
+.msg-reasoning summary:hover {
+    color: var(--lumen-brand-hover, var(--lumen-brand-key));
+}
+
+.reasoning-text {
+    margin-top: 8px;
+    color: var(--lumen-text-muted);
+    font-style: italic;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    border-top: 1px solid var(--lumen-border);
+    padding-top: 8px;
 }
 
 /* DeepSeek Hover UI Styles */
@@ -696,6 +879,133 @@
 }
 
 .lumen-prompt-hints {
+    font-size: 0.75em;
+    color: var(--text-faint);
+}
+
+.lumen-canvas-asset-summon-modal .modal {
+    width: min(720px, 92vw);
+}
+
+.lumen-canvas-asset-summon-modal .modal-title {
+    padding: 16px 20px 8px 20px;
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.lumen-canvas-asset-summon-modal .modal-content {
+    padding: 0 !important;
+}
+
+.lumen-canvas-summon-body {
+    padding: 12px 20px 0 20px;
+}
+
+.lumen-canvas-summon-description {
+    margin: 0 0 10px 0;
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+
+.lumen-canvas-summon-input {
+    width: 100%;
+    height: 42px;
+    background: var(--background-secondary-alt) !important;
+    border: 1px solid var(--background-modifier-border) !important;
+    border-radius: 8px;
+    padding: 0 12px;
+    color: var(--text-normal);
+    font-size: 1em;
+    outline: none;
+}
+
+.lumen-canvas-summon-input:focus {
+    border-color: var(--interactive-accent) !important;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--interactive-accent) 20%, transparent);
+}
+
+.lumen-canvas-summon-status {
+    min-height: 28px;
+    padding: 8px 2px 4px 2px;
+    color: var(--text-faint);
+    font-size: 0.78em;
+}
+
+.lumen-canvas-summon-list {
+    max-height: 360px;
+    overflow-y: auto;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    background: var(--background-secondary);
+}
+
+.lumen-canvas-summon-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--background-modifier-border);
+    cursor: pointer;
+}
+
+.lumen-canvas-summon-item:last-child {
+    border-bottom: none;
+}
+
+.lumen-canvas-summon-item.is-selected {
+    background: color-mix(in srgb, var(--interactive-accent) 14%, transparent);
+}
+
+.lumen-canvas-summon-kind {
+    flex: 0 0 auto;
+    min-width: 44px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    text-align: center;
+    font-size: 0.72em;
+    font-weight: 700;
+    color: var(--text-on-accent);
+    background: var(--interactive-accent);
+}
+
+.lumen-canvas-summon-kind.is-base {
+    background: var(--color-purple);
+}
+
+.lumen-canvas-summon-text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.lumen-canvas-summon-title {
+    color: var(--text-normal);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lumen-canvas-summon-path {
+    color: var(--text-muted);
+    font-size: 0.8em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lumen-canvas-summon-footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 12px 20px;
+    background: color-mix(in srgb, var(--background-secondary) 85%, transparent);
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.lumen-canvas-summon-hints {
     font-size: 0.75em;
     color: var(--text-faint);
 }
@@ -1206,6 +1516,89 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
     vertical-align: middle;
     margin-left: 8px;
 }
+
+.lumen-settings-section {
+    margin: 14px 0;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    background: var(--background-secondary);
+    overflow: hidden;
+}
+
+.lumen-settings-section:first-child {
+    margin-top: 0;
+}
+
+.lumen-settings-section[open] {
+    background: var(--background-primary-alt);
+}
+
+.lumen-settings-section-summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    border-left: 3px solid var(--interactive-accent);
+}
+
+.lumen-settings-section-summary::-webkit-details-marker {
+    display: none;
+}
+
+.lumen-settings-section-chevron {
+    color: var(--text-muted);
+    font-size: 18px;
+    line-height: 1;
+    transform: rotate(0deg);
+    transition: transform 120ms ease;
+}
+
+.lumen-settings-section[open] .lumen-settings-section-chevron {
+    transform: rotate(90deg);
+}
+
+.lumen-settings-section-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.lumen-settings-section-title {
+    color: var(--text-normal);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.lumen-settings-section-desc {
+    margin-top: 3px;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.lumen-settings-section-body {
+    padding: 0 16px 14px 16px;
+}
+
+.lumen-settings-section-body > .setting-item:first-child {
+    border-top: none;
+}
+
+.lumen-settings-section-pro .lumen-settings-section-summary {
+    border-left-color: #8b6cef;
+}
+
+.lumen-settings-section-integration .lumen-settings-section-summary {
+    border-left-color: #2f9e87;
+}
+
+.lumen-settings-section-advanced .lumen-settings-section-summary {
+    border-left-color: #c67a2c;
+}
 /* NUCLEAR FIX: Force Amber Golden Breathing Light */
 #lumen-status-dot-force {
     background-color: var(--lumen-status-indicator) !important; /* Amber Gold */
@@ -1266,3 +1659,444 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
     filter: none;
 }
 
+
+/* --- LUMEN Split Modal v1.2 --- */
+.lumen-split-modal {
+    width: 680px !important;
+    max-height: 80vh !important;
+    border-radius: var(--lumen-radius-xl) !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    background: var(--lumen-bg-main) !important;
+    border: 1px solid var(--lumen-border) !important;
+}
+
+.lumen-split-modal .modal {
+    padding: 0 !important;
+    width: 100% !important;
+    max-height: 80vh !important;
+    overflow: hidden !important;
+    background: transparent !important;
+}
+
+.lumen-split-modal .modal-content {
+    padding: 0 !important;
+    overflow: auto !important;
+    max-height: 80vh !important;
+    background: transparent !important;
+}
+
+/* Hide native elements */
+.lumen-hidden-header {
+    display: none !important;
+}
+
+.lumen-split-modal .modal-close-button,
+.lumen-library-modal .modal-close-button {
+    display: none !important;
+}
+
+/* --- LUMEN Library Modal --- */
+.lumen-library-modal {
+    width: fit-content !important;
+    max-width: 95vw !important;
+    max-height: 95vh !important;
+    border-radius: var(--lumen-radius-xl) !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    background: var(--lumen-bg-main) !important;
+    border: 1px solid var(--lumen-border) !important;
+}
+
+.lumen-library-modal .modal {
+    padding: 0 !important;
+    width: 100% !important;
+    max-height: 85vh !important;
+    background: transparent !important;
+}
+
+.lumen-library-modal .modal-content {
+    padding: 0 !important;
+    height: 100% !important;
+    background: transparent !important;
+}
+
+/* EP-13 flow 5: Image Focus Modal — 铺满 + 图自身接收点击（Spike-1 验证过的归一化坐标公式） */
+.lumen-image-focus-modal {
+    max-width: 95vw !important;
+    width: 95vw !important;
+    max-height: 95vh !important;
+    height: 95vh !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+.lumen-image-focus-modal .modal-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 !important;
+    overflow: hidden;
+}
+.lumen-image-focus-hint {
+    padding: 8px 16px;
+    font-size: 0.85em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--background-modifier-border);
+    user-select: none;
+    flex-shrink: 0;
+}
+.lumen-image-focus-stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background-secondary);
+    overflow: hidden;
+    min-height: 0;
+}
+.lumen-image-focus-wrap {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    max-height: 100%;
+}
+.lumen-image-focus-img {
+    display: block;
+    max-width: 100%;
+    max-height: calc(95vh - 60px); /* 让出 hint 条空间 */
+    object-fit: contain;
+    user-select: none;
+    cursor: crosshair;
+}
+
+/* EP-13 flow 7: 源文件缺失/改名横幅（图片 + PDF 共用） */
+.lumen-focus-banner {
+    padding: 6px 16px;
+    font-size: 0.82em;
+    color: var(--text-on-accent);
+    background: var(--text-warning, #b9770e);
+    border-bottom: 1px solid var(--background-modifier-border);
+    flex-shrink: 0;
+    user-select: none;
+}
+
+/* EP-13 flow 7: PDF 翻页导航条（唯一控件；导航非标记能力，不违反原则 7） */
+.lumen-pdf-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 6px 16px;
+    border-bottom: 1px solid var(--background-modifier-border);
+    flex-shrink: 0;
+    user-select: none;
+}
+.lumen-pdf-nav-btn {
+    padding: 3px 12px;
+    font-size: 0.85em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.lumen-pdf-nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.lumen-pdf-nav-label {
+    font-size: 0.85em;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+    min-width: 92px;
+    text-align: center;
+}
+
+/* EP-13 flow 7: PDF 单页渲染面 —— canvas 底 + 透明 overlay 接收点击/挂锚点（Spike-1 路线） */
+.lumen-pdf-page-wrap {
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 0 0 1px var(--background-modifier-border);
+}
+.lumen-pdf-canvas {
+    display: block;
+}
+.lumen-pdf-overlay {
+    position: absolute;
+    inset: 0;
+    cursor: crosshair;
+    background: transparent;
+}
+
+/* EP-13 flow 5 IFV-02: numbered anchor + input bar overlayed on the image */
+.lumen-mark-anchor {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    line-height: 24px;
+    border-radius: 50%;
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    user-select: none;
+    z-index: 2;
+}
+.lumen-mark-anchor.is-resolved {
+    background: var(--text-muted);
+    opacity: 0.75;
+}
+.lumen-mark-anchor-pending {
+    background: var(--background-modifier-form-field);
+    color: var(--text-muted);
+    border-style: dashed;
+    animation: lumen-mark-pulse 1.2s ease-in-out infinite;
+}
+@keyframes lumen-mark-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); }
+    50%      { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); }
+}
+/* EP-13 flow 6 (TK-RLS-04)：召回跳转目标锚点常驻高亮 */
+.lumen-mark-anchor.is-focused {
+    z-index: 3;
+    border-color: var(--color-yellow, #e0a800);
+    box-shadow: 0 0 0 3px var(--color-yellow, #e0a800), 0 2px 10px rgba(0, 0, 0, 0.4);
+    animation: lumen-mark-focus-ring 1.6s ease-out 3;
+}
+@keyframes lumen-mark-focus-ring {
+    0%   { box-shadow: 0 0 0 3px var(--color-yellow, #e0a800), 0 0 0 0 rgba(224, 168, 0, 0.6); }
+    100% { box-shadow: 0 0 0 3px var(--color-yellow, #e0a800), 0 0 0 16px rgba(224, 168, 0, 0); }
+}
+
+.lumen-mark-input-bar {
+    position: absolute;
+    transform: translate(-50%, calc(-100% - 22px)); /* 居中 + 抬到 pin 上方 */
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 260px;
+    max-width: 340px;
+    z-index: 3;
+}
+.lumen-mark-input-bar > :first-child,
+.lumen-mark-input-bar .lumen-mark-text-input {
+    align-self: stretch;
+}
+.lumen-mark-type-chip {
+    align-self: flex-start;
+    padding: 2px 10px;
+    font-size: 11px;
+    line-height: 18px;
+    border-radius: 999px;
+    background: var(--background-secondary);
+    color: var(--text-normal);
+    border: 1px solid var(--background-modifier-border);
+    cursor: pointer;
+}
+.lumen-mark-type-chip:hover {
+    background: var(--background-modifier-hover);
+}
+.lumen-mark-text-input {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-normal);
+    font-size: 13px;
+}
+.lumen-mark-input-hint {
+    font-size: 10.5px;
+    color: var(--text-muted);
+}
+.lumen-mark-input-hint.is-error {
+    color: var(--text-error);
+}
+
+/* EP-13 flow 5 IFV-03: anchor popover (status flip + delete minimal set) */
+.lumen-mark-popover {
+    min-width: 240px;
+    max-width: 320px;
+}
+.lumen-mark-popover-head {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+.lumen-mark-popover-type {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+.lumen-mark-popover-body {
+    font-size: 13px;
+    color: var(--text-normal);
+    word-break: break-word;
+    line-height: 1.4;
+    max-height: 6em;
+    overflow-y: auto;
+}
+.lumen-mark-popover-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.lumen-mark-delete-btn {
+    color: var(--text-error);
+}
+.lumen-mark-delete-btn:hover {
+    background: var(--background-modifier-error-hover, var(--background-modifier-hover));
+}
+
+/* =========================================================================
+ * EP-14 TK-MCE-03：Mindmap 算子 —— 最小可读视觉（哇时刻收口）
+ * ```lumen-mindmap 代码块在 Canvas 文本节点 / 笔记里都跑这套（spec §1.6 Canvas-first）。
+ * 关键不变量：.lumen-mindmap-svg 必须有确定高度，否则 markmap fit() 拿到 0 高容器、
+ *   D3 渲染不可见（svg 默认无内在高度）。这是本步最易踩的坑，固定高度是硬约束。
+ * ========================================================================= */
+
+/* 代码块容器：mindmap 是焦点元素，给一块干净画布。 */
+.lumen-mindmap-codeblock {
+    width: 100%;
+    margin: 0;
+    padding: 8px;
+    background: var(--background-primary);
+    border-radius: var(--lumen-radius-lg, 12px);
+    overflow: hidden;
+}
+
+/* D3 画布本体：固定高度是硬约束（见上）。color 让 markmap 节点文本继承主题色，
+ * 避免暗色主题下默认黑字不可见。 */
+.lumen-mindmap-svg {
+    display: block;
+    width: 100%;
+    min-height: 480px;
+    height: 480px;
+    color: var(--text-normal);
+}
+
+/* 永远先渲染（spec §1.4）：vendor 缺失 / transform 失败时回落的源文本，
+ * 视觉降级为「这是兜底原文」而非主内容。 */
+.lumen-mindmap-fallback {
+    margin: 0;
+    padding: 8px 10px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+}
+
+/* =========================================================================
+ * LUMEN UI refactor: context inspector
+ * ========================================================================= */
+.lumen-context-inspector {
+    width: 320px;
+    min-width: 280px;
+    max-width: 380px;
+    flex: 0 0 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 14px;
+    overflow-y: auto;
+    background: var(--lumen-bg-main);
+}
+
+.lumen-context-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.lumen-context-title {
+    color: var(--text-normal);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.lumen-context-subtitle {
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.lumen-context-actions {
+    display: inline-flex;
+    gap: 6px;
+}
+
+.lumen-context-actions .lumen-icon-btn {
+    width: 28px;
+    height: 28px;
+}
+
+.lumen-context-actions .lumen-icon-btn svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.lumen-context-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lumen-context-section-title {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.lumen-context-card {
+    display: grid;
+    grid-template-columns: minmax(72px, auto) minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--lumen-border-soft);
+    border-radius: 8px;
+    background: var(--lumen-card);
+}
+
+.lumen-context-card span {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.lumen-context-card strong {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--text-normal);
+    font-size: 13px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lumen-context-note {
+    padding: 10px 12px;
+    border: 1px solid rgba(197, 150, 54, 0.22);
+    border-radius: 8px;
+    background: rgba(197, 150, 54, 0.07);
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.55;
+}

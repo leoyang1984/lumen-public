@@ -6,6 +6,14 @@
 
 ## English Version
 
+- **v4.0.6-pro (2026-06-09)**: **Simplified & Clean UI Update** — Major streamlining of user experience:
+    - **Operator Simplification**: Commented out AutoResearch (`research`) and OpenCLI (`opencli`) canvas operators for a cleaner workspace.
+    - **Interface Decoupling**: Removed the bottom floating project/phase status bar (`ProjectStatusBar`), letting files and images fall back to default settings folders naturally. Mentions of `@FolderName` can be used for custom note routing.
+    - **Star Action Deactivated**: Removed the Star (☆) button from generated image result cards to avoid project stage selection cognitive load.
+    - **Lean Agent Default**: Enabled the experimental lean agent mode by default.
+- **v3.6.x (2026-05-10)**: **Dynamic Context Sources & Project-Aware Slash Commands**:
+    - **Dynamic Context**: Added typed `@` mentions for notes, `.base` files, and folders. Added Obsidian Bases table preview rendering.
+    - **Project-Aware commands**: Introduced `/project@meeting` to automatically infer project context from YAML/path, apply project protocol fields, and route generated notes to target project folders.
 - **v3.5.8 (2026-04-11)**: **Pro Version Milestone** — Official rebranding to "Lumen Pro" with core engine refinements:
     - **Smart Node Sensing**: Automatically maps File Nodes (dragged .md files) as `{{input}}` in Canvas Flow without explicit tags.
     - **Dual-Track Memory**: Integrated Passive Vector RAG (70/30 weighting) with Active Session Summarization (structured Decision/Rationale memory).
@@ -30,6 +38,14 @@
 
 ## 中文版
 
+- **v4.0.6-pro (2026-06-09)**: **界面精简与纯净度更新** — 大幅简化用户交互，降低使用认知税：
+    - **算子挂起**：通过代码注释安全停用了联网搜索 (AutoResearch) 和 CLI 命令行工具 (OpenCLI) 算子。
+    - **解耦底部状态栏**：移除了底部的项目/阶段切换栏 (`ProjectStatusBar`)，生成的文件与图片将自动落位至设置的默认目录中，如需写入特定目录可在对话中通过 `@文件夹名` 进行轻量路由。
+    - **取消生图打星**：移除了生成图片结果卡片中的打星 (☆) 标记按钮。
+    - **默认开启 Lean Agent**：默认开启极简智能体模式，提供高响应性的本地推理。
+- **v3.6.x (2026-05-10)**：**动态上下文来源与项目感知斜杠命令**：
+    - **动态上下文**：新增类型化 `@` 引用，支持在对话中明确引用笔记、`.base` 属性表格和文件夹，并能渲染 Bases 表格预览。
+    - **项目感知指令**：引入 `/project@meeting`，可根据 YAML/path 推断当前项目，自动获取项目总览配置并把生成产物路由至会议、决策等对应文件夹。
 - **v3.5.8 (2026-04-11)**: **Pro 版本里程碑** — 品牌正式升级为 "Lumen Pro"，并对核心引擎进行了深度打磨：
     - **智能节点感应**: 在 Canvas Flow 中支持自动感应文件节点（拖入的 .md 文件）为 `{{input}}`，无需手动标记。
     - **双轨记忆系统**: 整合了被动向量 RAG（70/30 加权）与主动 Session 总结（结构化的决策/原由记忆）。
@@ -41,14 +57,14 @@
 - **v3.1.5 (2026-04-01)**：**结构化全量提取支持**。Pipeline 引擎正式支持点号变量精细化提取（Dot-Notation），并引入 `matchAll` 全局扫描模式。不论 AI 输出多少次字段标签，均能完整捕获并合并，为自动化 Pipeline 提供强力数据支撑。
 - **v3.1.4 (2026-04-01)**：内部稳定性修复与代码优化。
 - **v3.1.2 (2026-04-01)**：**Pipeline 显化系统与 UI 体验优化**。Stepper 状态栏新增实时字数与续写显化；任务完成后自动下发交付报告。**UI 增强**：为 Pipeline 审批框引入了高度自适应与垂直手动拉伸功能。修复了步骤配置中路径引号引起的解析 Bug 以及 AI 摘要中的逻辑幻觉。
-- **v3.1.0 (2026-04-01)**：**Pipeline 自动分段续写**。引入了工业级续写机制。执行引擎现在能自动识别截断信号 (`finish_reason: length`) 并发起追问补全，彻底打破了大模型单次输出字符限制，支持生成万字级超长分析报告。
+- **v3.1.0 (2026-04-01)**：**Pipeline 自动分段续写**。引入了工业级续写机制。执行引擎现在能自动识别递减信号 (`finish_reason: length`) 并发起追问补全，彻底打破了大模型单次输出字符限制，支持生成万字级超长分析报告。
 - **v3.0.7 (2026-04-01)**：**多文件分发引擎**。引入 `create_notes` 动作，支持在单个步骤内通过 YAML 配置批量创建多个 Markdown 笔记，极大提升了 Pipeline 的产出原子化水平。
 - **v3.0.6 (2026-04-01)**：**工业级 Token 扩容**。将默认生成上限从 4000 提升至 **8192**，彻底解决了长篇调研报告截断的问题，并优化了底层参数传导机制。
 - **v3.0.5 (2026-04-01)**：**深度 Token 精准控制**。修复了解析器未剔除 `max_tokens` 指令导致的提示词污染 Bug；增强了 `llmService` 使其在流式请求中也能准确识别并透传用户定义的生成上限。
 - **v3.0.4 (2026-04-01)**：**纯净数据管道**。为 `ask_user` 引入 `instruction:` 字段，将说明语与编辑内容解耦，彻底解决提示词污染问题。支持 `\n` 转义与多行说明显示。
 - **v3.0.3 (2026-04-01)**：**Pipeline Stepper 可视化**。在侧边栏引入垂直步骤列表，支持成功 2 秒自动淡出、失败永久驻留，显著提升执行过程的透明度。
 - **v3.0.2 (2026-04-01)**：**双语 UI 规范化**。将所有设置项名称与说明统一为中英双语格式。正式将 Light Skill 固化为 **“轻技能”** 品牌名。
-- **v3.0.1 (2026-03-31)**：**多模态视频与视觉提示词**。接入了 MiniMax (海螺) 视频生成，支持 15 种专业运镜指令。上线了 **“视觉提示词提取 (I2P)”** 功能 (`#lumen/image2prompt`)。
+- **v3.0.1 (2026-03-31)**：**多模态视频与视觉提示词**。接入了 MiniMax (海螺) 视频生成，支持 15 种专业运镜指令。上线了 **“视觉提示词提取 (I2P)”** 功能 (`#lumen/vision`；旧别名 `#lumen/image2prompt`)。
 - **v3.0.0 (2026-03-31)**：**多模态里程碑 (Alpha)**。引入了基于 SiliconFlow Wan2.1 的 **Canvas 视频生成**（实验性 Alpha 版本）。
 - **v2.9.12 (2026-03-31)**：**流水线精确控制与智能 RAG**。为 Light Skill 所有步骤引入了 `max_tokens` 支持，防止上下文溢出；修复了 `create_note` 路径变量解析，支持动态归档；实现了网页剪藏与记忆库自动联动，保存后自动触发备注；新增入库二次确认弹窗，确保索引精度。
 - **v2.9.10 (2026-03-31)**：**记忆索引 (RAG) 完整实现**。引入了全套本地搜索引擎。
