@@ -7,22 +7,24 @@
 ## English Version
 
 ### 🚀 Unleash your Second Brain
-Lumen Pro is a professional-grade **Agentic Workflow Engine** designed for Obsidian. It goes beyond mere chat models—it transforms your vault into an autonomous reasoning system capable of managing multi-step pipelines, visual canvas flows, and local semantic intelligence.
+Lumen Pro is a professional-grade **Agentic Workflow Engine** designed for Obsidian. In this version, we have streamlined the user interface and interactions to let you focus purely on conversations and note creation. We've removed complex status bars, star ratings, and heavy operators to keep your vault clean and pure.
 
-#### 🏛️ The Four Pillars of Lumen Pro
+#### 🏛️ The Three Pillars of Lumen Pro
 
 ##### 1. Canvas Intelligence (Visual Automation)
 Turn your Obsidian Canvas into a no-code AI programming environment.
-- **Workflow Tags**: Use ` #lumen/start `, ` #lumen/input `, and ` #lumen/step ` to build parallel and sequential pipelines visually.
+- **Workflow Tags**: Use `#lumen/start`, `#lumen/input`, and `#lumen/step` to build parallel and sequential pipelines visually.
 - **Node Branching**: AI responses appear directly as native canvas nodes next to your selections.
-- **Smart Node Sensing**: Drag-and-drop .md files into Canvas; LUMEN automatically treats them as inputs without manual tagging.
+- **Smart Node Sensing**: Drag-and-drop `.md` files into Canvas; LUMEN automatically treats them as inputs without manual tagging.
 - **Visual Reasoning**: Use AI-driven operators (`to_canvas_edge`) to automatically structure and connect nodes based on logic.
+- **Multimodal Operators**: Native `#lumen/image` (image generation), `#lumen/video` (video generation), `#lumen/audio` (audio playback), and `#lumen/vision` (extracting prompt from image) operators work directly on the canvas.
 
-##### 2. Agentic Pipelines (Light Skills)
-Define complex AI reasoning tasks directly in Markdown.
+##### 2. Agentic Pipelines (Light Skills) & Context Mentions
+Define complex AI reasoning tasks directly in Markdown and direct them dynamically.
 - **Light Skills**: Run industrial-grade pipelines that can create files, summarize data, and archive knowledge autonomously.
-- **Auto-Continue**: Effectively bypass token limits with industrial-grade continuation mechanisms for long-form reports.
-- **Human-in-the-Loop**: Integrated approval cards allow you to intervene and polish AI output mid-workflow.
+- **Auto-Continue**: Effectively bypass token limits with continuation mechanisms for long-form reports.
+- **Dynamic Context**: Type `@NoteName`, `@FolderName`, or `@.baseFileName` in the chat to dynamically retrieve and inject precise context into the conversation.
+- **Project-Aware Router**: Use slash commands like `/project@meeting` to automatically infer project contexts via YAML or path, routing files and images to their target folders naturally.
 
 ##### 3. Deep Knowledge (Local RAG)
 True local semantic search that understands *your* context.
@@ -30,20 +32,6 @@ True local semantic search that understands *your* context.
 - **Dual-Track Intelligence**: Combines Passive Vector RAG (70/30 weight) with Active Session Summarization (`Memory/topics/*.md`).
 - **Structured Retrieval**: Topic-specific files automatically archive Decisions, Rationales, and Abandoned options.
 - **Canvas Summoning**: Visually retrieve and link related memories on the whiteboard via semantic similarity.
-
-##### 4. Multimodal Creation & Connectivity
-Bridge the gap between text, image, video, and the real world.
-- **Canvas Operators**: Native ` #lumen/image `, ` #lumen/video `, and ` #lumen/audio ` support.
-- **Vision Protocol**: Reverse-engineer prompts from images using `#lumen/image2prompt`.
-- **Telegram Mobile Sync**: Capture mobile inspiration and voice notes into your vault remotely.
-
----
-
-### 🧩 Open Agentic Protocol (.agents)
-Lumen Pro features an open extension protocol via the hidden `.agents` directory.
-- **Dynamic Skills**: Add Markdown files to `.agents/{folder}/{name}.md` to register new commands.
-- **Action Execution**: Define YAML actions (folder creation, note appending) that trigger alongside AI calls.
-- **Developer Ready**: Extend Lumen's native UI and logic without writing a single line of plugin code.
 
 ---
 
@@ -90,44 +78,31 @@ This project is licensed under a **Custom Non-Commercial License**.
 ## 中文版
 
 ### 🚀 释放第二大脑的潜能
-Lumen Pro 是专为 Obsidian 打造的**专业级 AI 代理工作流引擎**。它不仅仅是聊天机器人，更是能将你的笔记库转化为自主推理系统的核心大脑，支持多步流水线、可视化白板流 and 本地语义检索。
+Lumen Pro 是专为 Obsidian 打造的**专业级 AI 代理工作流引擎**。在当前版本中，我们对用户界面和交互进行了全面精简与重构。移除了底部的浮动项目状态条、生图打星评价等复杂的中间流程，默认开启 Lean Agent 极简智能体模式，让一切交互回归到纯粹的对话与笔记自然落位中。
 
-#### 🏛️ Lumen Pro 四大柱石
+#### 🏛️ Lumen Pro 三大核心支柱
 
 ##### 1. 视觉智能 (白板自动化)
-将 Obsidian Canvas 变成无代码 AI 编程环境。
-- **协议标签**：使用 ` #lumen/start `, ` #lumen/input `, ` #lumen/step ` 构建并行或串行的工作流。
-- **节点衍生**：AI 的回答直接作为原生白板节点出现在选区旁，支持空间推演。
-- **视觉算子**：原生支持 ` #lumen/image `, ` #lumen/video `, ` #lumen/audio ` 等交互算子。
-- **智能节点感应**：直接拖入 .md 文件，LUMEN 自动将其感应为输入，无需手动打标。
-- **视觉推理算子**：使用 AI 驱动的连线引擎 (`to_canvas_edge`) 自动构建逻辑架构。
+将 Obsidian Canvas 变成无代码 AI 编程与思维推演环境。
+* **协议标签**：使用 `#lumen/start`、`#lumen/input`、`#lumen/step` 构建并行或串行的工作流。
+* **节点衍生**：AI 的回答直接作为原生白板节点出现在选区旁，支持空间推演。
+* **智能节点感应**：直接拖入 `.md` 文件，Lumen 自动将其感应为输入，无需手动打标。
+* **视觉推理算子**：使用 AI 驱动的连线引擎 (`to_canvas_edge`) 自动构建逻辑架构。
+* **多模态算子**：原生支持 `#lumen/image`（AI 生成图像并自动落位）、`#lumen/video`（视频生成）、`#lumen/audio`（音频播报）与 `#lumen/vision`（图像反向提取提示词）。
 
-##### 2. 代理流水线 (轻技能)
-直接在 Markdown 中定义复杂的 AI 推理任务。
-- **轻技能 (Light Skills)**：运行工业级流水线，实现文件分发、数据处理与自主归档。
-- **自动续写**：内置工业级续写机制，彻底打破 Token 长度限制，支持生成万字长文报告。
-- **人机协同**：集成审批卡片，允许在流水线运行中间阶段人工干预并润色 AI 产物。
+##### 2. 代理流水线 (轻技能) 与动态上下文
+直接在 Markdown 中定义复杂的推理任务，并在对话中实现智能定位与路由。
+* **轻技能 (Light Skills)**：运行流水线，实现文件分发、数据处理与自主归档。
+* **自动续写**：内置续写机制，彻底打破 Token 长度限制，支持生成超长分析报告。
+* **动态上下文引用**：在对话中通过 `@` 快速引用特定笔记（如 `@笔记`）、文件夹（如 `@目录`）或属性表格（如 `@.base文件`），实现极低噪声的背景注入。
+* **项目感知与智能路由**：使用如 `/project@meeting` 命令，根据当前文件的 YAML 属性或所属路径，智能感知并把生成的文件或图片落位至目标项目目录下。
 
 ##### 3. 深度知识库 (本地 RAG)
-真正懂你上下文的本地语义搜索。
-- **记忆索引 (Memory Index)**：基于向量嵌入的高性能本地检索。
-- **双轨记忆系统**：整合被动向量 RAG (70/30 加权) 与主动 Session 总结（存放于 `Memory/`）。
-- **结构化沉淀**：专题记忆自动存档“决策、原由、弃方、进度”四大核心板块。
+真正懂你库内上下文的本地高维语义检索。
+- **记忆索引 (Memory Index)**：基于高性能本地嵌入的向量检索。
+- **双轨记忆系统**：整合被动向量 RAG 检索（70% 权重）与主动 Session 总结（30% 权重）。
+- **结构化沉淀**：专题记忆自动存档“决策、原由、弃方、进度”四大板块。
 - **灵感召唤 (Summoning)**：在白板中通过语义相似度自动拉取并连线呈现关联笔记。
-
-##### 4. 多模态创作与连接
-打破文本、图像、视频与现实世界的界限。
-- **白板算子**：原生支持 ` #lumen/image `, ` #lumen/video `, ` #lumen/audio ` 标签。
-- **视觉反向算子**：使用 ` #lumen/image2prompt ` 从参考图中提取结构化提示词。
-- **Telegram 同步**：移动端语音/文字通过机器远程录入，AI 自动润色入库。
-
----
-
-### 🧩 开放代理协议 (.agents)
-Lumen Pro 通过隐藏的 `.agents` 目录提供开放的协议扩展能力。
-- **动态技能**：在 `.agents/{plugin}/{name}.md` 中存放文件即可注册全局指令。
-- **动作执行**：通过 YAML 定义文件夹创建、笔记追加等机械化动作，与 AI 逻辑深度耦合。
-- **开发者友好**：无需编写插件代码，即可扩展 Lumen 的原生 UI 与处理逻辑。
 
 ---
 
