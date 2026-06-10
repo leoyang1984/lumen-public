@@ -1414,6 +1414,37 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
     100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.3); }
 }
 
+/* EP-16 · C2: image node "generating" state — purple breathing aura + marquee bar */
+.lumen-img-generating .canvas-node-container {
+    border: 2px solid #8b5cf6 !important;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.55), 0 0 30px rgba(139, 92, 246, 0.3) !important;
+    animation: lumen-breathe-aura-purple 1.6s infinite alternate ease-in-out !important;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes lumen-breathe-aura-purple {
+    0% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.25); }
+    100% { box-shadow: 0 0 15px rgba(139, 92, 246, 0.6), 0 0 30px rgba(139, 92, 246, 0.35); }
+}
+
+.lumen-img-generating .canvas-node-container::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+    animation: lumen-img-marquee 1.1s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes lumen-img-marquee {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+}
+
 /* --- Premium UI Hardening: Pulse Red & Lemon Yellow --- */
 
 /* 1. Stop Button Pulse Animation */
@@ -2099,4 +2130,174 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
     color: var(--text-muted);
     font-size: 12px;
     line-height: 1.55;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   EP-16 · Canvas Image Edit Modal
+   ─────────────────────────────────────────────────────────────────────────── */
+.lumen-img-edit-modal {
+    max-width: 600px;
+}
+
+.lumen-img-edit-board {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    margin: 4px 0 14px;
+}
+
+.lumen-img-edit-loading,
+.lumen-img-edit-error {
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: 40px 0;
+}
+.lumen-img-edit-error { color: var(--text-error); }
+
+.lumen-img-edit-stage {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.lumen-img-edit-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.lumen-img-edit-mask {
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.lumen-img-edit-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.lumen-img-edit-tool {
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-secondary);
+    color: var(--text-normal);
+    font-size: 13px;
+    cursor: pointer;
+}
+.lumen-img-edit-tool.is-active {
+    border-color: var(--interactive-accent);
+    background: color-mix(in srgb, var(--interactive-accent) 18%, transparent);
+    color: var(--interactive-accent);
+}
+.lumen-img-edit-clear { margin-left: auto; }
+
+.lumen-img-edit-colors {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.lumen-img-edit-swatch {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid var(--background-modifier-border);
+    cursor: pointer;
+    box-shadow: none;
+}
+.lumen-img-edit-swatch.is-active {
+    border-color: var(--background-primary);
+    box-shadow: 0 0 0 2px var(--interactive-accent);
+}
+.lumen-img-edit-colorname {
+    font-size: 12px;
+    color: var(--text-muted);
+    min-width: 64px;
+}
+
+.lumen-img-edit-size {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.lumen-img-edit-size-label {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.lumen-img-edit-section { margin-bottom: 12px; }
+.lumen-img-edit-label {
+    margin: 0 0 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+.lumen-img-edit-textarea {
+    width: 100%;
+    min-height: 64px;
+    resize: vertical;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.lumen-img-edit-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+.lumen-img-edit-status {
+    flex: 1;
+    font-size: 12px;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.lumen-img-edit-status.is-error { color: var(--text-error); }
+
+.lumen-img-edit-btn-cancel {
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.lumen-img-edit-btn-submit { padding: 6px 16px; }
+.lumen-img-edit-btn-submit:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.lumen-img-edit-thinking {
+    animation: ai-pulse-glow 1.6s infinite ease-in-out;
+}
+
+/* ============================================================
+   EP-15 · Review node identity (CSS-only, no canvas writes)
+   Amber "quality gate" accent — distinct from purple (AI active)
+   and green (finished). Uses :has(); older Obsidian versions
+   simply skip the node accent, tag chip styling still applies.
+   ============================================================ */
+.canvas-node a.tag[href="#lumen/review"] {
+    background-color: rgba(245, 158, 11, 0.16);
+    color: #b45309;
+}
+.theme-dark .canvas-node a.tag[href="#lumen/review"] {
+    color: #fbbf24;
+}
+.canvas-node a.tag[href="#lumen/review"]::before {
+    content: "🔍 ";
+}
+/* Left accent bar on the whole node; inset shadow so it never
+   fights node borders or user-assigned canvas colors. */
+.canvas-node:has(a.tag[href="#lumen/review"]) .canvas-node-container {
+    box-shadow: inset 4px 0 0 0 rgba(245, 158, 11, 0.75);
 }
