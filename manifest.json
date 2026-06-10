@@ -1,10 +1,10 @@
 {
     "id": "lumen",
     "name": "Lumen",
-    "version": "4.0.6-pro",
+    "version": "5.0.0-pro",
     "minAppVersion": "0.15.0",
-    "description": "Modify your local notes using Lumen in the right sidebar. Supports agentic tool calling, Rag and bidirectional links.",
+    "description": "AI reading and writing agent in Obsidian. Chat, Rule Notes, image generation, visual workflows, and mindmaps.",
     "author": "leoyang1984",
-    "authorUrl": "https://github.com/leoyang1984",
+    "authorUrl": "https://github.com/leoyang1984/lumen",
     "isDesktopOnly": false
 }
