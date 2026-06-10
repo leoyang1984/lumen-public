@@ -137,6 +137,17 @@ The latest version introduces **Canvas Video Generation (Alpha)** and deepens th
 
 ---
 
+### 🔑 Activation & Setup
+- **FREE TRIAL**: Use the following universal Gift Code to experience all Pro features:
+  > **`ANN-20261231-841F-BCF5`**
+  *(Valid until 2026-12-31)*
+
+1. Go to **Settings > Lumen Pro > License Key**.
+2. Enter your **License Key**.
+3. Click **Activate** to unlock Pro features.
+
+---
+
 ### ⚖️ License
 This project is licensed under a **Custom Non-Commercial License**. Commercial use, unauthorized redistribution, and plagiarism for profit are strictly prohibited. See [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md) for full terms.
 
@@ -303,6 +314,17 @@ This project is licensed under a **Custom Non-Commercial License**. Commercial u
     - [Canvas AI 建模指南](docs/canvas-ai-architect-guide.md) - 掌握白板全自动流。
     - [开发路线图](docs/ROADMAP.md)。
     - [项目记忆库](memorybank/index.md) - 针对开发者和 AI Agent 的技术上下文。
+
+---
+
+### 🔑 激活与配置
+- **免费试用**：使用以下全宇宙通用礼品码，即刻解锁所有 Pro 功能：
+  > **`ANN-20261231-841F-BCF5`**
+  *（有效期至 2026-12-31）*
+
+1. 进入 **设置 > Lumen Pro > License Key**。
+2. 输入你的 **License Key**。
+3. 点击 **Activate** 激活专业版功能。
 
 ---
 
