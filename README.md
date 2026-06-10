@@ -13,18 +13,18 @@ tags:
 
 ## English Version
 
-Welcome to **Lumen Pro v5.0.0**. This release marks a massive paradigm shift in how we approach AI within Obsidian. We have boldly stripped away heavy, legacy features (such as Canvas video/image generation workflows and bloated visual mappers) to return to the core essence of note-taking.
+Welcome to **Lumen Pro v5.0.0**. This release marks a massive paradigm shift in how we approach AI within Obsidian. We have boldly stripped away heavy, legacy text-based workflow systems (like the Light Skills scripting language, Pipelines, and bloated project management features) to return to the core essence of note-taking.
 
-Our new singular mission: **To be the most native, powerful, and invisible AI Agent for your Obsidian Vault.**
+Our new singular mission: **To be the most native, powerful, and invisible AI Agent for your Obsidian Vault, while empowering your visual thinking.**
 
-Lumen Pro is now a "Lean Agent." It doesn't try to be a fancy UI wrapper or a separate dashboard; it acts as a silent, intelligent operator that reads your files, writes notes, manages plugins, and executes commands—just like you would.
+Lumen Pro is now a "Lean Agent." It doesn't force you to learn complex pipeline markdown syntaxes; it acts as a silent, intelligent operator that reads your files, writes notes, manages plugins, and executes commands. Concurrently, it fully retains and enhances the highly acclaimed **Canvas Visual Workflows** for your spatial and multimodal creative needs.
 
 ### ✨ v5.0.0 Core Highlights
 
-- **The Paradigm Shift**: We removed the heavyweight AI Canvas integrations to focus entirely on being a pure text and command-level agent. Lumen is now faster, leaner, and infinitely more capable of managing your vault.
-- **Deep Obsidian Control**: The Agent can now sense and natively run internal Obsidian commands. Ask it to "switch to dark mode", "open a specific file", or "trigger a community plugin"—and it just does it.
+- **The Lean Agent Toolbelt**: The Agent can now sense and natively run internal Obsidian commands. Ask it to "switch to dark mode", "open a specific file", or "trigger a community plugin"—and it just does it using its 11 core vault tools (Read, Write, Edit, Full-Vault Search, Cache Query, Undo, Execute Command, etc.).
 - **Native Diff Preview Generation**: When the AI decides to modify a file, it doesn't blindly overwrite your data. Instead, it generates an elegant inline Diff preview, allowing you to review the exact additions and deletions before clicking a button to commit the changes.
-- **The "Lean Agent" Toolbelt**: Equipped with 11 core vault tools (Read, Write, Edit, Move, Full-Vault Search, Cache Query, Undo, List Plugins, Execute Command, Open View, etc.), Lumen navigates your second brain exactly the way a human does.
+- **Canvas Visual Workflows Retained**: The powerful `#lumen/start`, `#lumen/image`, and `#lumen/video` operators are here to stay. You can still use the Obsidian Canvas as a node-based visual programming interface to generate multimodal content or connect complex spatial thoughts.
+- **Focus on Note-Taking**: By removing the heavy Pipeline and Project Management frameworks, the plugin's cognitive load is drastically reduced. It’s just you, your notes, and an incredibly smart Agent ready to assist you.
 
 ### 📦 Installation
 
@@ -60,18 +60,18 @@ This project is licensed under a **Custom Non-Commercial License**. Commercial u
 
 ## 中文版
 
-欢迎来到 **Lumen Pro v5.0.0**。本次发布标志着一次重大的范式转移（Paradigm Shift）。我们大刀阔斧地砍掉了过去沉重的“全家桶”功能（例如白板生图生视频、复杂的流程式生成器），让 AI 全面回归笔记与思考的本质。
+欢迎来到 **Lumen Pro v5.0.0**。本次发布标志着一次重大的范式转移（Paradigm Shift）。我们大刀阔斧地砍掉了过去那些沉重且增加认知负荷的文本流框架（例如需要编写脚本的“轻技能 / Light Skills”体系、复杂的 Pipeline 自动化管线以及多余的项目管理功能），让一切全面回归笔记与思考的本质。
 
-我们现在的唯一使命是：**做 Obsidian 里最原生的智能本地 Agent。**
+我们现在的核心使命是：**做 Obsidian 里最原生、最轻量的智能本地 Agent，同时将强大的 AI 能力完美融入你的白板视觉空间。**
 
-Lumen Pro 现在是一个真正的“极简代理 (Lean Agent)”。它不再试图塞满你的屏幕，而是作为一个静默、聪明的底层操作者，帮你阅读文件、修改笔记、管理插件并敲击软件指令——就像一个隐形的你。
+Lumen Pro 现在是一个真正的“极简代理 (Lean Agent)”。你不再需要去学习复杂的管道语法。它作为一个聪明的底层操作者，帮你阅读文件、修改笔记并敲击软件指令；同时，它也**完全保留并强化了备受好评的 Canvas 白板多模态工作流**，满足你对空间排版和视觉生成的一切想象。
 
 ### ✨ V5.0.0 核心功能亮点
 
-- **破茧重生的极简理念**：大胆舍弃花哨的视觉发散器，将所有的算力架构集中于文件底层，为你提供前所未有的纯粹 Agent 体验。
-- **底层的应用级控制权**：Agent 现在可以感知并自动运行 Obsidian 内部命令。你可以直接吩咐它“切换暗色模式”、“打开昨天写的会议纪要”或是“触发某个第三方插件的同步”——它会自动找到对应的命令 ID 并执行。
-- **原生的 Diff 预览写入**：AI 决定的文本修改将不再是令人担忧的直接覆盖。它会在对话中生成优雅的 Diff 代码对比预览，让你清晰看到每一行的增删，随后一键同意执行。
-- **强大的 Lean Agent 工具箱**：内置 11 大核心文件与应用操作工具（读、写、按需替换、移动、全库全文检索、元数据缓存查询、一键回滚、获取插件与执行底层指令等），以极简形态完成复杂的自动化连招。
+- **底层的 Lean Agent 工具箱**：Agent 现在可以感知并自动运行 Obsidian 内部命令。你可以直接吩咐它“切换暗色模式”、“打开会议纪要”或是“触发第三方插件的同步”——它会自动运用内置的 11 大核心底层算子（读、写、全文检索、缓存查询、执行指令等）来替你完成。
+- **原生的 Diff 预览写入**：AI 决定的文本修改将不再是令人担忧的盲目覆盖。它会在对话中生成优雅的 Diff 代码对比预览，让你清晰看到每一行的增删，随后一键同意安全写入笔记。
+- **保留强大的 Canvas 可视化智能**：依然完美支持 `#lumen/start`、`#lumen/image`、`#lumen/video` 等白板算子。你仍然可以在 Canvas 里通过拖拽卡片和连线，构建直观的 AI 推理流、生成多模态图片或视频。
+- **专注于纯粹的笔记体验**：砍掉了容易让人分心的项目管理和复杂流控制面板后，整个插件的体量和交互变得极其克制。现在，只有你、你的笔记，和一个随时待命的极简智能体。
 
 ### 📦 安装指南
 
