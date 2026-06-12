@@ -10,16 +10,16 @@
     --lumen-text-muted: var(--text-muted);
     --lumen-border: var(--background-modifier-border);
     --lumen-radius-lg: 16px;
-    --lumen-radius-xl: 24px;
+
+    /* --- Motion Tokens: two tempos, one curve ---
+       pulse = active/working feedback (fast), breathe = resting/ambient
+       states (slow). Entrance micro-transitions (0.3s fades) and
+       functional spinners stay literal — they are not pulses. */
+    --lumen-motion-pulse: 1.6s;
+    --lumen-motion-breathe: 2.8s;
+    --lumen-motion-ease: ease-in-out;
     --lumen-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    --lumen-card: var(--background-primary);
-    --lumen-surface-soft: var(--background-primary-alt);
     --lumen-border-soft: color-mix(in srgb, var(--background-modifier-border), transparent 35%);
-    --lumen-primary: #26345f;
-    --lumen-primary-hover: #1f2b50;
-    --lumen-accent: #c9a24f;
-    --lumen-accent-soft: rgba(201, 162, 79, 0.12);
-    --lumen-shadow-card: 0 12px 36px rgba(25, 28, 36, 0.06);
 
     /* --- Layer 1: Base Palette Tokens --- */
     --palette-gold-main: #e8c96a;
@@ -44,19 +44,38 @@
     /* Constraint 1: Dedicated Switchable Token for Status Dot */
     --lumen-status-indicator: var(--lumen-brand-key);
 
+    /* --- State Tokens: one hue per machine state ---
+       success = finished, busy = AI generating/working (purple),
+       error = failed/stop, review = EP-15 quality gate (amber).
+       All canvas/chat state visuals must draw from here. */
+    --lumen-state-success: #10b981;
+    --lumen-state-success-rgb: 16, 185, 129;
+    --lumen-state-busy: #8b5cf6;
+    --lumen-state-busy-rgb: 139, 92, 246;
+    --lumen-state-error: #ef4444;
+    --lumen-state-error-rgb: 239, 68, 68;
+    --lumen-state-review: #f59e0b;
+    --lumen-state-review-rgb: 245, 158, 11;
+    --lumen-state-review-text: #b45309;
+
+    /* --- Canvas role accents: #lumen protocol nodes ---
+       One hue per pipeline role. start/step reuse the brand palette,
+       output reuses gold; input (data source) and media (image/vision)
+       get their own hues. Text shades are theme-switched below. */
+    --lumen-role-start-text: #56638f;
+    --lumen-role-step-text: #5a52c2;
+    --lumen-role-input-rgb: 47, 158, 135;
+    --lumen-role-input-text: #23776b;
+    --lumen-role-media-rgb: 192, 38, 211;
+    --lumen-role-media-text: #a21caf;
+
     /* --- Layer 3: Derived Tokens (with Constraint 2 Fallbacks) --- */
     
     /* Brand Derivatives */
     --lumen-brand-dim: rgba(var(--palette-blue-rgb), 0.4);
     --lumen-brand-dim: color-mix(in srgb, var(--lumen-brand-key), transparent 60%);
-    
-    --lumen-brand-glow: rgba(var(--palette-blue-rgb), 0.25);
-    --lumen-brand-glow: color-mix(in srgb, var(--lumen-brand-key), transparent 75%);
 
     /* Message Derivatives */
-    --lumen-msg-user-subtle: rgba(var(--palette-blue-rgb), 0.08);
-    --lumen-msg-user-subtle: color-mix(in srgb, var(--lumen-msg-user-accent), transparent 92%);
-    
     --lumen-msg-user-border: rgba(var(--palette-blue-rgb), 0.14);
     --lumen-msg-user-border: color-mix(in srgb, var(--lumen-msg-user-accent), transparent 86%);
 
@@ -77,26 +96,46 @@
     --lumen-status-glow: rgba(var(--palette-blue-rgb), 0.25);
     --lumen-status-glow: color-mix(in srgb, var(--lumen-status-active), transparent 75%);
 
-    --lumen-status-slash: #96a5ca;
-    --lumen-status-slash: color-mix(in srgb, var(--lumen-status-active), white 20%);
+    /* --- Elevation layers (document-flow chat restyle) ---
+       Hierarchy is carried by brightness deltas instead of borders:
+       bg-main → raise (user bubble / input / chips) → raise-2 (hover). */
+    --lumen-raise: var(--background-secondary);
+    --lumen-raise-2: var(--background-modifier-hover);
+    --lumen-text-faint: var(--text-faint);
 }
 
 .theme-dark {
-    --lumen-bg-main: #0f1115;
+    /* Lifted in step with --lumen-bg-main (#141519) to keep the ~4% elevation delta. */
+    --lumen-raise: #1d2026;
+    --lumen-raise-2: #262a32;
+    --lumen-text-faint: #5b6069;
+}
+
+.theme-light {
+    --lumen-raise: #f1f0ec;
+    --lumen-raise-2: #e9e7e2;
+    --lumen-text-faint: #aaa8a3;
+}
+
+.theme-dark {
+    /* One notch lighter than the original #0f1115: keeps the "slightly deeper than
+       the workspace" immersive feel without a visible seam against Obsidian panes. */
+    --lumen-bg-main: #141519;
     --lumen-bg-surface: #1a1b1e;
     --lumen-bg-input: #25262b;
     --lumen-bg-soft: rgba(255, 255, 255, 0.03);
     --lumen-border: rgba(255, 255, 255, 0.1);
     --lumen-shadow: 0 10px 30px rgba(0,0,0,0.4);
 
-    /* Coordinate card surface + border with the custom #0f1115 panel bg.
-       Without these, the input container falls back to Obsidian's native
-       --background-primary + a dark drop-shadow, both invisible on #0f1115. */
-    --lumen-card: #1e2025;
     --lumen-border-soft: rgba(255, 255, 255, 0.12);
 
     /* Overrides for specific dark theme visibility */
     --palette-gold-slash: #fbbf24;
+    --lumen-state-review-text: #fbbf24;
+    --lumen-role-start-text: var(--palette-blue-hover);
+    --lumen-role-step-text: var(--palette-indigo-hover);
+    --lumen-role-input-text: #4fd1b8;
+    --lumen-role-media-text: #e879f9;
 }
 
 .theme-light {
@@ -132,11 +171,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
-    background: var(--lumen-bg-surface);
-    border-bottom: 1px solid var(--lumen-border);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    height: 48px;
+    padding: 0 10px 0 16px;
+    background: transparent;
+    border-bottom: none;
     z-index: 10;
 }
 
@@ -155,15 +193,16 @@
     transition: all 0.3s ease;
 }
 
+/* Glow reads as smudge on light backgrounds — dark only (mockup §5.1). */
 .theme-light .lumen-status-dot {
-    box-shadow: 0 0 8px var(--lumen-status-glow);
+    box-shadow: none;
 }
 
 .lumen-header-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--lumen-brand-key);
-    letter-spacing: 0.12em;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--lumen-text-muted);
+    letter-spacing: 0.22em;
     text-transform: uppercase;
 }
 
@@ -174,15 +213,15 @@
 
 /* ── Shared button token ─────────────────────── */
 .lumen-icon-btn {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     background: transparent;
-    border: 1px solid var(--lumen-action-border);
+    border: none;
     padding: 0;
-    color: var(--lumen-text-muted);
+    color: var(--lumen-text-faint);
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -191,25 +230,22 @@
 
 .theme-light .lumen-icon-btn {
     background: transparent;
-    border: 1px solid var(--lumen-action-border);
-    color: var(--lumen-text-normal);
+    border: none;
+    color: var(--lumen-text-muted);
 }
 
 .lumen-icon-btn:hover {
-    background: var(--lumen-bg-input);
-    border-color: var(--lumen-action-dim);
+    background: var(--lumen-raise-2);
     color: var(--lumen-text-normal);
 }
 
 .lumen-icon-btn.is-active {
-    background: var(--lumen-bg-input);
-    border-color: var(--lumen-action-dim);
+    background: var(--lumen-raise-2);
     color: var(--lumen-action-primary);
 }
 
 .theme-light .lumen-icon-btn:hover {
-    background: var(--lumen-bg-main);
-    border-color: var(--lumen-action-dim);
+    background: var(--lumen-raise-2);
 }
 
 .lumen-icon-btn svg {
@@ -227,145 +263,49 @@
     border-color: var(--lumen-action-dim);
 }
 
-.lumen-brain-svg {
-    width: 20px;
-    height: 20px;
-    color: var(--lumen-brand-key);
-    filter: drop-shadow(0 0 2px var(--lumen-brand-key));
-    animation: lumen-brain-breathe 4s infinite ease-in-out;
-}
-
-.lumen-brain-node {
-    animation: lumen-node-flash 2.5s infinite;
-}
-
-@keyframes lumen-brain-breathe {
-    0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 2px var(--lumen-brand-dim));
-        opacity: 0.6;
-    }
-    50% {
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 8px var(--lumen-brand-glow));
-        opacity: 1;
-    }
-}
-
-@keyframes lumen-node-flash {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 0.8; }
-}
-
-/* Thinking Indicator Styles */
-.lumen-thinking-container {
-    padding: 12px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    animation: lumen-fade-in 0.3s ease-out;
-}
-
-.lumen-thinking-header {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--lumen-status-dim);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+/* Thinking indicator: single shimmering line (mockup §5.5) */
+.lumen-thinking-line {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-size: 12.5px;
+    user-select: none;
+    animation: lumen-fade-up 0.3s ease-out;
 }
 
-.lumen-dim-dot {
-    opacity: 0.4;
-    font-size: 14px;
+.lumen-thinking-spark {
+    color: var(--lumen-brand-key);
+    font-size: 11px;
+    animation: lumen-spark-pulse var(--lumen-motion-pulse) var(--lumen-motion-ease) infinite;
 }
 
-.lumen-thinking-dots {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--lumen-status-border, var(--lumen-status-dim));
-    border-radius: var(--lumen-radius-lg);
-    padding: 12px 16px;
-    color: var(--lumen-status-active);
-    font-size: 18px;
-    letter-spacing: 4px;
-    line-height: 1;
+.lumen-thinking-label {
+    background: linear-gradient(90deg, var(--lumen-text-faint) 30%, var(--lumen-text-prio) 50%, var(--lumen-text-faint) 70%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: lumen-textshine var(--lumen-motion-pulse) linear infinite;
 }
 
-.lumen-thinking-dots .dot {
-    animation: lumen-dot-blink 1.4s infinite both;
+@keyframes lumen-textshine {
+    0% { background-position: 150% 0; }
+    100% { background-position: -50% 0; }
 }
 
-.lumen-thinking-dots .dot:nth-child(2) { animation-delay: 0.2s; }
-.lumen-thinking-dots .dot:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes lumen-dot-blink {
-    0% { opacity: 0.2; }
-    20% { opacity: 1; }
-    100% { opacity: 0.2; }
-}
-
-.pipeline-instruction {
-    font-size: 0.9em;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-}
-
-.pipeline-edit-area {
-    width: 100%;
-    margin-bottom: 10px;
-    font-family: var(--font-monospace);
-    border: 1px solid var(--background-modifier-border);
-    transition: border-color 0.3s;
-}
-
-.pipeline-edit-area:focus {
-    border-color: var(--interactive-accent);
-}
-
-.pipeline-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-}
-
-.pipeline-resolved {
-    border-left-color: #4caf50;
-    opacity: 0.8;
-}
-
-.pipeline-cancelled {
-    border-left-color: #f44336;
-    opacity: 0.6;
-}
-
-.pipeline-status {
-    font-size: 0.8em;
-    font-style: italic;
-    margin-left: 5px;
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateY(10px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+@keyframes lumen-spark-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
 }
 
 .chat-messages {
     flex: 1;
     overflow-y: auto;
-    padding: 16px 12px;
+    padding: 8px 18px 16px;
     background-color: var(--lumen-bg-main);
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 22px;
     user-select: text;
     -webkit-user-select: text;
 }
@@ -397,34 +337,30 @@
     display: flex;
     flex-direction: column;
     min-height: 92px;
-    background: var(--lumen-card);
-    border: 1px solid var(--lumen-border-soft);
-    border-radius: 8px;
-    padding: 14px 16px 52px;
-    box-shadow:
-        0 18px 42px rgba(25, 28, 36, 0.10),
-        0 2px 8px rgba(25, 28, 36, 0.05);
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    background: var(--lumen-raise);
+    border: none;
+    border-radius: 14px;
+    padding: 10px 10px 52px 14px;
+    box-shadow: none;
+    transition: box-shadow 0.2s;
 }
 
+/* Focus ring: thin brand-blue halo instead of a border (mockup §5.6). */
 .lumen-input-container:focus-within {
-    border-color: color-mix(in srgb, var(--lumen-action-primary), transparent 58%);
-    box-shadow:
-        0 22px 52px rgba(31, 43, 80, 0.14),
-        0 3px 10px rgba(25, 28, 36, 0.06);
+    box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--lumen-brand-key), transparent 60%);
 }
 
 .lumen-input-field {
     width: 100%;
-    min-height: 28px;
-    max-height: 150px;
+    min-height: 42px;
+    max-height: 160px;
     background: transparent !important;
     border: none !important;
     padding: 0;
     color: var(--lumen-text-normal);
-    font-family: var(--font-monospace);
-    font-size: 13px;
-    line-height: 1.5;
+    font-family: inherit;
+    font-size: 13.5px;
+    line-height: 1.6;
     resize: none;
     outline: none !important;
     box-shadow: none !important;
@@ -479,11 +415,6 @@
     border-color: var(--lumen-action-dim);
 }
 
-.lumen-input-left-group {
-    display: flex;
-    gap: 4px;
-}
-
 .lumen-input-right-group {
     display: flex;
     gap: 8px;
@@ -493,33 +424,27 @@
 .lumen-send-btn {
     width: 32px;
     height: 32px;
-    border-radius: 8px;
+    border-radius: 10px;
     background: transparent;
     color: var(--lumen-text-muted);
-    border: 1px solid var(--lumen-action-border);
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     padding: 0;
 }
 
-.lumen-send-btn:hover:not(:disabled) {
-    background: var(--lumen-bg-input);
-    border-color: var(--lumen-action-dim);
-    color: var(--lumen-text-normal);
-}
-
 .lumen-send-btn:not(:disabled) {
-    background: linear-gradient(180deg, #2f3a5f 0%, #202944 100%);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: var(--lumen-brand-key);
     color: #fff;
-    box-shadow: 0 6px 14px rgba(31, 40, 68, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    box-shadow: none;
 }
 
 .lumen-send-btn:not(:disabled):hover {
-    background: linear-gradient(180deg, #354269 0%, #253050 100%);
+    background: var(--lumen-brand-key);
+    filter: brightness(1.12);
     color: #fff;
 }
 
@@ -527,18 +452,6 @@
     opacity: 0.35;
     cursor: not-allowed;
     border-color: var(--lumen-border);
-}
-
-.lumen-send-btn.is-stopping {
-    border-color: #ef4444 !important;
-    color: #ef4444 !important;
-    background: transparent !important;
-    animation: lumen-stop-pulse 2s infinite ease-in-out;
-}
-
-@keyframes lumen-stop-pulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3); }
-    50% { transform: scale(1.05); box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
 }
 
 .lumen-send-btn svg {
@@ -559,11 +472,11 @@
 .chat-msg-image-result {
     width: min(100%, 760px);
     max-width: 94%;
-    padding: 16px;
-    border-radius: 18px;
-    background: var(--lumen-card);
-    border: 1px solid var(--lumen-border-soft);
-    box-shadow: var(--lumen-shadow-card);
+    padding: 14px;
+    border-radius: 12px;
+    background: var(--lumen-raise);
+    border: none;
+    box-shadow: none;
 }
 
 .chat-msg-image-result .msg-header {
@@ -598,11 +511,30 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* User message: right-aligned light bubble on the raise layer (mockup §5.2). */
 .chat-msg-user {
     align-self: flex-end;
-    background-color: var(--lumen-msg-user-subtle);
-    color: var(--lumen-msg-user-accent);
-    border: 1px solid var(--lumen-msg-user-border);
+    background-color: var(--lumen-raise);
+    color: var(--lumen-text-normal);
+    border: none;
+    border-radius: 10px;
+    border-top-right-radius: 4px;
+    padding: 8px 13px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Display-only command syntax highlight inside user bubbles. */
+.lumen-cmd-token {
+    font-family: var(--font-monospace);
+    font-size: 12px;
+    color: var(--lumen-brand-key);
+}
+
+.lumen-flag-token {
+    font-family: var(--font-monospace);
+    font-size: 12px;
+    color: var(--lumen-text-muted);
 }
 
 .msg-content a {
@@ -617,18 +549,37 @@
     text-decoration-color: var(--lumen-action-primary);
 }
 
-.chat-msg-assistant {
-    align-self: flex-start;
-    background-color: var(--lumen-bg-soft);
+/* AI message: full-width plain text, no container chrome (mockup §5.2).
+   The image-result card keeps its own structured layout and is excluded. */
+.chat-msg-assistant:not(.chat-msg-image-result) {
+    align-self: stretch;
+    max-width: 100%;
+    background: transparent;
     color: var(--lumen-text-normal);
-    border: 1px solid var(--lumen-msg-user-border);
+    border: none;
+    padding: 0;
+    font-size: 13.5px;
+    line-height: 1.7;
+}
+
+/* No per-message byline; the hover-revealed copy button parks at the top right. */
+.chat-msg-assistant:not(.chat-msg-image-result) > .msg-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    z-index: 2;
+}
+
+.chat-msg-assistant:not(.chat-msg-image-result) > .msg-header .chat-sender-label {
+    display: none;
 }
 
 .chat-msg-system, .chat-msg-tool {
     align-self: center;
     max-width: 95%;
     font-size: 12px;
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: var(--lumen-bg-soft, rgba(255, 255, 255, 0.03));
     color: var(--lumen-text-muted);
     border: 1px dashed var(--lumen-border);
     text-align: center;
@@ -651,8 +602,8 @@
     letter-spacing: 0.05em;
 }
 
-.chat-msg-user .chat-sender-label {
-    display: none; /* Hide 'You' for cleaner look */
+.chat-msg-user .msg-header {
+    display: none; /* No byline for user bubbles; the label inside was already hidden */
 }
 
 .chat-copy-btn {
@@ -678,8 +629,6 @@
 }
 
 .msg-content *,
-.msg-reasoning,
-.msg-reasoning *,
 .reasoning-text,
 .reasoning-text * {
     user-select: text !important;
@@ -692,6 +641,54 @@
 
 .chat-whitespace-pre {
     white-space: pre-wrap;
+}
+
+/* ── Image generation skeleton (mockup §5.4) ─────────────────────────
+   Shown in place of the pending message; the finished image patches the
+   same message id, so the swap is in-position with a matching ratio. */
+.lumen-img-pending {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lumen-img-skeleton {
+    width: 280px;
+    max-width: 100%;
+    border-radius: 10px;
+    background: linear-gradient(110deg, var(--lumen-raise) 30%, var(--lumen-raise-2) 48%, var(--lumen-raise) 62%);
+    background-size: 220% 100%;
+    animation: lumen-shimmer var(--lumen-motion-pulse) var(--lumen-motion-ease) infinite, lumen-fade-up 0.3s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.lumen-img-skeleton.is-portrait {
+    width: 180px;
+}
+
+.lumen-img-skeleton-ratio {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    font-family: var(--font-monospace);
+    font-size: 10px;
+    color: var(--lumen-text-faint);
+}
+
+@keyframes lumen-shimmer {
+    0% { background-position: 120% 0; }
+    100% { background-position: -120% 0; }
+}
+
+/* ── Motion off-switch: respect the system/Obsidian reduced-motion setting ── */
+@media (prefers-reduced-motion: reduce) {
+    .lumen-chat-container *,
+    .lumen-chat-container *::before,
+    .lumen-chat-container *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 
 .chat-user-with-images .internal-embed,
@@ -717,41 +714,7 @@
     margin-bottom: 6px;
 }
 
-/* Reasoning Content Styles */
-.msg-reasoning {
-    margin: 8px 0;
-    padding: 10px 14px;
-    background-color: var(--lumen-bg-input);
-    border-left: 3px solid var(--lumen-brand-key);
-    border-radius: 8px;
-    font-size: 13px;
-    background: color-mix(in srgb, var(--lumen-brand-key), transparent 95%);
-}
-
-.msg-reasoning summary {
-    font-weight: 700;
-    cursor: pointer;
-    color: var(--lumen-brand-key);
-    user-select: none;
-    outline: none;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.msg-reasoning summary::before {
-    content: "●";
-    font-size: 8px;
-    animation: lumen-dot-blink 1.4s infinite;
-}
-
-.msg-reasoning summary:hover {
-    color: var(--lumen-brand-hover, var(--lumen-brand-key));
-}
-
+/* Reasoning text (request-details panel) */
 .reasoning-text {
     margin-top: 8px;
     color: var(--lumen-text-muted);
@@ -777,19 +740,7 @@
 }
 */
 
-@keyframes lumen-fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* [lumen archived] FloatingWidget — suspended, not deleted 
+/* [lumen archived] FloatingWidget — suspended, not deleted
 .lumen-hover-result::-webkit-scrollbar {
     width: 6px;
 }
@@ -799,227 +750,6 @@
     border-radius: 10px;
 }
 */
-/* Modal Styles */
-.lumen-modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.lumen-generate-btn {
-    background-color: var(--interactive-accent);
-    color: var(--text-on-accent);
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-weight: 600;
-    transition: transform 0.1s ease;
-}
-
-.lumen-generate-btn:hover {
-    transform: scale(1.02);
-}
-
-.lumen-generate-btn:active {
-    transform: scale(0.98);
-}
-
-/* Canvas Prompt Modal - Glassmorphic Style */
-.lumen-canvas-prompt-modal {
-    background: var(--background-primary) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border-radius: 12px !important;
-    border: 1px solid var(--background-modifier-border) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    max-width: 500px !important;
-}
-
-.lumen-canvas-prompt-modal .modal-title {
-    padding: 16px 20px 8px 20px;
-    margin: 0;
-    font-size: 1.2em;
-    font-weight: 600;
-}
-
-.lumen-canvas-prompt-modal .modal-content {
-    padding: 0 !important;
-}
-
-.lumen-prompt-body {
-    padding: 12px 20px;
-}
-
-.lumen-prompt-textarea {
-    width: 100%;
-    min-height: 100px;
-    background: var(--background-secondary-alt) !important;
-    border: 1px solid var(--background-modifier-border) !important;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 1em;
-    color: var(--text-normal);
-    resize: none;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.lumen-prompt-textarea:focus {
-    border-color: var(--interactive-accent) !important;
-}
-
-.lumen-prompt-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 20px;
-    background: color-mix(in srgb, var(--background-secondary) 85%, transparent);
-    border-top: 1px solid var(--background-modifier-border);
-}
-
-.lumen-prompt-hints {
-    font-size: 0.75em;
-    color: var(--text-faint);
-}
-
-.lumen-canvas-asset-summon-modal .modal {
-    width: min(720px, 92vw);
-}
-
-.lumen-canvas-asset-summon-modal .modal-title {
-    padding: 16px 20px 8px 20px;
-    margin: 0;
-    font-size: 1.2em;
-    font-weight: 600;
-}
-
-.lumen-canvas-asset-summon-modal .modal-content {
-    padding: 0 !important;
-}
-
-.lumen-canvas-summon-body {
-    padding: 12px 20px 0 20px;
-}
-
-.lumen-canvas-summon-description {
-    margin: 0 0 10px 0;
-    color: var(--text-muted);
-    font-size: 0.9em;
-}
-
-.lumen-canvas-summon-input {
-    width: 100%;
-    height: 42px;
-    background: var(--background-secondary-alt) !important;
-    border: 1px solid var(--background-modifier-border) !important;
-    border-radius: 8px;
-    padding: 0 12px;
-    color: var(--text-normal);
-    font-size: 1em;
-    outline: none;
-}
-
-.lumen-canvas-summon-input:focus {
-    border-color: var(--interactive-accent) !important;
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--interactive-accent) 20%, transparent);
-}
-
-.lumen-canvas-summon-status {
-    min-height: 28px;
-    padding: 8px 2px 4px 2px;
-    color: var(--text-faint);
-    font-size: 0.78em;
-}
-
-.lumen-canvas-summon-list {
-    max-height: 360px;
-    overflow-y: auto;
-    border: 1px solid var(--background-modifier-border);
-    border-radius: 8px;
-    background: var(--background-secondary);
-}
-
-.lumen-canvas-summon-item {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--background-modifier-border);
-    cursor: pointer;
-}
-
-.lumen-canvas-summon-item:last-child {
-    border-bottom: none;
-}
-
-.lumen-canvas-summon-item.is-selected {
-    background: color-mix(in srgb, var(--interactive-accent) 14%, transparent);
-}
-
-.lumen-canvas-summon-kind {
-    flex: 0 0 auto;
-    min-width: 44px;
-    padding: 2px 7px;
-    border-radius: 999px;
-    text-align: center;
-    font-size: 0.72em;
-    font-weight: 700;
-    color: var(--text-on-accent);
-    background: var(--interactive-accent);
-}
-
-.lumen-canvas-summon-kind.is-base {
-    background: var(--color-purple);
-}
-
-.lumen-canvas-summon-text {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.lumen-canvas-summon-title {
-    color: var(--text-normal);
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.lumen-canvas-summon-path {
-    color: var(--text-muted);
-    font-size: 0.8em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.lumen-canvas-summon-footer {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 12px 20px;
-    background: color-mix(in srgb, var(--background-secondary) 85%, transparent);
-    border-top: 1px solid var(--background-modifier-border);
-}
-
-.lumen-canvas-summon-hints {
-    font-size: 0.75em;
-    color: var(--text-faint);
-}
-
-/* AI Thinking State - Enhances the breathing effect when AI is active */
-body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container,
-body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
-    border-color: rgba(200, 169, 110, 1) !important;
-    border-width: 3px !important;
-    box-shadow: 0 0 20px rgba(200, 169, 110, 0.8), 0 0 40px rgba(200, 169, 110, 0.4) !important;
-    /* Speed up animation to show "processing" activity */
-    animation: ai-pulse-glow 0.8s infinite alternate ease-in-out !important; 
-    transition: all 0.5s ease;
-}
 
 /* Global status indicator in the canvas */
 body.lumen-is-ai-thinking::after {
@@ -1048,10 +778,10 @@ body.lumen-is-ai-thinking::after {
 /* Fallback Keyframes for AI Pulse - Ensuring the effect works even without user snippets */
 @keyframes ai-pulse-glow {
     0% {
-        box-shadow: 0 0 5px rgba(200, 169, 110, 0.4);
+        box-shadow: 0 0 5px rgba(var(--palette-gold-rgb), 0.4);
     }
     100% {
-        box-shadow: 0 0 20px rgba(200, 169, 110, 0.8), 0 0 40px rgba(200, 169, 110, 0.4);
+        box-shadow: 0 0 20px rgba(var(--palette-gold-rgb), 0.8), 0 0 40px rgba(var(--palette-gold-rgb), 0.4);
     }
 }
 
@@ -1059,8 +789,6 @@ body.lumen-is-ai-thinking::after {
 
 .lumen-n2c-modal {
     background: var(--background-primary) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
     border-radius: 14px !important;
     border: 1px solid var(--background-modifier-border) !important;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25) !important;
@@ -1280,8 +1008,8 @@ body.lumen-is-ai-thinking::after {
 }
 
 .lumen-n2c-spinner.lumen-n2c-spinner-done {
-    border-color: #4ade80;
-    border-top-color: #4ade80;
+    border-color: var(--lumen-state-success);
+    border-top-color: var(--lumen-state-success);
     animation: none;
 }
 
@@ -1314,17 +1042,17 @@ body.lumen-is-ai-thinking::after {
 /* ── Progress: AI Thinking – Modal Pulse Glow ─────────────────────────── */
 
 .lumen-n2c-modal.lumen-n2c-ai-thinking {
-    animation: lumen-n2c-border-pulse 1.2s infinite alternate ease-in-out !important;
+    animation: lumen-n2c-border-pulse var(--lumen-motion-pulse) infinite alternate var(--lumen-motion-ease) !important;
 }
 
 @keyframes lumen-n2c-border-pulse {
     0% {
-        box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 0 0 rgba(168, 85, 247, 0);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 0 0 rgba(var(--lumen-state-busy-rgb), 0);
         border-color: var(--background-modifier-border) !important;
     }
     100% {
-        box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 18px 4px rgba(168, 85, 247, 0.55);
-        border-color: rgba(168, 85, 247, 0.7) !important;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 18px 4px rgba(var(--lumen-state-busy-rgb), 0.55);
+        border-color: rgba(var(--lumen-state-busy-rgb), 0.7) !important;
     }
 }
 
@@ -1346,24 +1074,20 @@ body.lumen-is-ai-thinking::after {
   inherits: false;
 }
 
-body {
-    /* Obsidian classic highlight purple */
-    --lumen-color-main: #a855f7; 
-    /* 20% opacity gold for breathing background */
-    --lumen-color-dim: var(--lumen-msg-user-subtle); 
-    --lumen-color-main: var(--lumen-status-active);
-}
-
-/* Track 1: Outer container (responsible for gold fuzzy breathing glow) */
-body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container {
+/* Track 1: Outer container (responsible for gold fuzzy breathing glow).
+   Covers .is-selected too: flow execution selects nodes programmatically,
+   so selection — not keyboard focus — is the common "AI working" state. */
+body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container,
+body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
     border-color: var(--lumen-status-dim) !important;
     overflow: visible !important;
     position: relative;
-    animation: lumen-breathe-aura-gold 1.5s infinite alternate ease-in-out;
+    animation: lumen-breathe-aura-gold var(--lumen-motion-pulse) infinite alternate var(--lumen-motion-ease);
 }
 
 /* Track 2: Energy beam (responsible for highlight lightning running) */
-body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after {
+body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after,
+body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after {
     content: "";
     position: absolute;
     inset: -2px; 
@@ -1387,7 +1111,7 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
     z-index: 10; 
     pointer-events: none; 
     
-    animation: lumen-flow-gold 1.5s linear infinite;
+    animation: lumen-flow-gold var(--lumen-motion-pulse) linear infinite;
 }
 
 /* Animation keyframes */
@@ -1404,28 +1128,28 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
 
 /* Node-specific Finished State (For Manual Image Gen) */
 .lumen-node-finished .canvas-node-container {
-    border: 2px solid #10b981 !important;
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.3) !important;
-    animation: lumen-breathe-aura-green 2s infinite alternate ease-in-out !important;
+    border: 2px solid var(--lumen-state-success) !important;
+    box-shadow: 0 0 15px rgba(var(--lumen-state-success-rgb), 0.6), 0 0 30px rgba(var(--lumen-state-success-rgb), 0.3) !important;
+    animation: lumen-breathe-aura-green var(--lumen-motion-breathe) infinite alternate var(--lumen-motion-ease) !important;
 }
 
 @keyframes lumen-breathe-aura-green {
-    0% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
-    100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.3); }
+    0% { box-shadow: 0 0 5px rgba(var(--lumen-state-success-rgb), 0.2); }
+    100% { box-shadow: 0 0 15px rgba(var(--lumen-state-success-rgb), 0.6), 0 0 30px rgba(var(--lumen-state-success-rgb), 0.3); }
 }
 
 /* EP-16 · C2: image node "generating" state — purple breathing aura + marquee bar */
 .lumen-img-generating .canvas-node-container {
-    border: 2px solid #8b5cf6 !important;
-    box-shadow: 0 0 15px rgba(139, 92, 246, 0.55), 0 0 30px rgba(139, 92, 246, 0.3) !important;
-    animation: lumen-breathe-aura-purple 1.6s infinite alternate ease-in-out !important;
+    border: 2px solid var(--lumen-state-busy) !important;
+    box-shadow: 0 0 15px rgba(var(--lumen-state-busy-rgb), 0.55), 0 0 30px rgba(var(--lumen-state-busy-rgb), 0.3) !important;
+    animation: lumen-breathe-aura-purple var(--lumen-motion-pulse) infinite alternate var(--lumen-motion-ease) !important;
     position: relative;
     overflow: hidden;
 }
 
 @keyframes lumen-breathe-aura-purple {
-    0% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.25); }
-    100% { box-shadow: 0 0 15px rgba(139, 92, 246, 0.6), 0 0 30px rgba(139, 92, 246, 0.35); }
+    0% { box-shadow: 0 0 5px rgba(var(--lumen-state-busy-rgb), 0.25); }
+    100% { box-shadow: 0 0 15px rgba(var(--lumen-state-busy-rgb), 0.6), 0 0 30px rgba(var(--lumen-state-busy-rgb), 0.35); }
 }
 
 .lumen-img-generating .canvas-node-container::after {
@@ -1435,8 +1159,8 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
     bottom: 0;
     height: 3px;
     width: 40%;
-    background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
-    animation: lumen-img-marquee 1.1s infinite linear;
+    background: linear-gradient(90deg, transparent, var(--lumen-state-busy), transparent);
+    animation: lumen-img-marquee var(--lumen-motion-pulse) infinite linear;
     pointer-events: none;
 }
 
@@ -1445,14 +1169,14 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
     100% { transform: translateX(250%); }
 }
 
-/* --- Premium UI Hardening: Pulse Red & Lemon Yellow --- */
+/* --- Stop button pulse --- */
 
 /* 1. Stop Button Pulse Animation */
 .lumen-send-btn.is-stopping {
-    background: #ef4444 !important; /* Tailwind Red-500 */
+    background: var(--lumen-state-error) !important;
     color: white !important;
-    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
-    animation: lumen-pulse-red 1.8s infinite ease-in-out;
+    box-shadow: 0 0 10px rgba(var(--lumen-state-error-rgb), 0.4);
+    animation: lumen-pulse-red var(--lumen-motion-pulse) infinite var(--lumen-motion-ease);
     border: none !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1463,86 +1187,23 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
     filter: grayscale(0.2);
 }
 
+/* Glow-only pulse: the scale jump read as jitter on a 32px button. */
 @keyframes lumen-pulse-red {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 5px rgba(239, 68, 68, 0.4);
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(var(--lumen-state-error-rgb), 0.4);
     }
     50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px rgba(239, 68, 68, 0.7), 0 0 35px rgba(239, 68, 68, 0.3);
+        box-shadow: 0 0 16px rgba(var(--lumen-state-error-rgb), 0.6);
     }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 5px rgba(239, 68, 68, 0.4);
-    }
-}
-
-/* 2. Lemon Yellow Intervention Glassmorphism */
-.pipeline-intervention-card {
-    background: linear-gradient(135deg, rgba(250, 204, 21, 0.9) 0%, rgba(234, 179, 8, 0.95) 100%) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.2) !important;
-    border-radius: 12px !important;
-    padding: 16px !important;
-    margin: 12px 0 !important;
-    color: #1a1a1a !important; /* Deep contrast for readability on yellow */
-}
-
-/* Theme adaptation for better contrast on Light Mode */
-.theme-light .pipeline-intervention-card {
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    box-shadow: 0 8px 20px rgba(181, 147, 5, 0.2) !important;
-}
-
-.intervention-title {
-    font-weight: 700 !important;
-    font-size: 1.1em !important;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-}
-
-.intervention-instruction {
-    font-size: 0.95em !important;
-    line-height: 1.5;
-    opacity: 0.9;
-    margin-bottom: 12px;
-}
-
-/* --- Skill Picker Suggestion Styles --- */
-.lumen-skill-suggestion {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 4px 0;
-}
-
-.lumen-skill-name {
-    font-weight: 600;
-    font-size: 1.1em;
-    color: var(--text-normal);
-}
-
-.lumen-skill-description {
-    font-size: 0.85em;
-    color: var(--text-muted);
-    font-style: italic;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .lumen-pro-badge {
     font-size: 10px;
     padding: 1px 6px;
     border-radius: 4px;
-    background: rgba(80,110,220,0.1);
-    border: 1px solid rgba(80,110,220,0.2);
-    color: rgba(80,110,220,0.85);
+    background: rgba(var(--palette-indigo-rgb), 0.1);
+    border: 1px solid rgba(var(--palette-indigo-rgb), 0.2);
+    color: rgba(var(--palette-indigo-rgb), 0.85);
     letter-spacing: 0.05em;
     vertical-align: middle;
     margin-left: 8px;
@@ -1620,7 +1281,7 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
 }
 
 .lumen-settings-section-pro .lumen-settings-section-summary {
-    border-left-color: #8b6cef;
+    border-left-color: var(--lumen-action-primary);
 }
 
 .lumen-settings-section-integration .lumen-settings-section-summary {
@@ -1630,11 +1291,11 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
 .lumen-settings-section-advanced .lumen-settings-section-summary {
     border-left-color: #c67a2c;
 }
-/* NUCLEAR FIX: Force Amber Golden Breathing Light */
+/* Status dot breathing light (toned down from the original four-layer
+   100px "nuclear" glow — a header dot whispers, it doesn't shout). */
 #lumen-status-dot-force {
-    background-color: var(--lumen-status-indicator) !important; /* Amber Gold */
-    animation: lumen-gold-pulse-force 3.5s infinite ease-in-out !important;
-    filter: blur(0.3px);
+    background-color: var(--lumen-status-indicator) !important;
+    animation: lumen-gold-pulse-force var(--lumen-motion-breathe) infinite var(--lumen-motion-ease) !important;
 }
 
 .theme-light #lumen-status-dot-force {
@@ -1643,20 +1304,16 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
 
 @keyframes lumen-gold-pulse-force {
     0%, 100% {
-        box-shadow: 
-            0 0 8px var(--lumen-status-dim),
-            0 0 16px var(--lumen-status-glow);
+        box-shadow: 0 0 6px var(--lumen-status-dim);
         opacity: 0.65;
         transform: scale(1);
     }
     50% {
-        box-shadow: 
-            0 0 20px var(--lumen-status-dim),
-            0 0 40px var(--lumen-status-dim),
-            0 0 70px var(--lumen-status-glow),
-            0 0 100px var(--lumen-status-glow);
+        box-shadow:
+            0 0 10px var(--lumen-status-dim),
+            0 0 20px var(--lumen-status-glow);
         opacity: 1;
-        transform: scale(1.18);
+        transform: scale(1.06);
     }
 }
 
@@ -1690,301 +1347,6 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
     filter: none;
 }
 
-
-/* --- LUMEN Split Modal v1.2 --- */
-.lumen-split-modal {
-    width: 680px !important;
-    max-height: 80vh !important;
-    border-radius: var(--lumen-radius-xl) !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    background: var(--lumen-bg-main) !important;
-    border: 1px solid var(--lumen-border) !important;
-}
-
-.lumen-split-modal .modal {
-    padding: 0 !important;
-    width: 100% !important;
-    max-height: 80vh !important;
-    overflow: hidden !important;
-    background: transparent !important;
-}
-
-.lumen-split-modal .modal-content {
-    padding: 0 !important;
-    overflow: auto !important;
-    max-height: 80vh !important;
-    background: transparent !important;
-}
-
-/* Hide native elements */
-.lumen-hidden-header {
-    display: none !important;
-}
-
-.lumen-split-modal .modal-close-button,
-.lumen-library-modal .modal-close-button {
-    display: none !important;
-}
-
-/* --- LUMEN Library Modal --- */
-.lumen-library-modal {
-    width: fit-content !important;
-    max-width: 95vw !important;
-    max-height: 95vh !important;
-    border-radius: var(--lumen-radius-xl) !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    background: var(--lumen-bg-main) !important;
-    border: 1px solid var(--lumen-border) !important;
-}
-
-.lumen-library-modal .modal {
-    padding: 0 !important;
-    width: 100% !important;
-    max-height: 85vh !important;
-    background: transparent !important;
-}
-
-.lumen-library-modal .modal-content {
-    padding: 0 !important;
-    height: 100% !important;
-    background: transparent !important;
-}
-
-/* EP-13 flow 5: Image Focus Modal — 铺满 + 图自身接收点击（Spike-1 验证过的归一化坐标公式） */
-.lumen-image-focus-modal {
-    max-width: 95vw !important;
-    width: 95vw !important;
-    max-height: 95vh !important;
-    height: 95vh !important;
-    padding: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
-.lumen-image-focus-modal .modal-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 0 !important;
-    overflow: hidden;
-}
-.lumen-image-focus-hint {
-    padding: 8px 16px;
-    font-size: 0.85em;
-    color: var(--text-muted);
-    border-bottom: 1px solid var(--background-modifier-border);
-    user-select: none;
-    flex-shrink: 0;
-}
-.lumen-image-focus-stage {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--background-secondary);
-    overflow: hidden;
-    min-height: 0;
-}
-.lumen-image-focus-wrap {
-    position: relative;
-    display: inline-block;
-    max-width: 100%;
-    max-height: 100%;
-}
-.lumen-image-focus-img {
-    display: block;
-    max-width: 100%;
-    max-height: calc(95vh - 60px); /* 让出 hint 条空间 */
-    object-fit: contain;
-    user-select: none;
-    cursor: crosshair;
-}
-
-/* EP-13 flow 7: 源文件缺失/改名横幅（图片 + PDF 共用） */
-.lumen-focus-banner {
-    padding: 6px 16px;
-    font-size: 0.82em;
-    color: var(--text-on-accent);
-    background: var(--text-warning, #b9770e);
-    border-bottom: 1px solid var(--background-modifier-border);
-    flex-shrink: 0;
-    user-select: none;
-}
-
-/* EP-13 flow 7: PDF 翻页导航条（唯一控件；导航非标记能力，不违反原则 7） */
-.lumen-pdf-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 6px 16px;
-    border-bottom: 1px solid var(--background-modifier-border);
-    flex-shrink: 0;
-    user-select: none;
-}
-.lumen-pdf-nav-btn {
-    padding: 3px 12px;
-    font-size: 0.85em;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.lumen-pdf-nav-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-.lumen-pdf-nav-label {
-    font-size: 0.85em;
-    color: var(--text-muted);
-    font-variant-numeric: tabular-nums;
-    min-width: 92px;
-    text-align: center;
-}
-
-/* EP-13 flow 7: PDF 单页渲染面 —— canvas 底 + 透明 overlay 接收点击/挂锚点（Spike-1 路线） */
-.lumen-pdf-page-wrap {
-    position: relative;
-    display: inline-block;
-    box-shadow: 0 0 0 1px var(--background-modifier-border);
-}
-.lumen-pdf-canvas {
-    display: block;
-}
-.lumen-pdf-overlay {
-    position: absolute;
-    inset: 0;
-    cursor: crosshair;
-    background: transparent;
-}
-
-/* EP-13 flow 5 IFV-02: numbered anchor + input bar overlayed on the image */
-.lumen-mark-anchor {
-    position: absolute;
-    width: 26px;
-    height: 26px;
-    line-height: 24px;
-    border-radius: 50%;
-    background: var(--interactive-accent);
-    color: var(--text-on-accent);
-    font-size: 12px;
-    font-weight: 600;
-    text-align: center;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    user-select: none;
-    z-index: 2;
-}
-.lumen-mark-anchor.is-resolved {
-    background: var(--text-muted);
-    opacity: 0.75;
-}
-.lumen-mark-anchor-pending {
-    background: var(--background-modifier-form-field);
-    color: var(--text-muted);
-    border-style: dashed;
-    animation: lumen-mark-pulse 1.2s ease-in-out infinite;
-}
-@keyframes lumen-mark-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); }
-    50%      { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); }
-}
-/* EP-13 flow 6 (TK-RLS-04)：召回跳转目标锚点常驻高亮 */
-.lumen-mark-anchor.is-focused {
-    z-index: 3;
-    border-color: var(--color-yellow, #e0a800);
-    box-shadow: 0 0 0 3px var(--color-yellow, #e0a800), 0 2px 10px rgba(0, 0, 0, 0.4);
-    animation: lumen-mark-focus-ring 1.6s ease-out 3;
-}
-@keyframes lumen-mark-focus-ring {
-    0%   { box-shadow: 0 0 0 3px var(--color-yellow, #e0a800), 0 0 0 0 rgba(224, 168, 0, 0.6); }
-    100% { box-shadow: 0 0 0 3px var(--color-yellow, #e0a800), 0 0 0 16px rgba(224, 168, 0, 0); }
-}
-
-.lumen-mark-input-bar {
-    position: absolute;
-    transform: translate(-50%, calc(-100% - 22px)); /* 居中 + 抬到 pin 上方 */
-    background: var(--background-primary);
-    border: 1px solid var(--background-modifier-border);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    padding: 8px 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    min-width: 260px;
-    max-width: 340px;
-    z-index: 3;
-}
-.lumen-mark-input-bar > :first-child,
-.lumen-mark-input-bar .lumen-mark-text-input {
-    align-self: stretch;
-}
-.lumen-mark-type-chip {
-    align-self: flex-start;
-    padding: 2px 10px;
-    font-size: 11px;
-    line-height: 18px;
-    border-radius: 999px;
-    background: var(--background-secondary);
-    color: var(--text-normal);
-    border: 1px solid var(--background-modifier-border);
-    cursor: pointer;
-}
-.lumen-mark-type-chip:hover {
-    background: var(--background-modifier-hover);
-}
-.lumen-mark-text-input {
-    width: 100%;
-    padding: 6px 8px;
-    border-radius: 6px;
-    border: 1px solid var(--background-modifier-border);
-    background: var(--background-primary);
-    color: var(--text-normal);
-    font-size: 13px;
-}
-.lumen-mark-input-hint {
-    font-size: 10.5px;
-    color: var(--text-muted);
-}
-.lumen-mark-input-hint.is-error {
-    color: var(--text-error);
-}
-
-/* EP-13 flow 5 IFV-03: anchor popover (status flip + delete minimal set) */
-.lumen-mark-popover {
-    min-width: 240px;
-    max-width: 320px;
-}
-.lumen-mark-popover-head {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-}
-.lumen-mark-popover-type {
-    font-size: 11px;
-    color: var(--text-muted);
-}
-.lumen-mark-popover-body {
-    font-size: 13px;
-    color: var(--text-normal);
-    word-break: break-word;
-    line-height: 1.4;
-    max-height: 6em;
-    overflow-y: auto;
-}
-.lumen-mark-popover-actions {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-.lumen-mark-delete-btn {
-    color: var(--text-error);
-}
-.lumen-mark-delete-btn:hover {
-    background: var(--background-modifier-error-hover, var(--background-modifier-hover));
-}
 
 /* =========================================================================
  * EP-14 TK-MCE-03：Mindmap 算子 —— 最小可读视觉（哇时刻收口）
@@ -2028,111 +1390,6 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
     border-radius: 8px;
 }
 
-/* =========================================================================
- * LUMEN UI refactor: context inspector
- * ========================================================================= */
-.lumen-context-inspector {
-    width: 320px;
-    min-width: 280px;
-    max-width: 380px;
-    flex: 0 0 320px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 14px;
-    overflow-y: auto;
-    background: var(--lumen-bg-main);
-}
-
-.lumen-context-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.lumen-context-title {
-    color: var(--text-normal);
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.lumen-context-subtitle {
-    margin-top: 2px;
-    color: var(--text-muted);
-    font-size: 11px;
-}
-
-.lumen-context-actions {
-    display: inline-flex;
-    gap: 6px;
-}
-
-.lumen-context-actions .lumen-icon-btn {
-    width: 28px;
-    height: 28px;
-}
-
-.lumen-context-actions .lumen-icon-btn svg {
-    width: 15px;
-    height: 15px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.lumen-context-section {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.lumen-context-section-title {
-    color: var(--text-muted);
-    font-size: 12px;
-    font-weight: 650;
-}
-
-.lumen-context-card {
-    display: grid;
-    grid-template-columns: minmax(72px, auto) minmax(0, 1fr);
-    gap: 12px;
-    align-items: center;
-    min-height: 44px;
-    padding: 10px 12px;
-    border: 1px solid var(--lumen-border-soft);
-    border-radius: 8px;
-    background: var(--lumen-card);
-}
-
-.lumen-context-card span {
-    color: var(--text-muted);
-    font-size: 12px;
-}
-
-.lumen-context-card strong {
-    min-width: 0;
-    overflow: hidden;
-    color: var(--text-normal);
-    font-size: 13px;
-    font-weight: 600;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.lumen-context-note {
-    padding: 10px 12px;
-    border: 1px solid rgba(197, 150, 54, 0.22);
-    border-radius: 8px;
-    background: rgba(197, 150, 54, 0.07);
-    color: var(--text-muted);
-    font-size: 12px;
-    line-height: 1.55;
-}
-
-/* ───────────────────────────────────────────────────────────────────────────
    EP-16 · Canvas Image Edit Modal
    ─────────────────────────────────────────────────────────────────────────── */
 .lumen-img-edit-modal {
@@ -2277,7 +1534,7 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
 }
 
 .lumen-img-edit-thinking {
-    animation: ai-pulse-glow 1.6s infinite ease-in-out;
+    animation: ai-pulse-glow var(--lumen-motion-pulse) infinite var(--lumen-motion-ease);
 }
 
 /* ============================================================
@@ -2287,17 +1544,69 @@ body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after 
    simply skip the node accent, tag chip styling still applies.
    ============================================================ */
 .canvas-node a.tag[href="#lumen/review"] {
-    background-color: rgba(245, 158, 11, 0.16);
-    color: #b45309;
+    background-color: rgba(var(--lumen-state-review-rgb), 0.16);
+    color: var(--lumen-state-review-text);
 }
-.theme-dark .canvas-node a.tag[href="#lumen/review"] {
-    color: #fbbf24;
-}
+/* Monochrome dot instead of an emoji glyph: inherits the chip's amber
+   text color and renders identically across platforms. */
 .canvas-node a.tag[href="#lumen/review"]::before {
-    content: "🔍 ";
+    content: "● ";
+    font-size: 0.7em;
+    vertical-align: 0.15em;
 }
 /* Left accent bar on the whole node; inset shadow so it never
    fights node borders or user-assigned canvas colors. */
 .canvas-node:has(a.tag[href="#lumen/review"]) .canvas-node-container {
-    box-shadow: inset 4px 0 0 0 rgba(245, 158, 11, 0.75);
+    box-shadow: inset 4px 0 0 0 rgba(var(--lumen-state-review-rgb), 0.75);
+}
+
+/* ============================================================
+   Canvas role identity for the whole #lumen protocol
+   (extends the EP-15 review pattern to every operator tag).
+   Prefix selectors: tags nest (#lumen/step/1, #lumen/image2prompt),
+   so match on the role segment. Chip + dot on every role; left
+   accent bar only on structural nodes (start / output / review)
+   so process-heavy flows don't turn into a rainbow. CSS-only,
+   no canvas writes — same constraints as EP-15.
+   ============================================================ */
+.canvas-node a.tag[href^="#lumen/start"] {
+    background-color: rgba(var(--palette-blue-rgb), 0.14);
+    color: var(--lumen-role-start-text);
+}
+.canvas-node a.tag[href^="#lumen/step"] {
+    background-color: rgba(var(--palette-indigo-rgb), 0.12);
+    color: var(--lumen-role-step-text);
+}
+.canvas-node a.tag[href^="#lumen/input"] {
+    background-color: rgba(var(--lumen-role-input-rgb), 0.12);
+    color: var(--lumen-role-input-text);
+}
+.canvas-node a.tag[href^="#lumen/output"] {
+    background-color: rgba(var(--palette-gold-rgb), 0.16);
+    color: var(--palette-gold-main);
+}
+.canvas-node a.tag[href^="#lumen/image"],
+.canvas-node a.tag[href^="#lumen/vision"] {
+    background-color: rgba(var(--lumen-role-media-rgb), 0.10);
+    color: var(--lumen-role-media-text);
+}
+
+/* Same monochrome dot as the review chip — the uniform protocol marker. */
+.canvas-node a.tag[href^="#lumen/start"]::before,
+.canvas-node a.tag[href^="#lumen/step"]::before,
+.canvas-node a.tag[href^="#lumen/input"]::before,
+.canvas-node a.tag[href^="#lumen/output"]::before,
+.canvas-node a.tag[href^="#lumen/image"]::before,
+.canvas-node a.tag[href^="#lumen/vision"]::before {
+    content: "● ";
+    font-size: 0.7em;
+    vertical-align: 0.15em;
+}
+
+/* Structural bars: entry = brand blue, deliverable = gold. */
+.canvas-node:has(a.tag[href^="#lumen/start"]) .canvas-node-container {
+    box-shadow: inset 4px 0 0 0 rgba(var(--palette-blue-rgb), 0.75);
+}
+.canvas-node:has(a.tag[href^="#lumen/output"]) .canvas-node-container {
+    box-shadow: inset 4px 0 0 0 rgba(var(--palette-gold-rgb), 0.8);
 }
