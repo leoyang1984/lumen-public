@@ -1,0 +1,75 @@
+{
+	"nodes": [
+		{
+			"id": "note",
+			"type": "text",
+			"text": "## 每日日志总结 · Runtime 模板\n\n用途：每天定时读取 `Daily/YYYY-MM-DD.md`，生成结构化每日总结。\n\n编制方式：运行时面板 -> 选择本白板 -> 设置每天运行。\n\n推荐保存方式：按日期保存历史。\n\n推荐保存到：\n`Daily/总结/{{date}}-每日总结.md`\n\n注意：不要在白板里写排程；排程只在运行时面板配置。",
+			"x": -760,
+			"y": -240,
+			"width": 460,
+			"height": 390,
+			"color": "6"
+		},
+		{
+			"id": "src",
+			"type": "text",
+			"text": "#lumen/input\nfolder: Daily\ndate: today",
+			"x": -760,
+			"y": 240,
+			"width": 360,
+			"height": 180,
+			"color": "3"
+		},
+		{
+			"id": "start",
+			"type": "text",
+			"text": "#lumen/start",
+			"x": -120,
+			"y": -520,
+			"width": 360,
+			"height": 140
+		},
+		{
+			"id": "step1",
+			"type": "text",
+			"text": "#lumen/step/1\n你是我的私人日志助理。下面是今天的日志原文：\n\n{{input}}\n\n请整理成结构化「每日总结」，只依据日志内容，不要编造。必须包含四个小节：\n\n## ✅ 今日完成\n## 📌 待办 / 跟进\n## 💡 灵感\n## 🌤 状态与复盘\n\n分类规则：\n- 只有原文明确写着“已完成 / 已确认 / 已验证 / 已生成 / 已观察到 / 已修复”的事项，才放入「今日完成」。\n- 包含“需要 / 准备 / 待 / 计划 / 想 / 继续 / 确认是否”的事项，必须放入「待办 / 跟进」，不要改写成已完成。\n- 原文中的 checkbox 待办必须保留为 `- [ ]`。\n- 灵感只放原文“灵感”部分或明显属于想法/原则的内容。\n- 不要把待验证事项写成已完成事项。\n\n额外检查：\n- 明确说明本次读取的是哪一天的日志。\n- 不要把网络错误与持久化问题建立因果关系，除非原文明确说明。",
+			"x": -120,
+			"y": -260,
+			"width": 560,
+			"height": 620,
+			"color": "4"
+		},
+		{
+			"id": "out",
+			"type": "text",
+			"text": "#lumen/output\n[运行时会把最终总结写入面板配置的保存路径。]",
+			"x": -120,
+			"y": 500,
+			"width": 560,
+			"height": 220
+		}
+	],
+	"edges": [
+		{
+			"id": "e-start-step",
+			"fromNode": "start",
+			"fromSide": "bottom",
+			"toNode": "step1",
+			"toSide": "top"
+		},
+		{
+			"id": "e-input-step",
+			"fromNode": "src",
+			"fromSide": "right",
+			"toNode": "step1",
+			"toSide": "left"
+		},
+		{
+			"id": "e-step-output",
+			"fromNode": "step1",
+			"fromSide": "bottom",
+			"toNode": "out",
+			"toSide": "top"
+		}
+	]
+}

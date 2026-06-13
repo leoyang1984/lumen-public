@@ -5,7 +5,7 @@ tags:
   - agentic-workflow
   - second-brain
 ---
-# Lumen Pro (v5.0.0): The Lean Obsidian Agent
+# Lumen Pro (v5.0.4): The Lean Obsidian Agent
 
 [English Version Below](#english-version) | [中文版往下看](#中文版) 
 
@@ -13,7 +13,7 @@ tags:
 
 ## English Version
 
-Welcome to **Lumen Pro v5.0.0**. This release marks a massive paradigm shift in how we approach AI within Obsidian. We have boldly stripped away heavy, legacy text-based workflow systems (like the Light Skills scripting language, Pipelines, and bloated project management features) to return to the core essence of note-taking.
+Welcome to **Lumen Pro v5.0.4**. This release keeps the lean Obsidian Agent direction and adds a practical runtime layer for Canvas workflows: schedule a visual workflow from the UI, run it headlessly, and save the result back into your vault.
 
 Our new singular mission: **To be the most native, powerful, and invisible AI Agent for your Obsidian Vault, while empowering your visual thinking.**
 
@@ -25,6 +25,14 @@ Lumen Pro is now a "Lean Agent." It doesn't force you to learn complex pipeline 
 - **Native Diff Preview Generation**: When the AI decides to modify a file, it doesn't blindly overwrite your data. Instead, it generates an elegant inline Diff preview, allowing you to review the exact additions and deletions before clicking a button to commit the changes.
 - **Canvas Visual Workflows Retained**: The powerful `#lumen/start`, `#lumen/image`, and `#lumen/video` operators are here to stay. You can still use the Obsidian Canvas as a node-based visual programming interface to generate multimodal content or connect complex spatial thoughts.
 - **Focus on Note-Taking**: By removing the heavy Pipeline and Project Management frameworks, the plugin's cognitive load is drastically reduced. It’s just you, your notes, and an incredibly smart Agent ready to assist you.
+
+### 🕒 v5.0.4 Runtime Workflow Pack
+
+- **UI-only scheduling**: Schedule Canvas workflows from the runtime panel. No schedule syntax inside the canvas.
+- **Headless execution**: Run a saved canvas even when it is not open.
+- **Output path preview**: Choose "overwrite latest" or "dated history", then preview the exact note path before running.
+- **Dynamic daily input**: Use `folder: Daily` + `date: today` or `Daily/{{date:YYYY-MM-DD}}.md` to process today's note.
+- **Learning pack included**: See [`runtime-workflow-pack/`](runtime-workflow-pack/) for tutorials, syntax, best practices, and a ready-to-use daily summary template.
 
 ### 📦 Installation
 
@@ -60,7 +68,7 @@ This project is licensed under a **Custom Non-Commercial License**. Commercial u
 
 ## 中文版
 
-欢迎来到 **Lumen Pro v5.0.0**。本次发布标志着一次重大的范式转移（Paradigm Shift）。我们大刀阔斧地砍掉了过去那些沉重且增加认知负荷的文本流框架（例如需要编写脚本的“轻技能 / Light Skills”体系、复杂的 Pipeline 自动化管线以及多余的项目管理功能），让一切全面回归笔记与思考的本质。
+欢迎来到 **Lumen Pro v5.0.4**。本版本延续极简 Obsidian Agent 的方向，并新增 Canvas 运行时工作流：你可以通过 UI 面板给白板工作流设置定时，让它在后台执行，并把结果写回你的 Vault 笔记。
 
 我们现在的核心使命是：**做 Obsidian 里最原生、最轻量的智能本地 Agent，同时将强大的 AI 能力完美融入你的白板视觉空间。**
 
@@ -72,6 +80,14 @@ Lumen Pro 现在是一个真正的“极简代理 (Lean Agent)”。你不再需
 - **原生的 Diff 预览写入**：AI 决定的文本修改将不再是令人担忧的盲目覆盖。它会在对话中生成优雅的 Diff 代码对比预览，让你清晰看到每一行的增删，随后一键同意安全写入笔记。
 - **保留强大的 Canvas 可视化智能**：依然完美支持 `#lumen/start`、`#lumen/image`、`#lumen/video` 等白板算子。你仍然可以在 Canvas 里通过拖拽卡片和连线，构建直观的 AI 推理流、生成多模态图片或视频。
 - **专注于纯粹的笔记体验**：砍掉了容易让人分心的项目管理和复杂流控制面板后，整个插件的体量和交互变得极其克制。现在，只有你、你的笔记，和一个随时待命的极简智能体。
+
+### 🕒 V5.0.4 运行时工作流包
+
+- **只通过 UI 定时**：在运行时面板里编制白板工作流，不在白板里增加排程语法。
+- **Headless 执行**：白板无需打开，也可以按时运行。
+- **保存路径预览**：选择“覆盖最新”或“按日期保存历史”，运行前直接看到实际保存路径。
+- **动态当天输入**：使用 `folder: Daily` + `date: today` 或 `Daily/{{date:YYYY-MM-DD}}.md` 读取当天笔记。
+- **教学包已内置**：查看 [`runtime-workflow-pack/`](runtime-workflow-pack/)，包含教程、语法、最佳实践和每日总结模板。
 
 ### 📦 安装指南
 
