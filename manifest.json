@@ -1,7 +1,7 @@
 {
     "id": "lumen",
     "name": "Lumen",
-    "version": "5.0.4-pro",
+    "version": "5.0.6-pro",
     "minAppVersion": "0.15.0",
     "description": "AI reading and writing agent in Obsidian. Chat, Rule Notes, image generation, visual workflows, and mindmaps.",
     "author": "leoyang1984",
