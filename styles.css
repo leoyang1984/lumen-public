@@ -1624,6 +1624,11 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
     gap: 12px;
 }
 
+.lumen-canvas-natural-drag-handle {
+    cursor: move;
+    user-select: none;
+}
+
 .lumen-canvas-natural-scope {
     color: var(--text-muted);
     font-size: 12px;
