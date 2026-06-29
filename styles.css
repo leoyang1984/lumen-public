@@ -1610,3 +1610,138 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
 .canvas-node:has(a.tag[href^="#lumen/output"]) .canvas-node-container {
     box-shadow: inset 4px 0 0 0 rgba(var(--palette-gold-rgb), 0.8);
 }
+
+/* ============================================================
+   Canvas natural action modal
+   ============================================================ */
+.lumen-canvas-natural-modal {
+    max-width: 560px;
+}
+
+.lumen-canvas-natural-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.lumen-canvas-natural-scope {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.lumen-canvas-natural-textarea {
+    width: 100%;
+    min-height: 92px;
+    resize: vertical;
+    border-radius: 8px;
+    padding: 9px 10px;
+    line-height: 1.5;
+}
+
+.lumen-canvas-natural-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.lumen-canvas-natural-preset {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+}
+
+.lumen-canvas-natural-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 24px;
+    font-size: 13px;
+}
+
+.lumen-canvas-natural-preview.is-error {
+    color: var(--text-error);
+}
+
+.lumen-canvas-natural-preview-title {
+    font-weight: 600;
+    color: var(--text-normal);
+}
+
+.lumen-canvas-natural-result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.lumen-canvas-natural-copy {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+}
+
+.lumen-canvas-natural-preview-summary,
+.lumen-canvas-natural-message {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.lumen-canvas-natural-analysis {
+    max-height: min(52vh, 560px);
+    overflow: auto;
+    padding-right: 4px;
+    line-height: 1.55;
+}
+
+.lumen-canvas-natural-analysis > :first-child {
+    margin-top: 0;
+}
+
+.lumen-canvas-natural-analysis > :last-child {
+    margin-bottom: 0;
+}
+
+.lumen-canvas-natural-analysis ul,
+.lumen-canvas-natural-analysis ol {
+    padding-left: 22px;
+}
+
+.lumen-canvas-natural-hint {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.lumen-canvas-natural-subtitle {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.lumen-canvas-natural-list {
+    margin: 0;
+    padding-left: 20px;
+    line-height: 1.5;
+}
+
+.lumen-canvas-natural-status {
+    min-height: 18px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.lumen-canvas-natural-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.lumen-canvas-natural-footer .is-hidden {
+    display: none;
+}
