@@ -379,6 +379,26 @@
     pointer-events: none;
 }
 
+.lumen-input-field.has-suggested-reply:empty::before {
+    color: color-mix(in srgb, var(--lumen-brand-key) 58%, var(--lumen-text-muted));
+    opacity: 0.68;
+}
+
+.lumen-suggested-reply-hint {
+    position: absolute;
+    left: 14px;
+    bottom: 16px;
+    max-width: calc(100% - 76px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--lumen-text-muted);
+    font-size: 11px;
+    line-height: 1;
+    opacity: 0.62;
+    pointer-events: none;
+}
+
 .lumen-input-controls {
     position: absolute;
     right: 12px;
