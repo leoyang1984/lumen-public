@@ -156,6 +156,13 @@
     --palette-gold-hover: #967431;
     --palette-gold-rgb: 176, 138, 62;
     --palette-gold-slash: #b08a3e;
+
+    /* 三段式在白底上的可辨识度(冒烟反馈):发丝线加深、角色色深一档 */
+    --lumen-border-soft: rgba(0, 0, 0, 0.14);
+    --lumen-role-start-text: #47548c;
+    --lumen-role-step-text: #4c43b8;
+    --lumen-role-input-text: #1d6f60;
+    --lumen-role-media-text: #96189f;
 }
 
 .lumen-chat-container {
@@ -1769,4 +1776,317 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
 
 .lumen-canvas-natural-footer .is-hidden {
     display: none;
+}
+
+/* ============================================================
+   节点卡片三段式视觉系统(cardsys)
+   状态源:NodeVisualState;挂载:NodeCardDecorator(containerEl 层)
+   ============================================================ */
+
+/* T1 骨架期:空宿主完全不占位,填充组件落地(P1-T2/T3)后由内容撑开。 */
+.lumen-nodecard-header:empty,
+.lumen-nodecard-footer:empty {
+    display: none;
+}
+
+/* 远缩放占位态(canvas 虚拟化 unmountContent):收起三段式装饰。 */
+.canvas-node-container:has(.canvas-node-placeholder) .lumen-nodecard-header,
+.canvas-node-container:has(.canvas-node-placeholder) .lumen-nodecard-footer {
+    display: none;
+}
+
+/* --- 三段式布局:containerEl 竖排,内容区弹性填充 --- */
+.lumen-card .canvas-node-container {
+    display: flex;
+    flex-direction: column;
+}
+.lumen-card .canvas-node-container > .canvas-node-content {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+/* --- 头部:静态身份 + 内容操作(任务书 §2.1) --- */
+.lumen-nodecard-header {
+    flex: 0 0 auto;
+}
+.lumen-nodecard-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    min-width: 0;
+    padding: 2px 4px 2px 10px;
+    border-bottom: 1px solid var(--lumen-border-soft);
+}
+.lumen-nodecard-type {
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+}
+/* 角色色:低饱和小字,与既有 role 色体系同源 */
+.lumen-nodecard-header-inner[data-kind="start"]  .lumen-nodecard-type { color: var(--lumen-role-start-text); }
+.lumen-nodecard-header-inner[data-kind="step"]   .lumen-nodecard-type,
+.lumen-nodecard-header-inner[data-kind="review"] .lumen-nodecard-type { color: var(--lumen-role-step-text); }
+.lumen-nodecard-header-inner[data-kind="input"]  .lumen-nodecard-type,
+.lumen-nodecard-header-inner[data-kind="output"] .lumen-nodecard-type { color: var(--lumen-role-input-text); }
+.lumen-nodecard-header-inner[data-kind="image"]  .lumen-nodecard-type,
+.lumen-nodecard-header-inner[data-kind="vision"] .lumen-nodecard-type { color: var(--lumen-role-media-text); }
+
+.lumen-nodecard-actions {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 0 0 auto;
+}
+.lumen-nodecard-actions .clickable-icon {
+    padding: 3px 4px;
+    --icon-size: 13px;
+    color: var(--text-faint);
+}
+.lumen-nodecard-actions .clickable-icon:hover {
+    color: var(--text-normal);
+}
+.lumen-nodecard-spin svg {
+    animation: lumen-nodecard-rotate 3s infinite linear;
+}
+@keyframes lumen-nodecard-rotate {
+    to { transform: rotate(360deg); }
+}
+
+/* --- 底栏:溯源栏(provenance bar,任务书 §2.3)--- */
+.lumen-nodecard-footer {
+    flex: 0 0 auto;
+}
+.lumen-nodecard-footer-inner {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 2px 10px 4px;
+    font-size: 10px;
+    line-height: 1.5;
+    color: var(--text-faint);
+    user-select: none;
+}
+.lumen-footer-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* 可运行未运行的「自动 ▾」占位:静息态与纯内容节点的唯一区别,做到几乎不可见 */
+.lumen-nodecard-footer-inner.is-placeholder .lumen-footer-model {
+    opacity: 0.55;
+}
+/* 运行中:细进度指示(indeterminate 微光条)+ 里程碑提示 */
+.lumen-nodecard-footer-inner.is-running {
+    color: var(--text-muted);
+}
+.lumen-footer-bar {
+    flex: 0 0 34px;
+    height: 2px;
+    border-radius: 1px;
+    overflow: hidden;
+    position: relative;
+    background: var(--lumen-border-soft);
+}
+.lumen-footer-bar::after {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 40%;
+    border-radius: 1px;
+    background: var(--lumen-status-active);
+    animation: lumen-footer-sweep var(--lumen-motion-breathe) infinite var(--lumen-motion-ease);
+}
+@keyframes lumen-footer-sweep {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+}
+/* 出错:错误摘要 + 重试入口 */
+.lumen-nodecard-footer-inner.is-error {
+    color: var(--lumen-state-error);
+}
+.lumen-footer-retry {
+    all: unset;
+    cursor: pointer;
+    flex: 0 0 auto;
+    font-size: 10px;
+    color: var(--text-accent);
+    padding: 0 2px;
+}
+.lumen-footer-retry:hover { text-decoration: underline; }
+
+/* --- 底栏模型选择器(任务书 §2.4):模型名本身可点,静息仍是一行淡字 --- */
+.lumen-footer-model.is-clickable {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    cursor: pointer;
+    font-size: 10px;
+    line-height: 1.5;
+    color: inherit;
+    transition: color 0.15s ease;
+}
+.lumen-footer-model.is-clickable:hover {
+    color: var(--text-muted);
+}
+.lumen-footer-model.is-clickable:hover .lumen-footer-text {
+    text-decoration: underline dotted;
+    text-underline-offset: 2px;
+}
+/* 图钉标记:极小实心点 = 已固定,调度不再接管该节点 */
+.lumen-footer-pin {
+    flex: 0 0 auto;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-accent);
+    opacity: 0.85;
+}
+
+/* 决策 2:已装饰卡片(有头部 ▶)上隐藏 FlowControl 徽标的小运行键,
+   单一运行入口;legacy 无头部节点保留它。 */
+.lumen-card .lumen-flow-badge-run {
+    display: none;
+}
+
+/* --- 算子内容区徽标(决策 2 推广,EXT-2:image/vision 共用) ---
+   一行元数据,状态/错误/溯源由底栏承担;小运行键仅为 legacy 无头部节点保留 */
+.lumen-op-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid var(--background-modifier-border);
+    background: color-mix(in srgb, var(--background-secondary-alt) 70%, transparent);
+    font-size: 0.7em;
+    line-height: 1.6;
+    user-select: none;
+    max-width: 100%;
+}
+.lumen-op-badge-tag {
+    color: var(--text-faint);
+    font-family: var(--font-monospace);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.lumen-op-badge-run {
+    all: unset;
+    cursor: pointer;
+    padding: 0 3px;
+    color: var(--text-muted);
+    font-size: 0.9em;
+    transition: color 0.15s ease;
+}
+.lumen-op-badge-run:hover { color: var(--lumen-action-primary); }
+.lumen-card .lumen-op-badge-run { display: none; }
+.lumen-op-badge-spinner {
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--lumen-action-border);
+    border-top-color: var(--lumen-action-primary);
+    border-radius: 50%;
+    animation: lumen-op-badge-spin 0.8s linear infinite;
+}
+@keyframes lumen-op-badge-spin {
+    to { transform: rotate(360deg); }
+}
+.lumen-op-badge-done {
+    color: var(--lumen-state-success);
+    font-weight: 600;
+    white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+    .lumen-op-badge-spinner { animation: none; opacity: 0.6; }
+}
+
+/* --- Phase 3 锚点系统(任务书 §3,探针记录修正:重样式原生连接点,零 DOM 注入)---
+   原生 .canvas-node-connection-point 本体是 20px 定位盒(现成热区,带
+   --zoom-multiplier 缩放补偿),视觉点是它的 ::after(默认 opacity:0,悬停显形)。
+   我们只重绘 ::after 为双层圆(外环 1px 半透明 + 空隙 + 实心内核),显隐、
+   定位、热区全部沿用原生规则。 */
+.lumen-card .canvas-node-connection-point::after {
+    background-color: transparent;
+    border: none;
+    background:
+        radial-gradient(circle, rgba(var(--palette-blue-rgb), 0.95) 0 2.5px, transparent 3px),
+        radial-gradient(circle, transparent 0 4px, rgba(var(--palette-blue-rgb), 0.35) 4px 5px, transparent 5.5px);
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease;
+}
+/* 态 1 · 悬停扩张:scale 1.0→1.5,150ms ease-out,外环点亮(任务书 §3.2) */
+.lumen-card .canvas-node-connection-point:hover::after {
+    transform: scale(1.5);
+    background:
+        radial-gradient(circle, rgba(var(--palette-blue-rgb), 1) 0 2.5px, transparent 3px),
+        radial-gradient(circle, transparent 0 4px, rgba(var(--palette-blue-rgb), 0.9) 4px 5px, transparent 5.5px);
+    box-shadow: 0 0 8px rgba(var(--palette-blue-rgb), 0.55);
+}
+/* 态 2 · 拖线呼吸:仅原生 .is-connecting 期间,且只在起点锚点(JS 标记);
+   透明度缓动,周期用 breathe 节奏(2.8s ≥ 2s 下限) */
+.is-connecting .canvas-node-connection-point.lumen-anchor-origin::after {
+    opacity: 1;
+    animation: lumen-anchor-breathe var(--lumen-motion-breathe) var(--lumen-motion-ease) infinite;
+}
+@keyframes lumen-anchor-breathe {
+    0%, 100% { opacity: 0.55; box-shadow: 0 0 0 0 rgba(var(--palette-blue-rgb), 0); }
+    50%      { opacity: 1;    box-shadow: 0 0 7px rgba(var(--palette-blue-rgb), 0.4); }
+}
+/* 态 3 · 流式点亮:running 节点入边侧锚点(唯一状态源驱动),busy 紫,
+   辉光半径 ≤6-8px,仪器指示灯节奏 */
+.lumen-card .canvas-node-connection-point.lumen-anchor-lit::after {
+    opacity: 1;
+    background:
+        radial-gradient(circle, rgba(var(--lumen-state-busy-rgb), 1) 0 2.5px, transparent 3px),
+        radial-gradient(circle, transparent 0 4px, rgba(var(--lumen-state-busy-rgb), 0.5) 4px 5px, transparent 5.5px);
+    box-shadow: 0 0 6px rgba(var(--lumen-state-busy-rgb), 0.45);
+    animation: lumen-anchor-lit-pulse var(--lumen-motion-pulse) var(--lumen-motion-ease) infinite;
+}
+@keyframes lumen-anchor-lit-pulse {
+    0%, 100% { box-shadow: 0 0 4px rgba(var(--lumen-state-busy-rgb), 0.3); }
+    50%      { box-shadow: 0 0 7px rgba(var(--lumen-state-busy-rgb), 0.55); }
+}
+/* 态 4 · 连接成功 ripple:内核轻弹 + 外环扩散,余晖 ~1s 后熄灭(确认感) */
+.lumen-card .canvas-node-connection-point.lumen-anchor-ripple::after {
+    opacity: 1;
+    animation: lumen-anchor-ripple 1.5s ease-out 1;
+}
+@keyframes lumen-anchor-ripple {
+    0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(var(--palette-blue-rgb), 0.65), 0 0 0 rgba(var(--palette-blue-rgb), 0); }
+    25%  { transform: scale(1.35); }
+    45%  { transform: scale(1);    box-shadow: 0 0 0 16px rgba(var(--palette-blue-rgb), 0), 0 0 8px rgba(var(--palette-blue-rgb), 0.5); }
+    100% { transform: scale(1);    box-shadow: 0 0 0 16px rgba(var(--palette-blue-rgb), 0), 0 0 0 rgba(var(--palette-blue-rgb), 0); }
+}
+/* 流光(低调版,冒烟拍板):入边显示层 path 保持实线,busy 紫染色 +
+   沿线辉光脉动(pulse 节奏),不做虚线跑马 */
+.lumen-edge-flow .canvas-display-path {
+    stroke: rgb(var(--lumen-state-busy-rgb));
+    filter: drop-shadow(0 0 3px rgba(var(--lumen-state-busy-rgb), 0.6));
+    animation: lumen-edge-glow var(--lumen-motion-pulse) var(--lumen-motion-ease) infinite;
+}
+@keyframes lumen-edge-glow {
+    0%, 100% { stroke-opacity: 0.55; }
+    50%      { stroke-opacity: 1; }
+}
+
+/* --- 动效克制基建:reduced-motion 下退化为静态状态切换(任务书 §5)--- */
+@media (prefers-reduced-motion: reduce) {
+    .lumen-nodecard-spin svg { animation: none; }
+    .lumen-footer-bar::after { animation: none; width: 100%; opacity: 0.5; }
+    /* 锚点:动效全停,保留静态状态色/辉光(点亮/呼吸/流光退化为常亮) */
+    .lumen-card .canvas-node-connection-point::after { transition: none; }
+    .lumen-card .canvas-node-connection-point:hover::after { transform: none; }
+    .is-connecting .canvas-node-connection-point.lumen-anchor-origin::after,
+    .lumen-card .canvas-node-connection-point.lumen-anchor-lit::after,
+    .lumen-card .canvas-node-connection-point.lumen-anchor-ripple::after { animation: none; }
+    .lumen-edge-flow .canvas-display-path { animation: none; stroke-opacity: 0.8; }
 }
