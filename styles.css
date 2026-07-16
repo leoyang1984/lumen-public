@@ -44,16 +44,17 @@
     /* Constraint 1: Dedicated Switchable Token for Status Dot */
     --lumen-status-indicator: var(--lumen-brand-key);
 
-    /* --- State Tokens: one hue per machine state ---
-       success = finished, busy = AI generating/working (purple),
-       error = failed/stop, review = EP-15 quality gate (amber).
+    /* --- State Tokens: one hue per machine state (状态色 v2,去荧光) ---
+       success = 完成印记(苔绿,只许小面积:点/细环),
+       busy = 唯一活动色(品牌靛,运行中所有几何共用),
+       error = 出错(陶红), review = EP-15 quality gate (amber).
        All canvas/chat state visuals must draw from here. */
-    --lumen-state-success: #10b981;
-    --lumen-state-success-rgb: 16, 185, 129;
-    --lumen-state-busy: #8b5cf6;
-    --lumen-state-busy-rgb: 139, 92, 246;
-    --lumen-state-error: #ef4444;
-    --lumen-state-error-rgb: 239, 68, 68;
+    --lumen-state-success: #4d8a67;
+    --lumen-state-success-rgb: 77, 138, 103;
+    --lumen-state-busy: #7a73d8;
+    --lumen-state-busy-rgb: 122, 115, 216;
+    --lumen-state-error: #b3453d;
+    --lumen-state-error-rgb: 179, 69, 61;
     --lumen-state-review: #f59e0b;
     --lumen-state-review-rgb: 245, 158, 11;
     --lumen-state-review-text: #b45309;
@@ -132,6 +133,12 @@
     /* Overrides for specific dark theme visibility */
     --palette-gold-slash: #fbbf24;
     --lumen-state-review-text: #fbbf24;
+    --lumen-state-success: #6cbb93;
+    --lumen-state-success-rgb: 108, 187, 147;
+    --lumen-state-busy: #928cf0;
+    --lumen-state-busy-rgb: 146, 140, 240;
+    --lumen-state-error: #e07a72;
+    --lumen-state-error-rgb: 224, 122, 114;
     --lumen-role-start-text: var(--palette-blue-hover);
     --lumen-role-step-text: var(--palette-indigo-hover);
     --lumen-role-input-text: #4fd1b8;
@@ -1094,106 +1101,36 @@ body.lumen-is-ai-thinking::after {
     100% { opacity: 0; transform: scale(0.96); }
 }
 
-/* 1. Declare custom properties for smooth beam rotation */
-@property --lumen-flow-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
+/* ============================================================
+   状态色 v2「状态即时态」:运行中 = 唯一活动色(靛)的小几何,
+   完成 = 一次性余晖 + 底栏印记,大光晕/光束/跑马灯全部退役。
+   ============================================================ */
 
-/* Track 1: Outer container (responsible for gold fuzzy breathing glow).
-   Covers .is-selected too: flow execution selects nodes programmatically,
-   so selection — not keyboard focus — is the common "AI working" state. */
+/* 对话处理中的画布节点:降为靛色低饱和描边(金色光束退回聊天
+   窗口的品牌舞台,不再上画布)。Covers .is-selected too: flow
+   execution selects nodes programmatically. */
 body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container,
 body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
-    border-color: var(--lumen-status-dim) !important;
-    overflow: visible !important;
-    position: relative;
-    animation: lumen-breathe-aura-gold var(--lumen-motion-pulse) infinite alternate var(--lumen-motion-ease);
+    border-color: rgba(var(--lumen-state-busy-rgb), 0.55) !important;
 }
 
-/* Track 2: Energy beam (responsible for highlight lightning running) */
-body.lumen-is-ai-thinking .canvas-node.is-focused .canvas-node-container::after,
-body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after {
-    content: "";
-    position: absolute;
-    inset: -2px; 
-    border-radius: inherit;
-    padding: 4px; 
-    
-    background-image: conic-gradient(
-        from var(--lumen-flow-angle),
-        transparent 0%,
-        transparent 60%,
-        rgba(var(--palette-gold-rgb), 0.4) 80%,
-        rgba(var(--palette-gold-rgb), 1) 98%,
-        #fff 100%
-    );
-    
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    
-    z-index: 10; 
-    pointer-events: none; 
-    
-    animation: lumen-flow-gold var(--lumen-motion-pulse) linear infinite;
-}
-
-/* Animation keyframes */
-@keyframes lumen-breathe-aura-gold {
-    0% { box-shadow: 0 0 8px var(--lumen-status-dim); }
-    100% { box-shadow: 0 0 20px var(--lumen-status-dim), 0 0 40px var(--lumen-status-glow); }
-}
-
-@keyframes lumen-flow-gold {
-    from { --lumen-flow-angle: 0deg; }
-    to { --lumen-flow-angle: 360deg; }
-}
-
-
-/* Node-specific Finished State (For Manual Image Gen) */
+/* 完成态 D1「余晖 + 印记」:一次性苔绿细环 1.6s 融回静息;永久
+   记录由底栏溯源承担(is-provenance 苔绿点)。JS 在动画结束后
+   摘类,避免虚拟化 re-attach 时重播。 */
 .lumen-node-finished .canvas-node-container {
-    border: 2px solid var(--lumen-state-success) !important;
-    box-shadow: 0 0 15px rgba(var(--lumen-state-success-rgb), 0.6), 0 0 30px rgba(var(--lumen-state-success-rgb), 0.3) !important;
-    animation: lumen-breathe-aura-green var(--lumen-motion-breathe) infinite alternate var(--lumen-motion-ease) !important;
+    animation: lumen-settle-green 1.6s var(--lumen-motion-ease) 1;
 }
 
-@keyframes lumen-breathe-aura-green {
-    0% { box-shadow: 0 0 5px rgba(var(--lumen-state-success-rgb), 0.2); }
-    100% { box-shadow: 0 0 15px rgba(var(--lumen-state-success-rgb), 0.6), 0 0 30px rgba(var(--lumen-state-success-rgb), 0.3); }
+@keyframes lumen-settle-green {
+    0%   { border-color: rgba(var(--lumen-state-success-rgb), 0.95); box-shadow: 0 0 0 4px rgba(var(--lumen-state-success-rgb), 0.35); }
+    55%  { box-shadow: 0 0 0 7px rgba(var(--lumen-state-success-rgb), 0.12); }
+    100% { box-shadow: 0 0 0 9px rgba(var(--lumen-state-success-rgb), 0); }
 }
 
-/* EP-16 · C2: image node "generating" state — purple breathing aura + marquee bar */
+/* EP-16 · C2: image node "generating" — 与其他运行态同语法,靛色描边。
+   进度表达交给底栏微光条与头部细环(cardsys)。 */
 .lumen-img-generating .canvas-node-container {
-    border: 2px solid var(--lumen-state-busy) !important;
-    box-shadow: 0 0 15px rgba(var(--lumen-state-busy-rgb), 0.55), 0 0 30px rgba(var(--lumen-state-busy-rgb), 0.3) !important;
-    animation: lumen-breathe-aura-purple var(--lumen-motion-pulse) infinite alternate var(--lumen-motion-ease) !important;
-    position: relative;
-    overflow: hidden;
-}
-
-@keyframes lumen-breathe-aura-purple {
-    0% { box-shadow: 0 0 5px rgba(var(--lumen-state-busy-rgb), 0.25); }
-    100% { box-shadow: 0 0 15px rgba(var(--lumen-state-busy-rgb), 0.6), 0 0 30px rgba(var(--lumen-state-busy-rgb), 0.35); }
-}
-
-.lumen-img-generating .canvas-node-container::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 3px;
-    width: 40%;
-    background: linear-gradient(90deg, transparent, var(--lumen-state-busy), transparent);
-    animation: lumen-img-marquee var(--lumen-motion-pulse) infinite linear;
-    pointer-events: none;
-}
-
-@keyframes lumen-img-marquee {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(250%); }
+    border-color: rgba(var(--lumen-state-busy-rgb), 0.55) !important;
 }
 
 /* --- Stop button pulse --- */
@@ -1565,78 +1502,32 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
 }
 
 /* ============================================================
-   EP-15 · Review node identity (CSS-only, no canvas writes)
-   Amber "quality gate" accent — distinct from purple (AI active)
-   and green (finished). Uses :has(); older Obsidian versions
-   simply skip the node accent, tag chip styling still applies.
-   ============================================================ */
-.canvas-node a.tag[href="#lumen/review"] {
-    background-color: rgba(var(--lumen-state-review-rgb), 0.16);
-    color: var(--lumen-state-review-text);
-}
-/* Monochrome dot instead of an emoji glyph: inherits the chip's amber
-   text color and renders identically across platforms. */
-.canvas-node a.tag[href="#lumen/review"]::before {
-    content: "● ";
-    font-size: 0.7em;
-    vertical-align: 0.15em;
-}
-/* Left accent bar on the whole node; inset shadow so it never
-   fights node borders or user-assigned canvas colors. */
-.canvas-node:has(a.tag[href="#lumen/review"]) .canvas-node-container {
-    box-shadow: inset 4px 0 0 0 rgba(var(--lumen-state-review-rgb), 0.75);
-}
-
-/* ============================================================
-   Canvas role identity for the whole #lumen protocol
-   (extends the EP-15 review pattern to every operator tag).
+   Canvas role identity · 方案 A「点标」(Linear 式收敛)
+   协议标签统一为描边灰字胶囊,角色色只留一枚小圆点;身份的
+   第二通道是卡片头部的角色色小字(cardsys)。侧边色条与高饱和
+   染色胶囊已退役——色彩收敛到"一点一字"。CSS-only,不写画布。
    Prefix selectors: tags nest (#lumen/step/1, #lumen/image2prompt),
-   so match on the role segment. Chip + dot on every role; left
-   accent bar only on structural nodes (start / output / review)
-   so process-heavy flows don't turn into a rainbow. CSS-only,
-   no canvas writes — same constraints as EP-15.
+   so match on the role segment.
    ============================================================ */
-.canvas-node a.tag[href^="#lumen/start"] {
-    background-color: rgba(var(--palette-blue-rgb), 0.14);
-    color: var(--lumen-role-start-text);
+.canvas-node a.tag[href^="#lumen/"] {
+    background-color: transparent;
+    border: 1px solid var(--lumen-border-soft);
+    color: var(--text-muted);
 }
-.canvas-node a.tag[href^="#lumen/step"] {
-    background-color: rgba(var(--palette-indigo-rgb), 0.12);
-    color: var(--lumen-role-step-text);
-}
-.canvas-node a.tag[href^="#lumen/input"] {
-    background-color: rgba(var(--lumen-role-input-rgb), 0.12);
-    color: var(--lumen-role-input-text);
-}
-.canvas-node a.tag[href^="#lumen/output"] {
-    background-color: rgba(var(--palette-gold-rgb), 0.16);
-    color: var(--palette-gold-main);
-}
-.canvas-node a.tag[href^="#lumen/image"],
-.canvas-node a.tag[href^="#lumen/vision"] {
-    background-color: rgba(var(--lumen-role-media-rgb), 0.10);
-    color: var(--lumen-role-media-text);
-}
-
-/* Same monochrome dot as the review chip — the uniform protocol marker. */
-.canvas-node a.tag[href^="#lumen/start"]::before,
-.canvas-node a.tag[href^="#lumen/step"]::before,
-.canvas-node a.tag[href^="#lumen/input"]::before,
-.canvas-node a.tag[href^="#lumen/output"]::before,
-.canvas-node a.tag[href^="#lumen/image"]::before,
-.canvas-node a.tag[href^="#lumen/vision"]::before {
+/* Monochrome dot: the uniform protocol marker, now the only
+   colored element of the chip. Theme-switched role text vars. */
+.canvas-node a.tag[href^="#lumen/"]::before {
     content: "● ";
     font-size: 0.7em;
     vertical-align: 0.15em;
 }
-
-/* Structural bars: entry = brand blue, deliverable = gold. */
-.canvas-node:has(a.tag[href^="#lumen/start"]) .canvas-node-container {
-    box-shadow: inset 4px 0 0 0 rgba(var(--palette-blue-rgb), 0.75);
-}
-.canvas-node:has(a.tag[href^="#lumen/output"]) .canvas-node-container {
-    box-shadow: inset 4px 0 0 0 rgba(var(--palette-gold-rgb), 0.8);
-}
+.canvas-node a.tag[href^="#lumen/start"]::before  { color: var(--lumen-role-start-text); }
+.canvas-node a.tag[href^="#lumen/step"]::before   { color: var(--lumen-role-step-text); }
+.canvas-node a.tag[href^="#lumen/input"]::before  { color: var(--lumen-role-input-text); }
+.canvas-node a.tag[href^="#lumen/output"]::before { color: var(--palette-gold-main); }
+.canvas-node a.tag[href^="#lumen/review"]::before { color: var(--lumen-state-review-text); }
+.canvas-node a.tag[href^="#lumen/image"]::before,
+.canvas-node a.tag[href^="#lumen/vision"]::before { color: var(--lumen-role-media-text); }
 
 /* ============================================================
    Canvas natural action modal
@@ -1804,6 +1695,10 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
     flex: 1 1 auto;
     min-height: 0;
 }
+/* 虚拟化重挂(mountContent)会把 contentEl appendChild 回容器末尾,DOM 顺序
+   变成 header→footer→content;用 order 把视觉顺序与 DOM 顺序解耦。 */
+.lumen-card .canvas-node-container > .lumen-nodecard-header { order: -1; }
+.lumen-card .canvas-node-container > .lumen-nodecard-footer { order: 99; }
 
 /* --- 头部:静态身份 + 内容操作(任务书 §2.1) --- */
 .lumen-nodecard-header {
@@ -1831,12 +1726,25 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
 }
 /* 角色色:低饱和小字,与既有 role 色体系同源 */
 .lumen-nodecard-header-inner[data-kind="start"]  .lumen-nodecard-type { color: var(--lumen-role-start-text); }
-.lumen-nodecard-header-inner[data-kind="step"]   .lumen-nodecard-type,
-.lumen-nodecard-header-inner[data-kind="review"] .lumen-nodecard-type { color: var(--lumen-role-step-text); }
-.lumen-nodecard-header-inner[data-kind="input"]  .lumen-nodecard-type,
-.lumen-nodecard-header-inner[data-kind="output"] .lumen-nodecard-type { color: var(--lumen-role-input-text); }
+.lumen-nodecard-header-inner[data-kind="step"]   .lumen-nodecard-type { color: var(--lumen-role-step-text); }
+.lumen-nodecard-header-inner[data-kind="input"]  .lumen-nodecard-type { color: var(--lumen-role-input-text); }
 .lumen-nodecard-header-inner[data-kind="image"]  .lumen-nodecard-type,
 .lumen-nodecard-header-inner[data-kind="vision"] .lumen-nodecard-type { color: var(--lumen-role-media-text); }
+
+/* 方案C「头部承色」:结构节点(入口/关卡/出口)的结构强调——
+   色彩不加新几何,搬进已有的头部分割线;评审/输出小字同步换成
+   本角色色(评审琥珀、输出金),头部形成"字+线"双通道。 */
+.lumen-nodecard-header-inner[data-kind="start"] {
+    border-bottom-color: rgba(var(--palette-blue-rgb), 0.5);
+}
+.lumen-nodecard-header-inner[data-kind="review"] {
+    border-bottom-color: rgba(var(--lumen-state-review-rgb), 0.45);
+}
+.lumen-nodecard-header-inner[data-kind="review"] .lumen-nodecard-type { color: var(--lumen-state-review-text); }
+.lumen-nodecard-header-inner[data-kind="output"] {
+    border-bottom-color: rgba(var(--palette-gold-rgb), 0.55);
+}
+.lumen-nodecard-header-inner[data-kind="output"] .lumen-nodecard-type { color: var(--palette-gold-main); }
 
 .lumen-nodecard-actions {
     display: flex;
@@ -1851,6 +1759,9 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
 }
 .lumen-nodecard-actions .clickable-icon:hover {
     color: var(--text-normal);
+}
+.lumen-nodecard-spin {
+    color: var(--lumen-state-busy);
 }
 .lumen-nodecard-spin svg {
     animation: lumen-nodecard-rotate 3s infinite linear;
@@ -1868,6 +1779,7 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
     align-items: center;
     gap: 6px;
     min-width: 0;
+    border-top: 1px solid var(--lumen-border-soft);
     padding: 2px 10px 4px;
     font-size: 10px;
     line-height: 1.5;
@@ -1901,7 +1813,7 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
     left: 0; top: 0; bottom: 0;
     width: 40%;
     border-radius: 1px;
-    background: var(--lumen-status-active);
+    background: var(--lumen-state-busy);
     animation: lumen-footer-sweep var(--lumen-motion-breathe) infinite var(--lumen-motion-ease);
 }
 @keyframes lumen-footer-sweep {
@@ -1950,6 +1862,28 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
     border-radius: 50%;
     background: var(--text-accent);
     opacity: 0.85;
+}
+
+/* 完成印记(D1):有溯源档案的底栏前缀一枚苔绿小点——完成的永久
+   记录只有这一处,余晖动画散去后它是唯一证据。 */
+.lumen-nodecard-footer-inner.is-provenance::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--lumen-state-success);
+    opacity: 0.9;
+}
+
+/* 运行态统一「靛色小几何」:AnchorStateBinder 按唯一状态源挂
+   lumen-node-running —— 描边 + 头部分割线染活动色,与底栏微光条、
+   头部细环三处同色呼应。置于方案C结构线之后,运行时压过它。 */
+.lumen-node-running .canvas-node-container {
+    border-color: rgba(var(--lumen-state-busy-rgb), 0.55) !important;
+}
+.lumen-node-running .lumen-nodecard-header-inner {
+    border-bottom-color: rgba(var(--lumen-state-busy-rgb), 0.4);
 }
 
 /* 决策 2:已装饰卡片(有头部 ▶)上隐藏 FlowControl 徽标的小运行键,
@@ -2082,6 +2016,8 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container::after
 @media (prefers-reduced-motion: reduce) {
     .lumen-nodecard-spin svg { animation: none; }
     .lumen-footer-bar::after { animation: none; width: 100%; opacity: 0.5; }
+    /* 完成余晖:免动画,印记(底栏苔绿点)仍在 */
+    .lumen-node-finished .canvas-node-container { animation: none; }
     /* 锚点:动效全停,保留静态状态色/辉光(点亮/呼吸/流光退化为常亮) */
     .lumen-card .canvas-node-connection-point::after { transition: none; }
     .lumen-card .canvas-node-connection-point:hover::after { transform: none; }
