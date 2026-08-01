@@ -1127,10 +1127,51 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
     100% { box-shadow: 0 0 0 9px rgba(var(--lumen-state-success-rgb), 0); }
 }
 
-/* EP-16 · C2: image node "generating" — 与其他运行态同语法,靛色描边。
-   进度表达交给底栏微光条与头部细环(cardsys)。 */
+/* EP-16 · C2 → P1/P3/P4: 编辑生成占位节点 —— 靛色描边 + 暗化源图 + 扫光。
+   P4 起占位是指向源图的 file 节点:内容区显示"正在被改的这张图",压暗一档
+   (::before 暗层)+ 一道斜向光扫过(::after 扫光层)。头部「图片编辑中」+ 转圈
+   在上。完成时 fulfill 原地把 .file 换成成品 —— 暗图平滑显影成新版,零闪。
+   两个伪元素都盖在图之上,不受任何 filter 影响。 */
 .lumen-img-generating .canvas-node-container {
     border-color: rgba(var(--lumen-state-busy-rgb), 0.55) !important;
+}
+.lumen-img-generating .canvas-node-content {
+    position: relative;
+    overflow: hidden;
+}
+/* 暗化层:半透明暗罩压暗源图,读作"处理中/未定稿" */
+.lumen-img-generating .canvas-node-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 10, 20, 0.42);
+    pointer-events: none;
+    z-index: 1;
+}
+/* 扫光层:靛色斜向 shimmer 扫过,与转圈/描边同色系 */
+.lumen-img-generating .canvas-node-content::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        100deg,
+        transparent 30%,
+        rgba(var(--lumen-state-busy-rgb), 0.22) 50%,
+        transparent 70%
+    );
+    background-size: 220% 100%;
+    animation: lumen-skeleton-sweep 1.4s infinite linear;
+    pointer-events: none;
+    z-index: 2;
+}
+@keyframes lumen-skeleton-sweep {
+    0%   { background-position: 160% 0; }
+    100% { background-position: -60% 0; }
+}
+
+/* 编辑生成失败:占位节点原地转错误说明,陶红描边(祈使时:持续但小面积) */
+.lumen-img-failed .canvas-node-container {
+    border-color: rgba(var(--lumen-state-error-rgb), 0.6) !important;
 }
 
 /* --- Stop button pulse --- */
@@ -1162,23 +1203,44 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
 }
 
 .lumen-pro-badge {
-    font-size: 10px;
-    padding: 1px 6px;
-    border-radius: 4px;
-    background: rgba(var(--palette-indigo-rgb), 0.1);
-    border: 1px solid rgba(var(--palette-indigo-rgb), 0.2);
-    color: rgba(var(--palette-indigo-rgb), 0.85);
-    letter-spacing: 0.05em;
-    vertical-align: middle;
-    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 17px;
+    padding: 0 6px;
+    border: 1px solid color-mix(in srgb, var(--interactive-accent) 32%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--interactive-accent) 10%, transparent);
+    color: var(--interactive-accent);
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    vertical-align: 1px;
+    margin-left: 7px;
+    white-space: nowrap;
+}
+
+.lumen-settings-root > h2.lumen-settings-page-title {
+    margin: 2px 0 18px;
+    color: var(--text-normal);
+    font-size: 20px;
+    font-weight: 650;
+    letter-spacing: -0.015em;
 }
 
 .lumen-settings-section {
-    margin: 14px 0;
-    border: 1px solid var(--background-modifier-border);
-    border-radius: 8px;
-    background: var(--background-secondary);
+    margin: 12px 0;
+    border: 1px solid color-mix(in srgb, var(--background-modifier-border) 78%, transparent);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--background-secondary) 82%, var(--background-primary));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
     overflow: hidden;
+    transition:
+        border-color 160ms ease,
+        background-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease;
 }
 
 .lumen-settings-section:first-child {
@@ -1186,18 +1248,26 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
 }
 
 .lumen-settings-section[open] {
+    border-color: color-mix(in srgb, var(--interactive-accent) 30%, var(--background-modifier-border));
     background: var(--background-primary-alt);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.09),
+        0 0 0 1px color-mix(in srgb, var(--interactive-accent) 5%, transparent);
 }
 
 .lumen-settings-section-summary {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 14px 16px;
+    gap: 12px;
+    min-height: 66px;
+    box-sizing: border-box;
+    padding: 13px 16px;
     cursor: pointer;
     user-select: none;
     list-style: none;
-    border-left: 3px solid var(--interactive-accent);
+    outline: none;
+    transition: background-color 140ms ease;
 }
 
 .lumen-settings-section-summary::-webkit-details-marker {
@@ -1205,15 +1275,58 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
 }
 
 .lumen-settings-section-chevron {
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 23px;
+    width: 23px;
+    height: 23px;
+    border: 1px solid color-mix(in srgb, var(--text-muted) 22%, transparent);
+    border-radius: 7px;
+    background: color-mix(in srgb, var(--background-primary) 64%, transparent);
     color: var(--text-muted);
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1;
     transform: rotate(0deg);
-    transition: transform 120ms ease;
+    transition:
+        color 140ms ease,
+        background-color 140ms ease,
+        border-color 140ms ease,
+        transform 160ms ease;
 }
 
 .lumen-settings-section[open] .lumen-settings-section-chevron {
     transform: rotate(90deg);
+    border-color: color-mix(in srgb, var(--interactive-accent) 28%, transparent);
+    background: color-mix(in srgb, var(--interactive-accent) 11%, transparent);
+    color: var(--interactive-accent);
+}
+
+.lumen-settings-section-summary:hover {
+    background: color-mix(in srgb, var(--background-modifier-hover) 60%, transparent);
+}
+
+.lumen-settings-section-summary:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--interactive-accent);
+}
+
+.lumen-settings-section[open] .lumen-settings-section-summary {
+    background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--interactive-accent) 7%, transparent),
+        transparent 58%
+    );
+}
+
+.lumen-settings-section[open] .lumen-settings-section-summary::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--interactive-accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--interactive-accent) 10%, transparent);
 }
 
 .lumen-settings-section-title-row {
@@ -1226,34 +1339,43 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
 .lumen-settings-section-title {
     color: var(--text-normal);
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 650;
+    letter-spacing: -0.008em;
 }
 
 .lumen-settings-section-desc {
-    margin-top: 3px;
+    margin-top: 4px;
     color: var(--text-muted);
-    font-size: 12px;
-    line-height: 1.4;
+    font-size: 12.5px;
+    line-height: 1.45;
 }
 
 .lumen-settings-section-body {
-    padding: 0 16px 14px 16px;
+    padding: 2px 18px 16px 51px;
 }
 
 .lumen-settings-section-body > .setting-item:first-child {
     border-top: none;
 }
 
-.lumen-settings-section-pro .lumen-settings-section-summary {
-    border-left-color: var(--lumen-action-primary);
+.lumen-settings-section-text {
+    min-width: 0;
+    padding-right: 20px;
 }
 
-.lumen-settings-section-integration .lumen-settings-section-summary {
-    border-left-color: #2f9e87;
-}
+@media (max-width: 640px) {
+    .lumen-settings-section-summary {
+        min-height: 60px;
+        padding: 12px;
+    }
 
-.lumen-settings-section-advanced .lumen-settings-section-summary {
-    border-left-color: #c67a2c;
+    .lumen-settings-section-body {
+        padding: 0 12px 12px;
+    }
+
+    .lumen-settings-section[open] .lumen-settings-section-summary::after {
+        right: 12px;
+    }
 }
 /* Status dot breathing light (toned down from the original four-layer
    100px "nuclear" glow — a header dot whispers, it doesn't shout). */
@@ -1460,6 +1582,22 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
     font-size: 12px;
     color: var(--text-muted);
 }
+/* 质量档位选择器:一行「标签 + 下拉」,默认跟随原图 */
+.lumen-img-edit-stagepick {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+.lumen-img-edit-stagepick .lumen-img-edit-label { margin: 0; flex: 0 0 auto; }
+.lumen-img-edit-stagepick select { flex: 1 1 auto; min-width: 0; }
+/* 比例提醒:flux 系编辑不保比例(琥珀小字,与 review 警示同源) */
+.lumen-img-edit-stagehint {
+    margin-top: 6px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--lumen-state-review-text);
+}
 .lumen-img-edit-textarea {
     width: 100%;
     min-height: 64px;
@@ -1468,6 +1606,118 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
     padding: 8px 10px;
     font-size: 13px;
     line-height: 1.5;
+}
+
+/* 配景(scenery):开关一行 + 缩略图带。 */
+.lumen-img-edit-scenery-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+.lumen-img-edit-scenery-hint {
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+.lumen-img-edit-scenery-hint:empty { display: none; }
+.lumen-img-edit-scenery-strip {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 260px;
+    overflow-y: auto;
+    padding: 2px;
+}
+/* 配景搜索框:按文件名过滤,清空后恢复分组折叠态。 */
+.lumen-img-edit-scenery-search {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 5px 9px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+/* 分类分组:一级子文件夹一组,标题可点折叠 + 一行可换行的缩略图。 */
+.lumen-img-edit-scenery-cat {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    padding-left: 2px;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.12s ease;
+}
+.lumen-img-edit-scenery-cat:hover {
+    color: var(--text-normal);
+}
+.lumen-img-edit-scenery-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.lumen-img-edit-scenery-cell {
+    position: relative;
+    width: 72px;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 3px;
+    border: 2px solid transparent;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+/* 选中标记:缩略图右上角一枚强调色圆勾(名字才是提示词引用把手)。 */
+.lumen-img-edit-scenery-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+}
+/* 乱码名素材:名字淡化 + ✎ 提醒重命名。 */
+.lumen-img-edit-scenery-cell.is-unnamed .lumen-img-edit-scenery-name {
+    color: var(--text-faint);
+    font-style: italic;
+}
+.lumen-img-edit-scenery-rename {
+    color: var(--text-accent);
+    font-style: normal;
+}
+.lumen-img-edit-scenery-cell:hover {
+    background: var(--background-modifier-hover);
+}
+.lumen-img-edit-scenery-cell.is-selected {
+    border-color: var(--interactive-accent);
+    background: var(--background-modifier-hover);
+}
+.lumen-img-edit-scenery-thumb {
+    width: 66px;
+    height: 66px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+}
+.lumen-img-edit-scenery-name {
+    display: block;
+    margin-top: 3px;
+    font-size: 10px;
+    line-height: 1.3;
+    text-align: center;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .lumen-img-edit-footer {
@@ -1730,6 +1980,9 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
 .lumen-nodecard-header-inner[data-kind="input"]  .lumen-nodecard-type { color: var(--lumen-role-input-text); }
 .lumen-nodecard-header-inner[data-kind="image"]  .lumen-nodecard-type,
 .lumen-nodecard-header-inner[data-kind="vision"] .lumen-nodecard-type { color: var(--lumen-role-media-text); }
+/* P3:编辑生成占位——头部小字用运行靛色,与转圈/骨架/描边同色系 */
+.lumen-nodecard-header-inner[data-kind="img-edit"] .lumen-nodecard-type { color: var(--lumen-state-busy); }
+.lumen-nodecard-header-inner[data-kind="img-edit"] { border-bottom-color: rgba(var(--lumen-state-busy-rgb), 0.4); }
 
 /* 方案C「头部承色」:结构节点(入口/关卡/出口)的结构强调——
    色彩不加新几何,搬进已有的头部分割线;评审/输出小字同步换成
@@ -1773,6 +2026,10 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
 /* --- 底栏:溯源栏(provenance bar,任务书 §2.3)--- */
 .lumen-nodecard-footer {
     flex: 0 0 auto;
+    /* 浮到原生 content-blocker(z: var(--layer-cover),未选中节点的整卡
+       遮罩)之上:溯源 hover 与模型下拉不再要求先点选节点。 */
+    position: relative;
+    z-index: calc(var(--layer-cover, 5) + 1);
 }
 .lumen-nodecard-footer-inner {
     display: flex;
@@ -1833,6 +2090,28 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
     padding: 0 2px;
 }
 .lumen-footer-retry:hover { text-decoration: underline; }
+
+/* 生图/编辑产物底栏的「笔」编辑入口:靠右、静息很淡,hover 才亮起——
+   与运行 ▶ 同为算子级动作,但只对图片产物出现(复用 Cmd+P 那条链路)。 */
+.lumen-footer-edit {
+    flex: 0 0 auto;
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    cursor: pointer;
+    color: var(--text-faint);
+    opacity: 0.6;
+    transition: color 0.15s ease, opacity 0.15s ease;
+}
+.lumen-footer-edit:hover {
+    color: var(--text-accent);
+    opacity: 1;
+}
+.lumen-footer-edit .svg-icon {
+    width: 14px;
+    height: 14px;
+}
 
 /* --- 底栏模型选择器(任务书 §2.4):模型名本身可点,静息仍是一行淡字 --- */
 .lumen-footer-model.is-clickable {
@@ -2018,6 +2297,8 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
     .lumen-footer-bar::after { animation: none; width: 100%; opacity: 0.5; }
     /* 完成余晖:免动画,印记(底栏苔绿点)仍在 */
     .lumen-node-finished .canvas-node-container { animation: none; }
+    /* 编辑占位骨架流光:退化为静态半透明骨架(不扫动),生成中仍可辨 */
+    .lumen-img-generating .canvas-node-content::after { animation: none; background-position: 50% 0; opacity: 0.6; }
     /* 锚点:动效全停,保留静态状态色/辉光(点亮/呼吸/流光退化为常亮) */
     .lumen-card .canvas-node-connection-point::after { transition: none; }
     .lumen-card .canvas-node-connection-point:hover::after { transform: none; }
@@ -2025,4 +2306,939 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
     .lumen-card .canvas-node-connection-point.lumen-anchor-lit::after,
     .lumen-card .canvas-node-connection-point.lumen-anchor-ripple::after { animation: none; }
     .lumen-edge-flow .canvas-display-path { animation: none; stroke-opacity: 0.8; }
+}
+.modal.lumen-employee-editor-modal {
+    display: flex;
+    flex-direction: column;
+    width: min(920px, calc(100vw - 32px));
+    min-width: min(520px, calc(100vw - 24px));
+    max-width: calc(100vw - 24px);
+    height: min(820px, calc(100vh - 48px));
+    min-height: min(480px, calc(100vh - 24px));
+    max-height: calc(100vh - 24px);
+    overflow: hidden;
+    resize: both;
+}
+
+.modal.lumen-employee-editor-modal .modal-content {
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.lumen-employee-editor {
+    width: 100%;
+    min-width: 0;
+}
+
+.lumen-employee-editor .setting-item {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.8fr) minmax(280px, 1.2fr);
+    gap: 12px 24px;
+    align-items: flex-start;
+}
+
+.lumen-employee-editor .setting-item-info,
+.lumen-employee-editor .setting-item-control {
+    width: auto;
+    min-width: 0;
+}
+
+.lumen-employee-editor .setting-item-control {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.lumen-employee-editor .setting-item-control > .text-component,
+.lumen-employee-editor .setting-item-control > .dropdown,
+.lumen-employee-editor .setting-item-control > input,
+.lumen-employee-editor .setting-item-control > textarea {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.lumen-employee-editor .setting-item-control input[type="text"],
+.lumen-employee-editor .setting-item-control input[type="number"],
+.lumen-employee-editor .setting-item-control input[type="time"] {
+    width: min(100%, 420px);
+}
+
+.lumen-employee-editor textarea.lumen-employee-responsibility {
+    width: min(100%, 520px);
+    max-width: 100%;
+    min-height: 130px;
+    resize: vertical;
+}
+
+.lumen-employee-field-error {
+    color: var(--text-error);
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.lumen-employee-skills-panel {
+    margin: 0 0 14px 40px;
+    overflow: hidden;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--background-secondary) 72%, transparent);
+}
+
+.lumen-employee-skills-panel > summary {
+    padding: 10px 12px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.lumen-employee-skill-list {
+    display: grid;
+    gap: 8px;
+    padding: 0 10px 10px;
+}
+
+.lumen-employee-skill-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    padding: 11px 12px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    background: var(--background-primary);
+}
+
+.lumen-employee-skill-copy,
+.lumen-employee-skill-actions,
+.lumen-employee-knowledge-badges {
+    min-width: 0;
+}
+
+.lumen-employee-skill-name {
+    overflow-wrap: anywhere;
+    color: var(--text-normal);
+    font-weight: 650;
+}
+
+.lumen-employee-skill-description {
+    margin-top: 3px;
+    overflow-wrap: anywhere;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.lumen-employee-knowledge-badges,
+.lumen-employee-skill-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 7px;
+}
+
+.lumen-employee-skill-actions {
+    justify-content: flex-end;
+    margin-top: 0;
+}
+
+.lumen-employee-knowledge-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 20px;
+    padding: 1px 7px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 999px;
+    color: var(--text-muted);
+    background: var(--background-secondary);
+    font-size: 11px;
+}
+
+.lumen-employee-knowledge-badge.is-healthy,
+.lumen-employee-knowledge-badge.is-grounding {
+    color: var(--color-green);
+    border-color: color-mix(in srgb, var(--color-green) 34%, var(--background-modifier-border));
+    background: color-mix(in srgb, var(--color-green) 8%, var(--background-primary));
+}
+
+.lumen-employee-knowledge-badge.is-warning,
+.lumen-employee-knowledge-badge.is-missing {
+    color: var(--text-warning);
+    border-color: color-mix(in srgb, var(--color-yellow) 42%, var(--background-modifier-border));
+    background: color-mix(in srgb, var(--color-yellow) 9%, var(--background-primary));
+}
+
+.lumen-employee-skill-skipped {
+    padding: 8px 10px;
+    border-radius: 7px;
+    color: var(--text-error);
+    background: color-mix(in srgb, var(--color-red) 7%, var(--background-primary));
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.modal.lumen-employee-knowledge-modal {
+    width: min(720px, calc(100vw - 32px));
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 32px);
+}
+
+.lumen-employee-knowledge-editor {
+    min-width: 0;
+}
+
+.lumen-employee-knowledge-description,
+.lumen-employee-knowledge-preview,
+.lumen-employee-knowledge-empty {
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.lumen-employee-knowledge-list-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 16px 0 8px;
+}
+
+.lumen-employee-knowledge-folder-list {
+    display: grid;
+    gap: 7px;
+    max-height: min(320px, 42vh);
+    overflow: auto;
+}
+
+.lumen-employee-knowledge-folder {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 9px 10px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    background: var(--background-secondary);
+}
+
+.lumen-employee-knowledge-folder-path {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.lumen-employee-knowledge-preview {
+    margin-top: 10px;
+    padding: 9px 10px;
+    border-left: 3px solid var(--interactive-accent);
+    border-radius: 0 6px 6px 0;
+    background: color-mix(in srgb, var(--interactive-accent) 7%, transparent);
+}
+
+.lumen-employee-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 18px;
+    position: sticky;
+    bottom: 0;
+    padding: 12px 0 4px;
+    background: var(--background-primary);
+    z-index: 1;
+}
+
+.modal.lumen-employee-plan-edit-modal {
+    width: min(640px, calc(100vw - 32px));
+}
+
+.lumen-employee-plan-edit {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.lumen-employee-plan-edit .setting-item {
+    order: -1;
+}
+
+.lumen-employee-plan-edit .dropdown {
+    max-width: min(380px, 60vw);
+}
+
+.lumen-employee-plan-edit-text {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+}
+
+@media (max-width: 760px) {
+    .modal.lumen-employee-editor-modal {
+        width: calc(100vw - 16px);
+        min-width: 0;
+        max-width: calc(100vw - 16px);
+        height: calc(100vh - 16px);
+        min-height: 0;
+        max-height: calc(100vh - 16px);
+        resize: none;
+    }
+
+    .modal.lumen-employee-editor-modal .modal-content {
+        padding-inline: 16px;
+    }
+
+    .lumen-employee-editor .setting-item {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    .lumen-employee-editor .setting-item-control {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .lumen-employee-editor .setting-item-control input[type="text"],
+    .lumen-employee-editor .setting-item-control input[type="number"],
+    .lumen-employee-editor .setting-item-control input[type="time"],
+    .lumen-employee-editor textarea.lumen-employee-responsibility {
+        width: 100%;
+    }
+
+    .lumen-employee-skills-panel {
+        margin-left: 0;
+    }
+
+    .lumen-employee-skill-card {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .lumen-employee-skill-actions {
+        justify-content: stretch;
+    }
+
+    .lumen-employee-skill-actions button {
+        flex: 1 1 140px;
+    }
+
+    .modal.lumen-employee-knowledge-modal {
+        width: calc(100vw - 16px);
+        max-width: calc(100vw - 16px);
+        max-height: calc(100vh - 16px);
+    }
+
+    .lumen-employee-knowledge-editor .setting-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .lumen-employee-knowledge-editor .setting-item-control,
+    .lumen-employee-knowledge-editor .dropdown {
+        width: 100%;
+    }
+}
+
+.lumen-employee-avatar {
+    display: inline-grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 50%;
+    color: var(--text-on-accent);
+    background: var(--color-orange);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.mention-kind-employee {
+    color: var(--color-orange);
+    border-color: color-mix(in srgb, var(--color-orange) 45%, transparent);
+}
+
+.chat-msg.employee-run-plan,
+.chat-msg.lumen-employee-run-message {
+    border-left-color: var(--color-cyan);
+}
+
+.lumen-card[data-lumen-kind="employee"] .canvas-node-container {
+    border-color: var(--color-orange);
+}
+
+.lumen-card[data-lumen-kind="employee"] .lumen-nodecard-header {
+    color: var(--color-orange);
+}
+
+.lumen-card[data-lumen-kind="employee-plan"] .canvas-node-container {
+    border-left-color: var(--color-cyan);
+}
+
+.workspace-leaf-content[data-type="lumen-employee-bay"] .view-content {
+    padding: 20px;
+    overflow: auto;
+}
+
+.lumen-employee-bay-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding: 16px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 12px;
+    background: var(--background-secondary);
+}
+
+.lumen-employee-bay-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.lumen-employee-bay-identity h2 {
+    margin: 0 0 3px;
+    font-size: 18px;
+}
+
+.lumen-employee-bay-avatar {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: var(--text-on-accent);
+    background: var(--color-orange);
+    font-weight: 700;
+}
+
+.lumen-employee-bay-avatar.is-working::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border: 2px solid color-mix(in srgb, var(--color-green) 70%, transparent);
+    border-radius: inherit;
+    animation: lumen-employee-working 1.6s ease-out infinite;
+}
+
+@keyframes lumen-employee-working {
+    0% {
+        opacity: 0.9;
+        transform: scale(0.82);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.25);
+    }
+}
+
+.lumen-employee-bay-subtitle,
+.lumen-employee-bay-run-meta,
+.lumen-employee-bay-run-time {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.lumen-employee-bay-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.lumen-employee-bay-metrics span {
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: var(--background-primary);
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.lumen-employee-bay-reconcile-banner {
+    flex-basis: 100%;
+    padding: 10px 12px;
+    border: 1px solid color-mix(in srgb, var(--color-yellow) 55%, var(--background-modifier-border));
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--color-yellow) 10%, var(--background-primary));
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.lumen-employee-bay-reconcile-title {
+    color: var(--text-normal);
+    font-weight: 650;
+}
+
+.lumen-employee-bay-runs {
+    display: grid;
+    gap: 12px;
+}
+
+.lumen-employee-bay-run {
+    position: relative;
+    padding: 14px 16px;
+    border: 1px solid var(--background-modifier-border);
+    border-left: 4px solid var(--text-muted);
+    border-radius: 10px;
+    background: var(--background-primary-alt);
+    outline: none;
+    transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+.lumen-employee-bay-run.is-unread::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--interactive-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--interactive-accent) 18%, transparent);
+}
+
+.lumen-employee-bay-run.is-selected,
+.lumen-employee-bay-run:focus-visible {
+    border-color: var(--interactive-accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--interactive-accent) 22%, transparent);
+}
+
+.lumen-employee-bay-run.is-active {
+    border-left-color: var(--color-green);
+}
+
+.lumen-employee-bay-run.is-awaiting {
+    border-left-color: var(--color-yellow);
+}
+
+.lumen-employee-bay-run.is-done {
+    border-left-color: var(--color-cyan);
+}
+
+.lumen-employee-bay-run.is-error {
+    border-left-color: var(--color-red);
+}
+
+.lumen-employee-bay-run-top,
+.lumen-employee-bay-run-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.lumen-employee-bay-run-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 600;
+}
+
+.lumen-employee-bay-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.is-active .lumen-employee-bay-status-dot {
+    animation: lumen-employee-status-pulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes lumen-employee-status-pulse {
+    from { opacity: 0.35; }
+    to { opacity: 1; }
+}
+
+.lumen-employee-bay-run-title {
+    margin: 12px 0 8px;
+    line-height: 1.5;
+}
+
+.lumen-employee-bay-progress {
+    height: 5px;
+    margin: 8px 0 6px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--background-modifier-border);
+}
+
+.lumen-employee-bay-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--interactive-accent);
+    transition: width 200ms ease;
+}
+
+.lumen-employee-bay-run-output,
+.lumen-employee-bay-run-warning,
+.lumen-employee-bay-run-error {
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.lumen-employee-bay-run-warning {
+    color: var(--text-warning);
+}
+
+.lumen-employee-bay-run-knowledge {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.lumen-employee-bay-run-knowledge > summary {
+    color: var(--text-accent);
+    cursor: pointer;
+}
+
+.lumen-employee-bay-knowledge-step {
+    display: grid;
+    gap: 5px;
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-left: 2px solid var(--background-modifier-border);
+}
+
+.lumen-employee-bay-sources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.lumen-employee-bay-source-link {
+    max-width: 100%;
+    min-height: 26px;
+    padding: 3px 8px;
+    overflow: hidden;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 6px;
+    color: var(--text-accent);
+    background: var(--background-secondary);
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lumen-employee-bay-source-link:hover,
+.lumen-employee-bay-source-link:focus-visible {
+    border-color: var(--interactive-accent);
+    background: var(--background-modifier-hover);
+}
+
+.lumen-employee-bay-run-error {
+    color: var(--text-error);
+}
+
+.lumen-employee-bay-run-actions {
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.lumen-employee-bay-empty {
+    padding: 32px 16px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Employee background status: event-driven status-bar capsule and compact popover. */
+.lumen-employee-status-item.is-hidden {
+    display: none;
+}
+
+.lumen-employee-status-capsule {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    max-width: 260px;
+    height: 24px;
+    padding: 2px 8px 2px 4px;
+    gap: 6px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 999px;
+    color: var(--text-muted);
+    background: var(--background-secondary);
+    box-shadow: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+.lumen-employee-status-capsule:hover,
+.lumen-employee-status-capsule:focus-visible {
+    color: var(--text-normal);
+    border-color: var(--background-modifier-border-hover);
+    background: var(--background-modifier-hover);
+}
+
+.lumen-employee-status-avatar,
+.lumen-employee-status-card-avatar {
+    display: inline-grid;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--text-on-accent);
+    background: var(--text-muted);
+    font-weight: 700;
+}
+
+.lumen-employee-status-avatar {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+}
+
+.lumen-employee-status-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lumen-employee-status-capsule[data-tone="active"] .lumen-employee-status-avatar,
+.lumen-employee-status-capsule[data-tone="done"] .lumen-employee-status-avatar {
+    background: var(--color-green);
+}
+
+.lumen-employee-status-capsule[data-tone="queued"] .lumen-employee-status-avatar {
+    background: var(--color-blue);
+}
+
+.lumen-employee-status-capsule[data-tone="awaiting"] .lumen-employee-status-avatar {
+    color: var(--text-normal);
+    background: var(--color-yellow);
+}
+
+.lumen-employee-status-capsule[data-tone="error"] .lumen-employee-status-avatar {
+    background: var(--color-red);
+}
+
+.lumen-employee-status-popover {
+    position: fixed;
+    z-index: var(--layer-popover, 1000);
+    max-height: min(70vh, 560px);
+    overflow: auto;
+    padding: 12px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 12px;
+    color: var(--text-normal);
+    background: var(--background-primary);
+    box-shadow: var(--shadow-s);
+}
+
+.lumen-employee-status-popover-header,
+.lumen-employee-status-card-heading,
+.lumen-employee-status-card-identity,
+.lumen-employee-status-card-actions {
+    display: flex;
+    align-items: center;
+}
+
+.lumen-employee-status-popover-header,
+.lumen-employee-status-card-heading {
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.lumen-employee-status-popover-header {
+    margin-bottom: 10px;
+}
+
+.lumen-employee-status-popover-header span,
+.lumen-employee-status-card-state,
+.lumen-employee-status-card-meta {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.lumen-employee-status-card {
+    margin-top: 8px;
+    padding: 11px;
+    border: 1px solid var(--background-modifier-border);
+    border-left: 3px solid var(--color-green);
+    border-radius: 9px;
+    background: var(--background-secondary);
+}
+
+.lumen-employee-status-card[data-tone="idle"] {
+    border-left-color: var(--color-blue);
+}
+
+.lumen-employee-status-card[data-tone="awaiting"] {
+    border-left-color: var(--color-yellow);
+}
+
+.lumen-employee-status-card[data-tone="failed"] {
+    border-left-color: var(--color-red);
+}
+
+.lumen-employee-status-card[data-tone="halted"] {
+    border-left-color: var(--text-muted);
+}
+
+.lumen-employee-status-card-identity {
+    min-width: 0;
+    gap: 7px;
+}
+
+.lumen-employee-status-card-avatar {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    background: var(--interactive-accent);
+}
+
+.lumen-employee-status-card-title {
+    margin-top: 9px;
+    overflow: hidden;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lumen-employee-status-card-progress {
+    height: 4px;
+    margin-top: 9px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--background-modifier-border);
+}
+
+.lumen-employee-status-card-progress span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--interactive-accent);
+    transition: width 160ms ease;
+}
+
+.lumen-employee-status-card-meta,
+.lumen-employee-status-card-error {
+    margin-top: 7px;
+    overflow-wrap: anywhere;
+}
+
+.lumen-employee-status-card-error {
+    color: var(--text-error);
+    font-size: 12px;
+}
+
+.lumen-employee-status-card-actions {
+    justify-content: flex-end;
+    margin-top: 10px;
+    gap: 8px;
+}
+
+.lumen-employee-status-card-actions button,
+.lumen-employee-status-idle-list button {
+    padding: 4px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.lumen-employee-status-empty {
+    padding: 12px 4px 8px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.lumen-employee-status-idle-list {
+    display: grid;
+    gap: 6px;
+}
+
+.lumen-employee-status-idle-list button {
+    width: 100%;
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    .lumen-employee-status-capsule {
+        max-width: 170px;
+    }
+}
+
+/* ============================================================
+   白板流程检查报告(命令:检查当前白板流程)
+   ============================================================ */
+
+.lumen-flow-check-summary {
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.lumen-flow-check-meta {
+    margin-bottom: 12px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: var(--background-secondary);
+    font-size: 0.85em;
+    color: var(--text-muted);
+    font-family: var(--font-monospace);
+    /* 执行顺序可能很长,自己横向滚动,不撑破弹窗 */
+    overflow-x: auto;
+}
+
+.lumen-flow-check-issue {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.lumen-flow-check-badge {
+    flex: 0 0 auto;
+    align-self: flex-start;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.72em;
+    font-weight: 600;
+    line-height: 1.7;
+}
+
+.lumen-flow-check-issue.is-error .lumen-flow-check-badge {
+    background: color-mix(in srgb, var(--text-error) 16%, transparent);
+    color: var(--text-error);
+}
+
+.lumen-flow-check-issue.is-warning .lumen-flow-check-badge {
+    background: color-mix(in srgb, var(--text-warning) 18%, transparent);
+    color: var(--text-warning);
+}
+
+.lumen-flow-check-body {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.lumen-flow-check-code {
+    font-family: var(--font-monospace);
+    font-size: 0.74em;
+    color: var(--text-faint);
+}
+
+.lumen-flow-check-message {
+    margin-top: 2px;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.lumen-flow-check-locate {
+    margin-top: 6px;
+    padding: 2px 10px;
+    font-size: 0.78em;
+    cursor: pointer;
+}
+
+/* 员工文件操作确认(逐次审批):路径要显眼,确认键用警示色而非 CTA */
+.lumen-employee-write-target {
+    margin: 0 0 8px;
+    font-family: var(--font-monospace);
+    font-size: 0.92em;
+    word-break: break-all;
+}
+
+.lumen-employee-write-approval-modal .mod-warning {
+    background: var(--text-error);
+    color: var(--text-on-accent);
 }
