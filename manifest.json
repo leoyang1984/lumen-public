@@ -1,9 +1,9 @@
 {
     "id": "lumen",
     "name": "Lumen",
-    "version": "5.4.0-pro",
+    "version": "5.6.0-pro",
     "minAppVersion": "0.15.0",
-    "description": "AI reading and writing agent in Obsidian. Chat, Rule Notes, image generation, visual workflows, and mindmaps.",
+    "description": "AI reading and writing agent in Obsidian. EPUB reading, source-linked notes, API/Codex/pi chat, and visual workflows.",
     "author": "leoyang1984",
     "authorUrl": "https://github.com/leoyang1984/lumen",
     "isDesktopOnly": false

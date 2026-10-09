@@ -3242,3 +3242,85 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
     background: var(--text-error);
     color: var(--text-on-accent);
 }
+/* Reader view: scoped styles, independent of chat and Canvas layouts. */
+.workspace-leaf-content .view-content.lumen-reader {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    padding: 0 !important;
+    overflow: hidden;
+    background: #f7f5ef;
+    color: #45463f;
+    --text-normal: #45463f;
+    --text-muted: #64665d;
+    --text-faint: #72756a;
+    --background-primary: #f7f5ef;
+    --background-secondary: #efeee6;
+}
+.lumen-reader-header { padding: 16px 24px 8px; flex: 0 0 auto; }
+.lumen-reader-header h2 { font-size: 18px; font-weight: 500; margin: 0; }
+.lumen-reader-author { margin: 6px 0 0; font-size: 12px; opacity: 0.7; }
+.lumen-reader-intro { padding: 0 24px; }
+.lumen-reader-status { padding: 0 24px; flex: 0 0 auto; }
+.lumen-reader-status[hidden] { display: none; }
+.lumen-reader-viewport { flex: 1 1 auto; min-height: 240px; min-width: 0; overflow: hidden; }
+.lumen-reader-footer { padding: 10px 24px; font-size: 11px; opacity: 0.7; flex: 0 0 auto; }
+
+/* RE-02: controls wrap inside narrow reading panes; contents stays within the view. */
+.lumen-reader-header { position: relative; padding: 14px 20px 10px; border-bottom: 1px solid #deddd3; }
+.lumen-reader-header h2 { overflow-wrap: anywhere; }
+.lumen-reader-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
+.lumen-reader button, .lumen-reader-toolbar button, .lumen-reader-intro button, .lumen-reader-status button {
+    background: #e8e9e0; color: #45463f; border: 1px solid #d5d7cb; box-shadow: none;
+}
+.lumen-reader-font { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; }
+.lumen-reader-font select { background: #e8e9e0; color: #45463f; }
+.lumen-reader-toc { position: static; font-size: 13px; }
+.lumen-reader-toc summary { cursor: pointer; padding: 6px 8px; border-radius: 4px; }
+.lumen-reader-toc summary:focus-visible { outline: 2px solid #657b65; }
+.lumen-reader-toc-list {
+    position: absolute; z-index: 10; top: 100%; left: 12px; right: 12px;
+    max-height: min(320px, 45vh); overflow: auto; background: #f7f5ef; color: #45463f;
+    border: 1px solid #d5d7cb; box-shadow: 0 4px 14px #0002; padding: 8px;
+}
+.lumen-reader-toc-list ul { list-style: none; margin: 0; padding-left: 12px; }
+.lumen-reader-toc-list > ul { padding-left: 0; }
+.lumen-reader-toc-list button { white-space: normal; text-align: start; height: auto; width: 100%; padding: 8px; }
+.lumen-reader-status { overflow-wrap: anywhere; margin: 8px 0; }
+.lumen-reader-status button { margin-inline-start: 8px; }
+.lumen-reader-intro { overflow: auto; padding-top: 16px; }
+.lumen-reader-viewport { min-height: 100px; }
+.lumen-reader-footer { overflow-wrap: anywhere; }
+
+/* RE-03–05: scoped reading actions and confirmation forms. */
+.lumen-reader-selection { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 20px; border-top: 1px solid #deddd3; }
+.lumen-reader-selection[hidden] { display: none; }
+.lumen-reader-notes { flex: 0 0 auto; padding: 8px 20px; max-height: 30%; overflow: auto; font-size: 12px; }
+.lumen-reader-notes summary { cursor: pointer; }
+.lumen-reader-note-row { display: flex; gap: 8px; margin: 6px 0; }
+.lumen-reader-note-row button:first-child { flex: 1; text-align: start; white-space: normal; height: auto; }
+.lumen-reader-notes > div > button { display: block; margin: 6px 0; max-width: 100%; white-space: normal; height: auto; }
+.lumen-reader-quote { max-height: 180px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.lumen-reader-editor { width: 100%; margin: 8px 0; }
+textarea.lumen-reader-editor { min-height: 160px; resize: vertical; }
+.lumen-reader-context-banner { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 8px 12px; border-bottom: 1px solid var(--background-modifier-border); font-size: 12px; }
+.lumen-reader-context-banner span { flex: 1; min-width: 120px; overflow-wrap: anywhere; }
+
+/* RE-06: compact responsive controls; the native right dock owns assistant resizing. */
+.lumen-reader-toolbar button { min-height: 30px; height: auto; white-space: normal; }
+.lumen-reader-toolbar button[aria-pressed="true"] { box-shadow: inset 0 0 0 1px #657b65; }
+.lumen-reader-viewport:focus-visible { outline: 2px solid #657b65; outline-offset: -2px; }
+@media (max-width: 700px) {
+    .lumen-reader-header { padding: 10px 12px; }
+    .lumen-reader-header h2 { font-size: 18px; }
+    .lumen-reader-toolbar { gap: 5px; }
+    .lumen-reader-footer { padding: 8px 12px; }
+}
+/* Selection actions must not resize the EPUB and invalidate the selected range. */
+.lumen-reader { position: relative; }
+.lumen-reader-selection {
+    position: absolute; inset-inline: 16px; bottom: 72px; z-index: 10;
+    width: fit-content; max-width: calc(100% - 32px); border: 1px solid #deddd3;
+    border-radius: 8px; background: #f7f5ef; box-shadow: 0 3px 14px #0002;
+}

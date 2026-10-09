@@ -6,9 +6,24 @@ tags:
   - digital-employee
   - second-brain
 ---
-# Lumen Pro (v5.4.0): The Lean Obsidian Agent
+# Lumen Pro (v5.6.0-pro): EPUB Reading & AI Notes
 
 [English Version Below](#english-version) | [中文版往下看](#中文版) 
+
+## 5.6.0-pro · EPUB Reading / EPUB 阅读
+
+Read DRM-free, reflowable EPUBs inside Obsidian. Choose single/two columns, ask Codex/pi/API about a selection, confirm Markdown notes and return to the source. Reading works offline. Chat uses your configured model service. Local CLI windows need not remain open.
+
+在 Obsidian 内读无 DRM、可重排 EPUB。单栏／双栏、选文向 Codex/pi/API 提问、确认保存笔记、点击引用回到原文。离线可以阅读；问答使用已配置的模型服务，本机 CLI 不必在前台打开。
+
+![EPUB two-column reading / EPUB 双栏阅读](docs/images/double-reading.png)
+
+[Download / 下载](https://github.com/leoyang1984/lumen-public/releases/tag/v5.6.0-pro) · [Guide / 中英文阅读指南](docs/READING_GUIDE.md) · [Changes / 中英文更新说明](docs/RELEASE_NOTES_5.6.0-pro.md)
+
+Actual acceptance: macOS + Obsidian 1.14.4, Codex CLI 0.160.1 / pi 1.1.0. Other operating systems, physical mobile devices and live API provider matrices remain unverified. Fixed-layout and DRM books are outside this release. / 实际验收：macOS + Obsidian 1.14.4，Codex CLI 0.160.1 / pi 1.1.0；其他系统、实体移动设备及真实 API 矩阵未实机验收，固定版式和 DRM 不在本轮范围。
+
+Upgrade by replacing only `main.js`, `manifest.json`, `styles.css`. Preserve `data.json`, `reader-state.v1.json*` and history files. / 升级仅替换三个分发文件，保留配置、阅读状态及历史。
+
 
 ---
 
