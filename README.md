@@ -6,9 +6,25 @@ tags:
   - digital-employee
   - second-brain
 ---
-# Lumen Pro (v5.6.0-pro): EPUB Reading & AI Notes
+# Lumen Pro (v5.7.0-pro): EPUB Reading, AI Notes & Web Search
 
 [English Version Below](#english-version) | [中文版往下看](#中文版) 
+
+## 5.7.0-pro · Web search while reading / 阅读中联网搜索
+
+Read EPUBs, discuss selected passages and confirm source-linked notes in Obsidian. Now you can ask local Codex to search the web without leaving the reading workspace. Enable Web search in Lumen settings, then select the one-message search button or explicitly ask to search online. Ordinary follow-ups do not search again. Web sources remain separate from book/Vault sources and survive history export and restart.
+
+在 Obsidian 中阅读 EPUB、讨论选文并确认保存带出处的笔记。现在可以在阅读界面中让本机 Codex 联网查资料。先在 Lumen 设置中开启“联网搜索”，再点击只授权一条消息的搜索按钮，或明确要求联网查阅。普通追问不继续联网；网页来源与书籍、笔记来源分开展示，历史导出和重启后仍保留。
+
+![Web search in the reading workspace / 阅读界面中的联网搜索](docs/images/lc11-web-search.png)
+
+[Download / 下载](https://github.com/leoyang1984/lumen-public/releases/tag/v5.7.0-pro) · [Guide / 中英文指南](docs/READING_GUIDE.md) · [Changes / 中英文更新说明](docs/RELEASE_NOTES_5.7.0-pro.md)
+
+Requires desktop Obsidian and an installed, configured, signed-in Codex CLI with a search-capable model/account. No foreground CLI window is needed. Tested: macOS, Obsidian 1.14.4, Codex 0.160.1, gpt-6-luna. Search defaults to off; stopping or disabling it cancels the local request. Disabled requests keep the unsent text. Note changes still require preview and confirmation. / 需要桌面 Obsidian，以及已安装、配置并登录的 Codex CLI，模型和账号支持搜索；CLI 不必在前台打开。已实测 macOS、Obsidian 1.14.4、Codex 0.160.1、gpt-6-luna。搜索默认关闭，停止或关闭开关会取消本机请求；搜索未启用时保留问题文字；笔记改动仍需预览确认。
+
+Also fixes source links opening an old chapter after restart. Pi extensions, selected Codex/Pi Skills and native Codex image generation are planned for LC-12–14; this release does not include their user-facing integration. Existing API image features retain their setup. Windows/Linux and physical mobile search remain unverified. / 同时修复重开后笔记回跳可能停在旧章节的问题。Pi 扩展、Codex/Pi 所选 Skill 与 Codex 原生生图的界面接入留在 LC-12～14，本版尚未提供；现有 API 生图沿用原设置。Windows/Linux 与实体移动端搜索未实机验证。
+
+Upgrade by replacing only `main.js`, `manifest.json`, `styles.css`; preserve `data.json`, reading state and history. / 升级仅替换三个运行文件，保留配置、阅读状态及历史。
 
 ## 5.6.0-pro · EPUB Reading / EPUB 阅读
 
