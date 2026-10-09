@@ -2,7 +2,7 @@
 
 ## 中文
 
-Lumen 5.7.0-pro 在 Obsidian 中阅读无 DRM、可重排 EPUB，并沿用现有助手。书籍与 Markdown 在笔记库中，阅读进度和引用关联保存在插件目录。离线也能阅读；问答需要配置 API 或安装并登录 Codex CLI / pi。
+Lumen 5.8.0-pro 在 Obsidian 中阅读无 DRM、可重排 EPUB，并沿用现有助手。书籍与 Markdown 在笔记库中，阅读进度和引用关联保存在插件目录。离线也能阅读；问答需要配置 API 或安装并登录 Codex CLI / pi。
 
 1. 命令面板选择“阅读：打开笔记库中的 EPUB”，或在 EPUB 文件菜单选择“使用 Lumen 阅读”。也可导入外部 EPUB；副本存入 `Reading/Books`，同名不覆盖。原创样书无需模型连接。
 2. 目录或“上一章／下一章”切换章节。左右方向键翻章；单栏中上下方向键滚动，PageUp／PageDown 与“上翻一页／下翻一页”在同章内翻页。输入、选文和组合快捷键不会触发阅读导航。
@@ -22,7 +22,23 @@ Lumen 5.7.0-pro 在 Obsidian 中阅读无 DRM、可重排 EPUB，并沿用现有
 
 搜索需要联网，沿用 CLI 已配置的模型和登录，可能消耗相应用量；不需要打开 CLI 窗口。只发送必要查询和有限上下文。停止或关闭设置会结束当前本机请求，不自动重发。模型未实际搜索时显示未完成状态。搜索关闭时，问题不发送并保留在输入区。
 
-本版仅接入 Codex 搜索。Pi 扩展、两种助手的 Skill 和 Codex 生图已做原创协议验证，用户界面接入留待后续版本；现有 API 图片功能仍使用原有配置。
+### 已选 Skill 与 Pi 扩展
+
+所有新能力默认关闭。设置中可刷新已安装列表，或输入资源入口的完整路径并点击“查看信息”；检查名称、说明和工具后勾选可信资源，再开启对应能力。发现资源只读取元数据，不执行扩展。更新、移动或删除入口后需要刷新并重新选择。
+
+发送前在“本轮使用 Skill”中选择方法，发送后复位。本版支持独立的纯指令阅读/整理 Skill；需要脚本、附属文件或额外工具的 Skill 会提示不支持，不自动安装依赖。Codex 与 Pi 的选择分别保存，不改写 CLI 全局配置。
+
+Pi 联网需要另外安装兼容的搜索扩展，再在 Lumen 中选中并开启扩展与联网搜索。扩展也可通过本轮按钮或 `/tools 请求内容` 使用。普通追问不会继承扩展权限。支持带静态工具名的工具型扩展，以及确认、选择、输入和编辑类 RPC 弹窗；纯终端界面和部分动态注册扩展不支持。
+
+**Pi 扩展是本机可信代码，不是沙箱。** 入口指纹能发现入口变化，但不能约束扩展导入的代码或直接写文件。Lumen 自有笔记工具仍需预览确认；扩展自己的写入不能假定受同一机制保护。
+
+### 明确要求时生成图片
+
+在 Codex 设置中开启生图，然后明确说“请生成一张图片……”、使用 `/image 描述`，或选择本轮“Codex 生图”按钮。普通解释和历史内容不会触发生图。原生模型、账号或 CLI 不支持时显示失败，不换用 API。现有 API 生图沿用原配置。
+
+成功图片先在对话中预览，保存在 Vault 外的本机私有缓存。点击确认保存后，可以编辑笔记文字；此时才写入 `attachments/lumen-generated` 和 `Reading/Images`，并保留发送时的原文回跳。重复确认打开同一份笔记，不覆盖已编辑内容。历史只保存图片引用；文件缺失时提示不可用，不重新生成。缓存不会随删除对话自动清理。本版原生路径支持 PNG 生成，不包含原生图片编辑。
+
+可停止正在执行的请求，或关闭相应能力；不会自动重发。已实测 Codex CLI 0.160.1、Pi 1.1.0 与 Obsidian 1.14.4 的 Mac 桌面路径。其他版本请实际核对能力；不需要前台打开 CLI。
 
 ### 安装与升级
 
@@ -32,7 +48,7 @@ Lumen 5.7.0-pro 在 Obsidian 中阅读无 DRM、可重排 EPUB，并沿用现有
 
 ## English
 
-Lumen 5.7.0-pro reads DRM-free, reflowable EPUBs in Obsidian and uses the existing assistant. Books and Markdown remain in your Vault. Reading positions and source references stay in plugin storage. Reading works offline; chat requires an API provider or an installed, signed-in Codex CLI / pi.
+Lumen 5.8.0-pro reads DRM-free, reflowable EPUBs in Obsidian and uses the existing assistant. Books and Markdown remain in your Vault. Reading positions and source references stay in plugin storage. Reading works offline; chat requires an API provider or an installed, signed-in Codex CLI / pi.
 
 1. Run **Reader: Open EPUB from Vault**, use **Read with Lumen** in an EPUB file menu, or import an external book. Imports create a copy in `Reading/Books` without overwriting a namesake. Try the original sample without connecting a model.
 2. Use contents or chapter buttons. Left/right arrows change chapters. In single-column mode, up/down scroll and PageUp/PageDown or page buttons move within the chapter. Typing, selections and modified shortcuts do not trigger reading navigation.
@@ -50,7 +66,23 @@ Select local Codex in Lumen settings and enable **Web search** (off by default o
 
 Request details list web sources separately from reading material and Vault notes. Links remain in history and exported Markdown. Search requires internet access and uses your configured CLI model/login and applicable usage allowance. No foreground CLI window is needed. Only necessary queries and bounded context should be sent. Stop or disable search to end the current local request; nothing is automatically resent. An answer without an actual requested search is marked incomplete. Disabled search requests stay in the input and are not sent.
 
-This version integrates Codex search only. Pi extensions, both agents' Skills and Codex image generation passed original protocol feasibility checks; their user interfaces are planned for later versions. Existing API image features retain their configuration.
+### Selected Skills and Pi extensions
+
+New capabilities are off by default. Refresh installed resources, or enter the full entry path and choose **Inspect**. Review metadata, select trusted resources, then enable the capability. Discovery reads metadata without executing extensions. Refresh and reselect changed, moved or deleted entries.
+
+Choose a method in the one-turn Skill selector. It resets after sending. This version supports self-contained instruction Skills for reading and organizing. Script, supporting-file and extra-tool dependencies are reported as unsupported; nothing is installed automatically. Codex and Pi choices are separate and do not rewrite CLI global settings.
+
+Pi web search needs an installed compatible search extension selected in Lumen, with both extension and search enabled. Use the one-turn extension button or `/tools your request` for other selected tools. Ordinary follow-ups inherit no extension permission. Tool extensions with literal registered names and RPC confirm/select/input/editor dialogs are supported. Terminal-only UI and some dynamic registrations are unsupported.
+
+**Pi extensions are trusted local code, not a sandbox.** An entry fingerprint detects entry changes, but does not constrain imports or direct file writes. Lumen note tools retain preview and confirmation; extension-owned writes cannot be assumed to use that protection.
+
+### Images on explicit request
+
+Enable image generation for Codex. Explicitly ask to generate an image, use `/image description`, or select the one-turn Codex image button. Ordinary explanations and history grant no image permission. Unsupported CLI/account/model capabilities show a failure without API fallback. Existing API image generation retains its setup.
+
+Successful images appear as previews in a private local cache outside the Vault. Confirm and edit the note before writing to `attachments/lumen-generated` and `Reading/Images`. The saved note retains the original pinned quote and return link. Repeated confirmation opens the same note and does not overwrite edits. History keeps references only; missing files show an unavailable state without regeneration. Deleting a chat does not automatically clean the cache. Native generation currently supports PNG, not native image editing.
+
+Stop a request or disable its capability; nothing is resent automatically. Tested local versions: Codex CLI 0.160.1, Pi 1.1.0 and macOS Obsidian 1.14.4. Other versions require capability checks. No foreground CLI window is required.
 
 ### Install and upgrade
 

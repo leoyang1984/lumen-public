@@ -6,9 +6,25 @@ tags:
   - digital-employee
   - second-brain
 ---
-# Lumen Pro (v5.7.0-pro): EPUB Reading, AI Notes & Web Search
+# Lumen Pro (v5.8.0-pro): EPUB Reading, Skills & Native Images
 
 [English Version Below](#english-version) | [中文版往下看](#中文版) 
+
+## 5.8.0-pro · Selected Skills, Pi extensions & native images / 所选技能、扩展与原生生图
+
+Read, ask, search and save in one Obsidian workspace. Select a trusted Codex/Pi instruction Skill for a message, use a compatible selected Pi tool extension, or explicitly ask Codex to generate an image. Preview and edit the image note before confirming it into your Vault. New capabilities default to off; one-turn selections reset after sending. A foreground CLI window is not required.
+
+在同一个 Obsidian 界面读书、提问、查资料并保存理解。本版可以为一条消息选择可信的 Codex/Pi 指令型 Skill、使用兼容的已选 Pi 工具扩展，或明确要求 Codex 原生生图。图片先预览，编辑并确认后才存入笔记库。新能力默认关闭，本轮选择发送后复位；不必前台打开 CLI 窗口。
+
+![Selected Pi reading Skill / Pi 所选阅读方法](docs/images/lc15-pi-skill-search.png)
+
+[Download / 下载](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.0-pro) · [Guide / 中英文指南](docs/READING_GUIDE.md) · [Changes / 中英文更新说明](docs/RELEASE_NOTES_5.8.0-pro.md)
+
+Tested with macOS, Obsidian 1.14.4, Codex CLI 0.160.1 and Pi 1.1.0. Use installed, configured, signed-in CLIs and a model/account with the requested capability. Pi search needs a compatible extension. Self-contained instruction Skills are supported first. Pi extensions run trusted local code, **not a sandbox**; direct extension writes may bypass Lumen note confirmation. Terminal-only UI, complex Skills, arbitrary extensions and other OS/device combinations are not certified.
+
+实测 macOS、Obsidian 1.14.4、Codex CLI 0.160.1 与 Pi 1.1.0。需要已安装、配置并登录的 CLI，以及支持相应能力的模型/账号。Pi 搜索另需兼容扩展；Skill 首批支持独立纯指令方法。Pi 扩展运行可信本机代码，**不是沙箱**，扩展自行写文件不保证经过 Lumen 笔记确认。纯终端界面、复杂 Skill、任意第三方扩展及其他系统/设备未认证。
+
+Upgrade: replace only `main.js`, `manifest.json`, `styles.css`, preserving settings, reading state and history. / 升级仅替换三个运行文件，保留设置、阅读状态及历史。
 
 ## 5.7.0-pro · Web search while reading / 阅读中联网搜索
 

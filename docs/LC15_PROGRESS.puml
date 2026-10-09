@@ -1,0 +1,22 @@
+@startuml
+!theme plain
+title Lumen LC-09 to LC-15 / 5.8.0-pro
+start
+:LC-09 Protocol verification
+Complete;
+:LC-10 Capability settings
+Complete;
+:LC-11 Codex web search
+Delivered 5.7.0-pro;
+:LC-12 Selected Pi extensions
+Complete;
+:LC-13 Codex / Pi instruction Skills
+Complete;
+:LC-14 Explicit native Codex images
+Complete;
+:LC-15 Original reading scenario
+Desktop mainline + regressions passed;
+:Privacy review / package / runtime update
+5.8.0-pro delivery;
+stop
+@enduml
