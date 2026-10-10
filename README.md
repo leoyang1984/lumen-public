@@ -6,9 +6,9 @@ Lumen 在 Obsidian 中提供 EPUB 阅读、AI 对话、笔记整理和白板工�
 
 Lumen brings EPUB reading, AI chat, note organization and Canvas workflows into Obsidian. Use an API provider or an installed local Codex/pi CLI without keeping a terminal window open.
 
-![EPUB 双栏阅读 / Two-column EPUB reading](docs/images/double-reading.png)
+![Lumen 5.8.10：双栏阅读与 AI 助手 / Two-column reading and AI companion](docs/images/reader-5.8.10.jpg)
 
-*前版原创样书的阅读示例。5.8.10 已统一书页与助手底色、简化并对齐顶栏；这张旧图不代表最新界面。 / Earlier original-sample reading example. 5.8.10 unifies backgrounds and aligns simplified toolbars; this older image does not show the current UI.*
+*Lumen 5.8.10 实际界面：双栏阅读、划线与右侧助手，统一纸色和对齐的简洁顶栏。书籍与对话来自原创测试材料；右侧展示已恢复的历史对话。 / Actual Lumen 5.8.10 interface: two-column reading, highlights and a companion panel, with a shared paper background and aligned, minimal toolbars. The book and conversation use original test material; the panel shows restored chat history.*
 
 ## 中文
 
