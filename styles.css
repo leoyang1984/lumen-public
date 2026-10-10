@@ -3305,88 +3305,187 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
     background: var(--text-error);
     color: var(--text-on-accent);
 }
-/* Reader view: scoped styles, independent of chat and Canvas layouts. */
+/* Quiet Reader: paper, surrounding space and controls are separate layers. */
+.workspace-leaf-content[data-type="lumen-reader-view"] > .view-header {
+    display: none;
+}
 .workspace-leaf-content .view-content.lumen-reader {
+    --reader-paper: #f8f5ed;
+    --reader-desk: var(--reader-paper);
+    --reader-ink: #373b35;
+    --reader-muted: #676b61;
+    --reader-line: #d8d6ca;
+    --reader-accent: #526c55;
+    --reader-surface: #efede3;
+    --text-normal: var(--reader-ink);
+    --text-muted: var(--reader-muted);
+    --background-primary: var(--reader-paper);
+    --background-secondary: var(--reader-surface);
+    container-type: inline-size;
+    container-name: lumen-reader;
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
     min-height: 0;
     padding: 0 !important;
     overflow: hidden;
-    background: #f7f5ef;
-    color: #45463f;
-    --text-normal: #45463f;
-    --text-muted: #64665d;
-    --text-faint: #72756a;
-    --background-primary: #f7f5ef;
-    --background-secondary: #efeee6;
+    background: var(--reader-desk);
+    color: var(--reader-ink);
+    font-family: var(--font-interface);
 }
-.lumen-reader-header { padding: 16px 24px 8px; flex: 0 0 auto; }
-.lumen-reader-header h2 { font-size: 18px; font-weight: 500; margin: 0; }
-.lumen-reader-author { margin: 6px 0 0; font-size: 12px; opacity: 0.7; }
-.lumen-reader-intro { padding: 0 24px; }
-.lumen-reader-status { padding: 0 24px; flex: 0 0 auto; }
-.lumen-reader-status[hidden] { display: none; }
-.lumen-reader-viewport { flex: 1 1 auto; min-height: 240px; min-width: 0; overflow: hidden; }
-.lumen-reader-footer { padding: 10px 24px; font-size: 11px; opacity: 0.7; flex: 0 0 auto; }
-
-/* RE-02: controls wrap inside narrow reading panes; contents stays within the view. */
-.lumen-reader-header { position: relative; padding: 14px 20px 10px; border-bottom: 1px solid #deddd3; }
-.lumen-reader-header h2 { overflow-wrap: anywhere; }
-.lumen-reader-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
-.lumen-reader button, .lumen-reader-toolbar button, .lumen-reader-intro button, .lumen-reader-status button {
-    background: #e8e9e0; color: #45463f; border: 1px solid #d5d7cb; box-shadow: none;
+.lumen-reader-header { position: relative; z-index: 20; flex: 0 0 auto; box-sizing: border-box; height: 56px; padding: 12px 20px; background: var(--reader-paper); }
+.lumen-reader-toolbar { display: flex; align-items: center; gap: 12px; min-width: 0; height: 32px; }
+.lumen-reader-actions { display: flex; align-items: center; justify-content: flex-end; gap: 4px; flex: 0 0 auto; }
+.lumen-reader button, .lumen-reader summary, .lumen-reader select { color: var(--reader-ink); font-family: var(--font-interface); }
+.lumen-reader button { background: var(--reader-surface); border: 1px solid var(--reader-line); box-shadow: none; }
+.lumen-reader .lumen-reader-action, .lumen-reader-header summary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 6px 8px; height: auto; min-height: 32px; border: 0; border-radius: 5px;
+    background: transparent; box-shadow: none; font-size: 13px; white-space: nowrap; cursor: pointer;
 }
-.lumen-reader-font { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; }
-.lumen-reader-font select { background: #e8e9e0; color: #45463f; }
-.lumen-reader-toc { position: static; font-size: 13px; }
-.lumen-reader-toc summary { cursor: pointer; padding: 6px 8px; border-radius: 4px; }
-.lumen-reader-toc summary:focus-visible { outline: 2px solid #657b65; }
-.lumen-reader-toc-list {
-    position: absolute; z-index: 10; top: 100%; left: 12px; right: 12px;
-    max-height: min(320px, 45vh); overflow: auto; background: #f7f5ef; color: #45463f;
-    border: 1px solid #d5d7cb; box-shadow: 0 4px 14px #0002; padding: 8px;
+.lumen-reader .lumen-reader-action:hover, .lumen-reader-header summary:hover { background: var(--reader-surface); }
+.lumen-reader button[aria-pressed="true"] { background: var(--reader-surface); color: var(--reader-accent); }
+.lumen-reader button:focus-visible, .lumen-reader summary:focus-visible, .lumen-reader select:focus-visible { outline: 2px solid var(--reader-accent); outline-offset: 2px; }
+.lumen-reader button:disabled { opacity: .5; cursor: default; }
+.lumen-reader-icon, .lumen-reader-icon svg { width: 16px; height: 16px; display: block; flex: 0 0 auto; }
+.lumen-reader-book-info { flex: 1 1 auto; min-width: 0; }
+.lumen-reader-book-info > summary { display: flex; justify-content: flex-start; min-width: 0; }
+.lumen-reader-header summary { list-style: none; }
+.lumen-reader-header summary::-webkit-details-marker { display: none; }
+.lumen-reader-book-title { min-width: 0; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+.lumen-reader-popover, .lumen-reader-toc-list, .lumen-reader-notes {
+    position: absolute; z-index: 30; top: calc(100% - 4px); inset-inline-start: 16px;
+    width: min(400px, calc(100% - 32px)); width: min(400px, calc(100cqw - 32px)); max-height: min(480px, 65vh); overflow: auto;
+    padding: 20px; background: var(--reader-paper); color: var(--reader-ink);
+    border: 1px solid var(--reader-line); border-radius: 8px; box-shadow: 0 10px 32px #0002;
+    font-size: 13px; overflow-wrap: anywhere;
 }
-.lumen-reader-toc-list ul { list-style: none; margin: 0; padding-left: 12px; }
-.lumen-reader-toc-list > ul { padding-left: 0; }
-.lumen-reader-toc-list button { white-space: normal; text-align: start; height: auto; width: 100%; padding: 8px; }
-.lumen-reader-status { overflow-wrap: anywhere; margin: 8px 0; }
+.lumen-reader-appearance .lumen-reader-popover { inset-inline-start: auto; inset-inline-end: 16px; width: min(340px, calc(100% - 32px)); width: min(340px, calc(100cqw - 32px)); }
+.lumen-reader-popover h3 { margin: 0 0 14px; font-size: 16px; font-weight: 500; }
+.lumen-reader-book-path, .lumen-reader-appearance-hint { color: var(--reader-muted); font-size: 12px; line-height: 1.65; }
+.lumen-reader-themes { display: flex; gap: 8px; margin-block-end: 18px; }
+.lumen-reader-themes button { flex: 1; min-height: 44px; border-radius: 5px; font-size: 13px; }
+.lumen-reader-themes button[data-theme-choice="warm"] { background: #f8f5ed; color: #373b35; }
+.lumen-reader-themes button[data-theme-choice="paper"] { background: #fdfdfb; color: #303630; }
+.lumen-reader-themes button[data-theme-choice="night"] { background: #242825; color: #e0e3d8; }
+.lumen-reader-themes button[aria-pressed="true"] { outline: 2px solid var(--reader-accent); outline-offset: 2px; }
+.lumen-reader-appearance-field { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-block: 12px; }
+.lumen-reader-appearance-field select { min-width: 110px; max-width: 65%; background: var(--reader-surface); border-color: var(--reader-line); }
+.lumen-reader-toc-list ul { list-style: none; margin: 0; padding-inline-start: 14px; }
+.lumen-reader-toc-list > ul { padding-inline-start: 0; }
+.lumen-reader-toc-list li > button { width: 100%; text-align: start; white-space: normal; height: auto; padding: 9px 6px; border: 0; background: transparent; }
+.lumen-reader-toc-list li > button:hover { background: var(--reader-surface); }
+.lumen-reader-chapter-actions { display: flex; justify-content: space-between; padding-bottom: 12px; margin-bottom: 8px; border-bottom: 1px solid var(--reader-line); }
+.lumen-reader-stage { flex: 1 1 auto; min-width: 0; min-height: 100px; display: flex; justify-content: center; padding: 10px 24px 0; overflow: hidden; }
+.lumen-reader-viewport { position: relative; height: 100%; width: 100%; max-width: 1320px; min-height: 0; min-width: 0; overflow: hidden; background: var(--reader-paper); box-shadow: none; }
+.lumen-reader-viewport[data-reader-layout="single"] { max-width: 820px; }
+.lumen-reader-viewport:focus-visible { outline: 2px solid var(--reader-accent); outline-offset: -2px; }
+.lumen-reader[data-reader-margins="compact"] .lumen-reader-stage { padding-inline: 12px; }
+.lumen-reader[data-reader-margins="wide"] .lumen-reader-stage { padding-inline: 28px; padding-inline: clamp(28px, 6cqw, 90px); }
+.lumen-reader-footer { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 12px; padding: 12px 24px; flex: 0 0 auto; }
+.lumen-reader-position { text-align: center; font-size: 12px; color: var(--reader-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lumen-reader-footer .lumen-reader-action { color: var(--reader-muted); }
+.lumen-reader-status { margin: 0; padding: 8px 24px; background: var(--reader-surface); color: var(--reader-ink); font-size: 13px; flex: 0 0 auto; overflow-wrap: anywhere; }
 .lumen-reader-status button { margin-inline-start: 8px; }
-.lumen-reader-intro { overflow: auto; padding-top: 16px; }
-.lumen-reader-viewport { min-height: 100px; }
-.lumen-reader-footer { overflow-wrap: anywhere; }
-
-/* RE-03–05: scoped reading actions and confirmation forms. */
-.lumen-reader-selection { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 20px; border-top: 1px solid #deddd3; }
-.lumen-reader-selection[hidden] { display: none; }
-.lumen-reader-notes { flex: 0 0 auto; padding: 8px 20px; max-height: 30%; overflow: auto; font-size: 12px; }
-.lumen-reader-notes summary { cursor: pointer; }
+.lumen-reader-status[hidden], .lumen-reader-selection[hidden], .lumen-reader-notes[hidden] { display: none; }
+.lumen-reader-intro { flex: 1; overflow: auto; max-width: 640px; padding: clamp(40px, 8cqw, 100px) 32px; align-self: center; }
+.lumen-reader-intro h1 { font-family: 'Songti SC', Georgia, serif; font-weight: 400; font-size: 30px; }
+.lumen-reader-intro p { color: var(--reader-muted); line-height: 1.8; }
+.lumen-reader-intro button { margin: 8px 8px 8px 0; }
+/* Selection actions float outside the EPUB: showing them must not trigger reflow. */
+.lumen-reader-selection { position: absolute; inset-inline-start: 16px; bottom: 72px; z-index: 25; display: flex; flex-wrap: wrap; gap: 4px; width: fit-content; max-width: calc(100% - 32px); height: fit-content; padding: 6px; background: var(--reader-paper); border: 1px solid var(--reader-line); border-radius: 8px; box-shadow: 0 4px 20px #0002; }
+.lumen-reader-selection button { font-size: 13px; min-height: 34px; background: transparent; border: 0; }
+.lumen-reader-selection button:hover { background: var(--reader-surface); }
+.lumen-reader-notes { inset-inline-start: auto; inset-inline-end: 16px; }
+.lumen-reader-notes > summary { display: block; text-align: start; margin-bottom: 12px; font-weight: 500; }
 .lumen-reader-note-row { display: flex; gap: 8px; margin: 6px 0; }
 .lumen-reader-note-row button:first-child { flex: 1; text-align: start; white-space: normal; height: auto; }
 .lumen-reader-notes > div > button { display: block; margin: 6px 0; max-width: 100%; white-space: normal; height: auto; }
+.lumen-reader-focus-sensor, .lumen-reader .lumen-reader-focus-exit, .lumen-reader-focus-progress { display: none; }
+.lumen-reader.is-focused .lumen-reader-header { position: absolute; inset-block-start: 0; inset-inline: 0; opacity: 0; transform: translateY(-100%); pointer-events: none; transition: opacity 140ms, transform 140ms; box-shadow: 0 4px 16px #0001; }
+.lumen-reader.is-focused .lumen-reader-footer { position: absolute; inset-block-end: 0; inset-inline: 0; z-index: 20; background: var(--reader-desk); opacity: 0; pointer-events: none; }
+.lumen-reader.is-focused .lumen-reader-stage { padding-block: 20px 36px; }
+.lumen-reader.is-focused .lumen-reader-focus-sensor { display: block; position: absolute; inset-block-start: 0; inset-inline: 0; height: 12px; z-index: 22; }
+.lumen-reader.is-focused .lumen-reader-focus-exit { display: inline-flex; position: absolute; inset-block-start: 6px; inset-inline-end: 20px; z-index: 21; background: var(--reader-desk); font-size: 12px; color: var(--reader-muted); }
+.lumen-reader.is-focused .lumen-reader-focus-progress { display: block; position: absolute; inset-block-end: 10px; inset-inline: 16px; text-align: center; font-size: 12px; color: var(--reader-muted); pointer-events: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lumen-reader.is-focused.is-chrome-visible .lumen-reader-header { opacity: 1; transform: none; pointer-events: auto; }
+.lumen-reader.is-focused.is-chrome-visible .lumen-reader-footer { opacity: 1; pointer-events: auto; }
+.lumen-reader.is-focused.is-chrome-visible .lumen-reader-focus-exit, .lumen-reader.is-focused.is-chrome-visible .lumen-reader-focus-progress { display: none; }
+@container lumen-reader (max-width: 600px) {
+    .lumen-reader-header { padding-inline: 16px; }
+    .lumen-reader-toolbar { gap: 6px; }
+    .lumen-reader-actions { margin-inline-start: auto; }
+    .lumen-reader-stage { padding-inline: 12px; }
+    .lumen-reader-footer { gap: 4px; padding: 10px 8px; }
+    .lumen-reader-footer .lumen-reader-action { font-size: 12px; gap: 2px; padding-inline: 4px; }
+}
+@container lumen-reader (max-width: 360px) {
+    .lumen-reader-actions { gap: 2px; }
+    .lumen-reader-actions [data-assistant-toggle] > span:not(.lumen-reader-icon) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .lumen-reader.is-focused .lumen-reader-header { transition: none; } }
+/* Only the reader's companion chat receives this palette; other Obsidian panes stay native. */
+.workspace-leaf-content .view-content.lumen-reader-companion {
+    padding: 0 !important;
+    overflow: hidden;
+    background: var(--reader-paper);
+}
+.lumen-chat-container[data-reader-theme] {
+    --background-primary: var(--reader-paper);
+    --background-secondary: var(--reader-paper);
+    --background-primary-alt: var(--reader-paper);
+    --background-modifier-border: var(--reader-line);
+    --background-modifier-hover: var(--reader-surface);
+    --text-normal: var(--reader-ink);
+    --text-muted: var(--reader-muted);
+    --text-faint: var(--reader-muted);
+    --text-accent: var(--reader-accent);
+    --interactive-accent: var(--reader-accent);
+    --lumen-brand-key: var(--reader-accent);
+    --lumen-msg-user-accent: var(--reader-accent);
+    --lumen-msg-user-border: var(--reader-line);
+    --lumen-brand-dim: var(--reader-line);
+    --lumen-action-border: var(--reader-line);
+    --lumen-border-soft: var(--reader-line);
+}
+.lumen-chat-container[data-reader-theme] .lumen-header {
+    box-sizing: border-box; height: 56px; flex: 0 0 56px; gap: 12px; padding: 12px 20px;
+}
+.lumen-chat-container[data-reader-theme] .lumen-header-left { flex: 1; min-width: 0; gap: 8px; }
+.lumen-chat-container[data-reader-theme] .lumen-header-title {
+    flex: 0 0 auto; font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--reader-ink);
+}
+.lumen-chat-container[data-reader-theme] .lumen-header-right { flex: 0 0 auto; }
+.lumen-chat-container[data-reader-theme] .lumen-toolbar-btn,
+.lumen-chat-container[data-reader-theme] .lumen-icon-btn { height: 32px; min-width: 32px; border-radius: 5px; font-size: 13px; }
+.lumen-chat-container[data-reader-theme] .lumen-reader-connection-btn { flex: 1; min-width: 0; max-width: 100%; justify-content: flex-start; padding-inline: 4px; font-size: 12px; }
+.lumen-chat-container[data-reader-theme] .lumen-reader-connection-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lumen-chat-container[data-reader-theme] .chat-messages { padding: 10px 20px 16px; }
+.lumen-chat-container[data-reader-theme] .lumen-input-wrapper { padding: 12px 20px; }
+.lumen-chat-container[data-reader-theme] .lumen-input-container { border-radius: 8px; background: var(--reader-paper); }
+.lumen-chat-container[data-reader-theme] .lumen-input-container:focus-within { box-shadow: none; border-color: var(--reader-accent); }
+@container lumen-chat (max-width: 600px) {
+    .lumen-chat-container[data-reader-theme] .lumen-header { padding-inline: 16px; }
+    .lumen-chat-container[data-reader-theme] .chat-messages { padding-inline: 16px; }
+    .lumen-chat-container[data-reader-theme] .lumen-input-wrapper { padding-inline: 16px; }
+}
+@container lumen-chat (max-width: 420px) {
+    .lumen-chat-container[data-reader-theme] .lumen-header-right .lumen-toolbar-btn > span:not(.lumen-ui-icon) { display: none; }
+}
+@container lumen-chat (max-width: 300px) {
+    .lumen-chat-container[data-reader-theme] .lumen-header-title { display: none; }
+    .lumen-chat-container[data-reader-theme] .lumen-header { gap: 4px; }
+}
+.lumen-chat-container[data-reader-theme="night"] { --text-on-accent: #242825; --text-error: #e5948a; }
+.lumen-chat-container[data-reader-theme="warm"], .lumen-chat-container[data-reader-theme="paper"] { --text-on-accent: #ffffff; --text-error: #a53f36; }
+.lumen-reading-welcome { margin: 24px 0; color: var(--text-muted); font-size: 13px; line-height: 1.8; }
+.lumen-reading-welcome-title { font-family: var(--font-interface); font-size: 13px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-block: 0 12px; }
 .lumen-reader-quote { max-height: 180px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
 .lumen-reader-editor { width: 100%; margin: 8px 0; }
 textarea.lumen-reader-editor { min-height: 160px; resize: vertical; }
 .lumen-reader-context-banner { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 8px 12px; border-bottom: 1px solid var(--background-modifier-border); font-size: 12px; }
 .lumen-reader-context-banner span { flex: 1; min-width: 120px; overflow-wrap: anywhere; }
-
-/* RE-06: compact responsive controls; the native right dock owns assistant resizing. */
-.lumen-reader-toolbar button { min-height: 30px; height: auto; white-space: normal; }
-.lumen-reader-toolbar button[aria-pressed="true"] { box-shadow: inset 0 0 0 1px #657b65; }
-.lumen-reader-viewport:focus-visible { outline: 2px solid #657b65; outline-offset: -2px; }
-@media (max-width: 700px) {
-    .lumen-reader-header { padding: 10px 12px; }
-    .lumen-reader-header h2 { font-size: 18px; }
-    .lumen-reader-toolbar { gap: 5px; }
-    .lumen-reader-footer { padding: 8px 12px; }
-}
-/* Selection actions must not resize the EPUB and invalidate the selected range. */
-.lumen-reader { position: relative; }
-.lumen-reader-selection {
-    position: absolute; inset-inline: 16px; bottom: 72px; z-index: 10;
-    width: fit-content; max-width: calc(100% - 32px); border: 1px solid #deddd3;
-    border-radius: 8px; background: #f7f5ef; box-shadow: 0 3px 14px #0002;
-}
 /* Task-based settings navigation, scoped to this plugin's settings page. */
 .lumen-settings-root .lumen-settings-nav {
     display: flex;

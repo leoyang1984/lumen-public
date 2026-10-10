@@ -2,17 +2,35 @@
 
 ## 中文
 
-Lumen 5.8.5 在 Obsidian 中阅读无 DRM、可重排 EPUB，并沿用现有助手。书籍与 Markdown 在笔记库中，阅读进度和引用关联保存在插件目录。离线也能阅读；问答需要配置 API 或安装并登录 Codex CLI / pi。
+Lumen 5.8.10 在 Obsidian 中阅读无 DRM、可重排 EPUB，并沿用现有助手。书籍与 Markdown 在笔记库中，阅读进度和引用关联保存在插件目录。离线也能阅读；问答需要配置 API 或安装并登录 Codex CLI / pi。
 
 1. 命令面板选择“阅读：打开笔记库中的 EPUB”，或在 EPUB 文件菜单选择“使用 Lumen 阅读”。也可导入外部 EPUB；副本默认存入 `Reading/Books`（可在保存位置设置中修改），同名不覆盖。原创样书无需模型连接。
-2. 目录或“上一章／下一章”切换章节。左右方向键翻章；单栏中上下方向键滚动，PageUp／PageDown 与“上翻一页／下翻一页”在同章内翻页。输入、选文和组合快捷键不会触发阅读导航。
-3. 点击“单栏／双栏”切换。双栏空间不足时显示单栏，变宽后恢复。双栏中上下键、翻页按钮与滚轮切换当前章的页面；到章末后使用翻章。字号与布局随 Obsidian 工作区恢复。
-4. “助手 · 收放”收起或展开右侧助手。拖动右侧栏边界调整宽度。改变布局会尽量保留当前原文位置；重排后页码会变化，选区会清除，已经发送的引用保持不变。
+2. 在顶部“目录”中选章节，或用其中的“上一章／下一章”。左右方向键翻章；单栏中上下方向键滚动，PageUp／PageDown 与“上翻一页／下翻一页”连续翻页：章末继续到下一章开头，章首返回上一章末尾；全书首尾不循环。输入、选文和组合快捷键不会触发阅读导航。
+3. 点击“单栏／双栏”切换。双栏空间不足时显示单栏，变宽后恢复。双栏中上下键在同章内翻页；翻页按钮、PageUp／PageDown 和滚轮可跨章连续阅读。单栏普通滚动仍限于当前章。字号与布局随 Obsidian 工作区恢复。
+4. 顶部“助手”收起或展开右侧助手。拖动右侧栏边界调整宽度。改变布局会尽量保留当前原文位置；重排后页码会变化，选区会清除，已经发送的引用保持不变。
 5. 选中原文，点击“提问”，明确输入问题再发送。助手使用选文与有限邻近文字，不上传整书。追问继续使用已固定来源，翻章、切书不会改变旧回答归属。新话题可结束选文讨论或新建对话。
 6. 选文可划线或存为人工笔记。AI 回答通过“确认想法”编辑、预览再确认，默认写入 `Reading/Notes`（可修改）或追加已有 Markdown。追加目标已被修改时会阻止覆盖。保存笔记和导出对话均带原文与来源链接；点击可回跳。
 7. 关闭再打开继续阅读。助手历史可恢复；未完成回答保留中断状态。连接失败时重新连接，不能恢复原模型会话时以已保存历史继续。
 8. 在 Obsidian 内移动 EPUB、笔记或所在文件夹，关联会跟随；删除文件会提示缺失。外部修改书籍后需明确重开，旧引用必须通过内容校验。跨笔记库复制不保证原引用可用。
-9. 阅读数据损坏或替换被中断时，点击“恢复阅读数据”，或在命令面板执行同名命令。窗口列出通过格式检查的备份及数量，确认后恢复。所有原始状态文件先归档到插件目录的 `reader-recovery-*` 文件夹；不改动 EPUB 或 Markdown。旧备份可能缺少最新划线和位置。没有有效备份时不会清空数据。
+9. 阅读数据损坏或替换被中断时，在阅读器“更多”中选择“恢复阅读数据”，或在命令面板执行同名命令。窗口列出通过格式检查的备份及数量，确认后恢复。所有原始状态文件先归档到插件目录的 `reader-recovery-*` 文件夹；不改动 EPUB 或 Markdown。旧备份可能缺少最新划线和位置。没有有效备份时不会清空数据。
+
+### 安静的书页（5.8.10）
+
+阅读器隐藏 Obsidian 自带的“Lumen 阅读”标题栏，保留上方标签页和阅读器自己的工具栏；标签页菜单仍可使用。正文与带文字的翻页、翻章、助手按钮不再重复弹出悬停提示；只有图标的入口保留说明，无障碍名称继续保留。
+
+书页、外围和阅读助手沿用同一底色，顶栏使用同一高度，去掉书页阴影与中缝渐变。助手连接状态收进顶栏，点击打开连接管理菜单；输入框同样沿用纸色。左右宽度由用户调整。
+
+顶部仅保留目录、书名、Aa、单／双栏、助手、专注与更多。点击书名查看完整书名、作者与来源；底部翻页并显示章节与进度，双栏额外显示本章阅读页码。打开／导入 EPUB、划线与阅读笔记、数据恢复放在“更多”。选文后的工具条靠近选区出现。
+
+**Aa** 集中调整暖纸、纸白、夜读主题，以及字号、宋体／无衬线、行距与页边留白。“阅读排版”统一正文样式；“沿用书籍”保留书籍字体与段落，主题仍生效，此时字号、字体与行距选项禁用。字体使用本机可用字体，不另行下载。
+
+外观与专注状态随当前阅读标签页保存，在这个标签页切换书籍时继续使用；新阅读标签页从默认外观开始。这些选项不会修改 EPUB 文件。窄窗口按可用空间自动单栏，双栏按钮的悬停提示说明退回原因。正文宽度受限，双栏留出中缝，不添加纸纹或翻页动画。
+
+点击“专注阅读”隐藏阅读器顶栏与翻页栏，保留轻量进度和“退出专注”。鼠标靠近阅读区顶部或用 Tab 进入导航可唤出控件，离开后收起。按 Escape 先关闭展开面板，再退出专注。Obsidian 的其他侧栏由用户自己收放；阅读器不改变工作区布局。
+
+同屏阅读时，Lumen 助手跟随书页主题；切回普通笔记后恢复 Obsidian 配色。助手空对话只提示选文提问，已有对话不重复插入欢迎消息。书名提示只用于界面展示，不能代替向助手发送原文。
+
+用户已确认本地预览的整体视觉效果；源码静态检查与构建通过。不同主题与窗口宽度、连接交互、特殊 EPUB 排版和恢复流程的系统性回归仍待完成。视觉确认与旧验收记录不代表全部流程已验收。
 
 ### 助手界面（5.8.4）
 
@@ -48,9 +66,9 @@ Pi 联网需要另外安装兼容的搜索扩展，再在 Lumen 中选中并开�
 
 ### 明确要求时生成图片
 
-在 Codex 设置中开启生图，然后明确说“请生成一张图片……”、使用 `/image 描述`，或在“工具”菜单选择本轮“Codex 生图”。普通解释和历史内容不会触发生图。原生模型、账号或 CLI 不支持时显示失败，不换用 API。现有 API 生图沿用原配置。
+在 Codex 设置中开启生图，然后明确说“请生成一张图片……”、使用 `/image 描述`，或选择本轮“Codex 生图”按钮。普通解释和历史内容不会触发生图。原生模型、账号或 CLI 不支持时显示失败，不换用 API。现有 API 生图沿用原配置。
 
-成功图片先在对话中预览，保存在 Vault 外的本机私有缓存。点击确认保存后，可以编辑笔记文字；此时才写入设置中的图片与说明笔记目录（默认 `attachments/lumen-generated` 和 `Reading/Images`），并保留发送时的原文回跳。重复确认打开同一份笔记，不覆盖已编辑内容。历史只保存图片引用；文件缺失时提示不可用，不重新生成。缓存不会随删除对话自动清理。本版原生路径支持 PNG 生成，不包含原生图片编辑。
+成功图片先在对话中预览，保存在 Vault 外的本机私有缓存。点击确认保存后，可以编辑笔记文字；此时才写入 `attachments/lumen-generated` 和 `Reading/Images`，并保留发送时的原文回跳。重复确认打开同一份笔记，不覆盖已编辑内容。历史只保存图片引用；文件缺失时提示不可用，不重新生成。缓存不会随删除对话自动清理。本版原生路径支持 PNG 生成，不包含原生图片编辑。
 
 可停止正在执行的请求，或关闭相应能力；不会自动重发。已实测 Codex CLI 0.160.1、Pi 1.1.0 与 Obsidian 1.14.4 的 Mac 桌面路径。其他版本请实际核对能力；不需要前台打开 CLI。
 
@@ -62,17 +80,35 @@ Pi 联网需要另外安装兼容的搜索扩展，再在 Lumen 中选中并开�
 
 ## English
 
-Lumen 5.8.5 reads DRM-free, reflowable EPUBs in Obsidian and uses the existing assistant. Books and Markdown remain in your Vault. Reading positions and source references stay in plugin storage. Reading works offline; chat requires an API provider or an installed, signed-in Codex CLI / pi.
+Lumen 5.8.10 reads DRM-free, reflowable EPUBs in Obsidian and uses the existing assistant. Books and Markdown remain in your Vault. Reading positions and source references stay in plugin storage. Reading works offline; chat requires an API provider or an installed, signed-in Codex CLI / pi.
 
 1. Run **Reader: Open EPUB from Vault**, use **Read with Lumen** in an EPUB file menu, or import an external book. Imports create a copy in the configured folder (default `Reading/Books`) without overwriting a namesake. Try the original sample without connecting a model.
-2. Use contents or chapter buttons. Left/right arrows change chapters. In single-column mode, up/down scroll and PageUp/PageDown or page buttons move within the chapter. Typing, selections and modified shortcuts do not trigger reading navigation.
-3. Toggle single/two columns. A narrow pane falls back to one column and returns to two when widened. In two-column mode, up/down, page buttons and wheel move within the chapter. Use chapter controls at chapter boundaries. Text size and layout persist with the workspace.
-4. **Toggle assistant** shows or hides the right dock. Drag its native boundary to resize. Reflow keeps the current text anchor where possible, changes visual page numbers and clears the selection. Sent citations remain fixed.
+2. Use the top Contents panel or its chapter buttons. Left/right arrows change chapters. In single-column mode, up/down scroll within the chapter. PageUp/PageDown and page buttons continue to the next chapter’s beginning at chapter end, or the previous chapter’s end at chapter start. Book ends never wrap. Typing, selections and modified shortcuts do not trigger reading navigation.
+3. Toggle single/two columns. A narrow pane falls back to one column and returns to two when widened. In two-column mode, up/down remain within the chapter; page buttons, PageUp/PageDown and wheel continue across chapter boundaries. Ordinary single-column scrolling remains within the chapter. Text size and layout persist with the workspace.
+4. The top **Assistant** button shows or hides the right dock. Drag its native boundary to resize. Reflow keeps the current text anchor where possible, changes visual page numbers and clears the selection. Sent citations remain fixed.
 5. Select text, choose **Ask**, enter a question and send. The assistant gets the selection and bounded neighbouring text, not the whole book. Follow-ups retain the pinned source; changing chapters or books does not change old answers. Detach the source or start a new chat for a new topic.
 6. Highlight text or save your words. Edit and preview AI output before confirming a note. Save in the configured folder (default `Reading/Notes`) or append to an existing Markdown note. Concurrent edits block a stale append. Saved notes and exported conversations include quotes and return-to-source links.
 7. Reopen to resume reading and discussion. Interrupted answers remain marked. Reconnect after connection failures; saved history provides a continuation when the original model session cannot resume.
 8. Moves within Obsidian update EPUB and note references, including folder moves. Deleted sources show a missing-file message. Reopen an externally modified book explicitly; old citations must pass content checks. Cross-Vault copies may not retain working source links.
-9. For damaged/interrupted state, choose **Recover reading data** in the reader or command palette. Inspect a validated backup and confirm. Existing state artifacts are archived in a plugin-local `reader-recovery-*` folder first. EPUB and Markdown remain unchanged. Older backups can omit recent actions. No valid backup means no automatic reset.
+9. For damaged/interrupted state, choose **Recover reading data** in the reader’s More menu or command palette. Inspect a validated backup and confirm. Existing state artifacts are archived in a plugin-local `reader-recovery-*` folder first. EPUB and Markdown remain unchanged. Older backups can omit recent actions. No valid backup means no automatic reset.
+
+### Quiet book pages (5.8.10)
+
+The reader hides Obsidian’s redundant view header, retaining the workspace tab, its context menu and the reader toolbar. The reading surface and labeled page, chapter and assistant controls no longer repeat hover hints. Icon-only controls retain explanations, and accessible names remain available.
+
+The reading area and companion chat share one paper background and aligned toolbar heights. Page shadows and gutter shading are removed. The connection status sits in the chat toolbar; click it for connection management. The input uses the same paper background. Pane widths remain user-controlled.
+
+The header contains Contents, the book title, Aa, one/two columns, Assistant, Focus and More. Click the title for full metadata and the source. Page controls move to the footer with chapter and progress; two-column reading also shows chapter-local reading pages. More contains opening/importing books, highlights and reading notes, and recovery. Selection actions appear near the passage.
+
+**Aa** groups Warm, Paper and Night themes, size, serif/sans fonts, line height and margins. Reader typesetting unifies body text. Publisher typesetting retains book fonts and paragraphs while applying the theme; size, font and line-height controls are disabled in this mode. Fonts use local fallbacks without downloading.
+
+Appearance and focus persist with this workspace reading tab and apply to books opened there. New tabs use defaults. These settings do not change the EPUB. Narrow panes use one column; the two-column button’s tooltip explains the fallback. Capped page width and column spacing provide structure without paper textures or page-turn animation.
+
+**Focus reading** hides reader navigation and page controls, retaining a small progress line and **Exit focus**. Move the pointer to the top of the reading area or tab into navigation to reveal controls. They hide after leaving. Escape closes an open panel first, then exits focus. Other Obsidian sidebars remain under user control; the reader does not change the workspace layout.
+
+The companion Lumen chat follows the visible book palette and returns to Obsidian colors when a normal note becomes active. An empty reading chat offers a short selection hint; existing chats do not repeat greetings. The title is presentation only and does not send book context to the assistant.
+
+The user confirmed the local preview’s overall appearance. Static checking and building passed. Systematic regression across themes, window widths, connection interaction, unusual EPUB layouts and restore flows remains pending; visual confirmation and earlier records do not certify every flow.
 
 ### Assistant interface (5.8.4)
 
@@ -106,9 +142,9 @@ Pi web search needs an installed compatible search extension selected in Lumen, 
 
 ### Images on explicit request
 
-Enable image generation for Codex. Explicitly ask to generate an image, use `/image description`, or choose the one-turn Codex image option in Tools. Ordinary explanations and history grant no image permission. Unsupported CLI/account/model capabilities show a failure without API fallback. Existing API image generation retains its setup.
+Enable image generation for Codex. Explicitly ask to generate an image, use `/image description`, or select the one-turn Codex image button. Ordinary explanations and history grant no image permission. Unsupported CLI/account/model capabilities show a failure without API fallback. Existing API image generation retains its setup.
 
-Successful images appear as previews in a private local cache outside the Vault. Confirm and edit the note before writing to the configured image and note folders (defaults: `attachments/lumen-generated` and `Reading/Images`). The saved note retains the original pinned quote and return link. Repeated confirmation opens the same note and does not overwrite edits. History keeps references only; missing files show an unavailable state without regeneration. Deleting a chat does not automatically clean the cache. Native generation currently supports PNG, not native image editing.
+Successful images appear as previews in a private local cache outside the Vault. Confirm and edit the note before writing to `attachments/lumen-generated` and `Reading/Images`. The saved note retains the original pinned quote and return link. Repeated confirmation opens the same note and does not overwrite edits. History keeps references only; missing files show an unavailable state without regeneration. Deleting a chat does not automatically clean the cache. Native generation currently supports PNG, not native image editing.
 
 Stop a request or disable its capability; nothing is resent automatically. Tested local versions: Codex CLI 0.160.1, Pi 1.1.0 and macOS Obsidian 1.14.4. Other versions require capability checks. No foreground CLI window is required.
 
@@ -135,7 +171,7 @@ Settings → Lumen → Reading and saving → Save locations. Paths are relative
 | API 图片 / API images | `attachments/ai-gen` |
 | 导出对话 / Exported conversations | `Reading/Conversations` |
 
-图片说明笔记、上传图片和 API 图片目录在“高级保存位置”展开。API 图片沿用旧版已配置目录，API 服务页提供统一设置入口。项目明确指定的 API 输出目录仍优先。内部历史、缓存、阅读关联和撤销数据的位置固定。
+后三项分散用途在“高级保存位置”展开。API 图片沿用旧版已配置目录，API 服务页提供统一设置入口。项目明确指定的 API 输出目录仍优先。内部历史、缓存、阅读关联和撤销数据的位置固定。
 
 The less common image-note, upload and API-image locations are under Advanced locations. Existing API-image folders are retained. API settings link to this page; explicit project destinations still take priority. Internal history, caches, reading metadata and undo storage remain fixed.
 

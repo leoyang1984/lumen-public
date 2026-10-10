@@ -1,6 +1,6 @@
-# Lumen 5.8.5 — 阅读、笔记与 AI / Reading, notes and AI
+# Lumen 5.8.10 — 阅读、笔记与 AI / Reading, notes and AI
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.5) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.10) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 Lumen 在 Obsidian 中提供 EPUB 阅读、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex 或 pi，不需要一直打开终端窗口。
 
@@ -8,11 +8,23 @@ Lumen brings EPUB reading, AI chat, note organization and Canvas workflows into 
 
 ![EPUB 双栏阅读 / Two-column EPUB reading](docs/images/double-reading.png)
 
-*阅读界面示例，来自前版原创样书验收；当前工具栏已调整。 / Reading example from an earlier original-material acceptance run; the current toolbar has changed.*
+*前版原创样书的阅读示例。5.8.10 已统一书页与助手底色、简化并对齐顶栏；这张旧图不代表最新界面。 / Earlier original-sample reading example. 5.8.10 unifies backgrounds and aligns simplified toolbars; this older image does not show the current UI.*
 
 ## 中文
 
-### 5.8.5 更新了什么？
+### 5.8.10 更新了什么？
+
+**安静的书页，同屏的助手。** 阅读器、外围留白和助手采用当前书页底色；顶栏对齐，连接状态收进助手顶栏，输入框沿用纸色。去掉书页阴影与中缝渐变，左右比例仍由你拖动调整。
+
+- **简洁导航**：目录、书名、Aa、单／双栏、助手、专注与更多集中在顶部；翻页和阅读进度在底部。重复的 Obsidian 标题栏与正文、翻页按钮悬停提示已去掉。
+- **排版集中调整**：Aa 提供暖纸、纸白、夜读主题，以及字体、字号、行距、页边留白与沿用书籍排版。外观随阅读标签页保存，不修改 EPUB。
+- **专注阅读**：隐藏阅读器工具栏，保留轻量进度和退出入口；鼠标靠近顶部或通过键盘导航可唤出控件。
+- **跨章连续翻页**：单／双栏的翻页按钮与 PageUp／PageDown 继续到下一章，反向返回上一章末尾；双栏滚轮也支持。全书首尾不循环。上下键仍在同章内移动，左右键翻章。
+- **助手融入书页**：阅读时与书页同色，切回普通笔记后恢复常规样式；空对话中的长书名改为低调的一行。选文提问、引用和保存逻辑继续沿用。
+
+本轮类型检查与生产构建通过，本地使用者已确认整体视觉效果。未新增自动化测试；三主题、多窗口宽度、特殊 EPUB、连接与恢复流程的全面回归仍待完成。前序测试记录见下方，不能替代本轮验收。
+
+### 保存位置（延续 5.8.5）
 
 **保存在哪里，由你决定。** 在“设置 → Lumen → 阅读与保存 → 保存位置”集中设置书籍、笔记、图片和对话的目录。默认设置可以直接使用，也可以选择已有文件夹、填写新文件夹，或明确选择笔记库根目录。
 
@@ -47,7 +59,7 @@ Lumen brings EPUB reading, AI chat, note organization and Canvas workflows into 
 
 | 场景 | 功能 |
 | --- | --- |
-| 读电子书 | 无 DRM、可重排 EPUB；目录、单／双栏、方向键、同章翻页、阅读位置恢复 |
+| 读电子书 | 无 DRM、可重排 EPUB；目录、单／双栏、主题与排版、专注模式、方向键、跨章连续翻页、阅读位置恢复 |
 | 边读边聊 | API / Codex / pi 对话、连续追问、人工笔记检索、带出处的笔记与原文回跳 |
 | 使用本机能力 | Codex 搜索、可信独立指令型 Skill、兼容 Pi 工具扩展、明确请求的 Codex 原生生图 |
 | 整理笔记 | 原话保存、AI 草稿编辑确认、历史与导出、受控修改与撤销 |
@@ -60,7 +72,7 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 **BRAT**：安装 Obsidian 42 - BRAT → Add Beta plugin → 输入 `leoyang1984/lumen-public` → 启用 Lumen。已有用户在 BRAT 中检查更新。
 
-**手动安装**：从 [5.8.5 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.5) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
+**手动安装**：从 [5.8.10 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.10) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
 
 **升级先备份，只替换三个运行文件**。保留 `data.json`、阅读状态和历史，重载 Lumen 或重开 Obsidian。从 5.8.4 之前的版本首次升级时，所有已有自主员工（包括此前正在使用的员工）会保持暂停；请在“白板与自动化”检查配置并逐个确认恢复，避免取消授权后突然开始任务。新员工默认关闭自主工作。
 
@@ -73,11 +85,23 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 - 原生 Codex 图片目前支持 PNG 生成，不含原生编辑；API 图片生成／编辑是独立功能。未发送输入不保证跨插件重载恢复。
 - 5.8.5 已通过 36 个自动回归入口、10 项本机协议测试、类型检查、生产构建和打包。独立 macOS 测试库走通保存位置配置与恢复、原创 EPUB 导入、原话保存、真实 Pi 回答确认、对话导出和引用回跳。API 图片路由与原生 PNG 存储使用原创模拟数据；本轮未覆盖所有真实生图服务、其他系统及自主任务升级迁移。
 
-[中英文更新说明](docs/RELEASE_NOTES_5.8.5.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
+[中英文更新说明](docs/RELEASE_NOTES_5.8.10.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
 
 ## English
 
-### What changed in 5.8.5?
+### What changed in 5.8.10?
+
+**Quiet pages with a companion assistant.** Reading, surrounding space and chat use the current paper background. Toolbars align; connection status sits inside the chat toolbar. The input uses paper color. Page shadows and gutter shading are removed, while pane widths remain under your control.
+
+- **Simpler navigation**: Contents, book title, Aa, layout, Assistant, Focus and More in the header; paging and progress in the footer. Remove the redundant Obsidian view header and repeated reading/page hover hints.
+- **Typography together**: Aa provides Warm/Paper/Night, font, size, line height, margins and publisher typography. Preferences follow the reading tab without changing EPUB bytes.
+- **Focus reading**: hide reader toolbars, keeping lightweight progress and an exit. Reveal controls near the top edge or through keyboard navigation.
+- **Continuous chapter paging**: page buttons and PageUp/PageDown continue across chapters in either layout; backward paging opens the previous chapter’s end. Two-column wheel paging also continues. Book ends do not wrap. Up/down remain chapter-local; left/right change chapters.
+- **Companion chat**: chat follows paper color while reading and returns to its usual appearance with ordinary notes. Empty chat shows long book titles on one quiet line. Passage context, citations and saving keep their existing behavior.
+
+TypeScript checking and production building passed; a local user confirmed the overall appearance. No new automated tests were run. Full regression across themes, widths, unusual EPUBs, connections and recovery remains pending. Earlier tests below do not certify the new UI.
+
+### Save locations (retained from 5.8.5)
 
 **Choose where your files go.** Seven save locations are grouped under **Settings → Lumen → Reading and saving → Save locations**. Defaults work without setup. Pick an existing folder, type a new folder, or explicitly choose Vault root.
 
@@ -110,7 +134,7 @@ Image notes, uploads and API images are under **Advanced locations**. Internal h
 
 ### Main features
 
-Read DRM-free reflowable EPUBs with contents, single/two columns, keyboard navigation and restored positions. Discuss passages through API/Codex/pi, retrieve human notes, confirm source-linked Markdown and return to the passage. Use Codex search, trusted self-contained instruction Skills, compatible Pi tool extensions and explicitly requested native Codex images. Canvas operators support visual text/image workflows; employees support bounded knowledge, triggers, budgets and run records.
+Read DRM-free reflowable EPUBs with contents, single/two columns, themes, typography, focus mode, continuous chapter paging, keyboard navigation and restored positions. Discuss passages through API/Codex/pi, retrieve human notes, confirm source-linked Markdown and return to the passage. Use Codex search, trusted self-contained instruction Skills, compatible Pi tool extensions and explicitly requested native Codex images. Canvas operators support visual text/image workflows; employees support bounded knowledge, triggers, budgets and run records.
 
 CLI chat does not require extra MCP setup. Existing Canvas and employee API features keep using API services; they do not automatically switch to a CLI.
 
@@ -118,7 +142,7 @@ CLI chat does not require extra MCP setup. Existing Canvas and employee API feat
 
 **BRAT**: install Obsidian 42 - BRAT, choose Add Beta plugin, enter `leoyang1984/lumen-public`, then enable Lumen. Existing BRAT users can check for updates.
 
-**Manual**: download the [5.8.5 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.5). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
+**Manual**: download the [5.8.10 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.10). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
 
 Back up first. Replace only the three runtime files; keep settings, reading state and history. Reload Lumen or reopen Obsidian. All existing autonomous employees, including previously active ones, stay paused when first upgrading from a version before 5.8.4. Review and confirm them under Canvas and automation before resuming. New employees retain opt-in autonomy.
 
@@ -130,4 +154,4 @@ Pi web search needs an installed, selected and enabled compatible extension. Lum
 
 5.8.5 passed 36 regression entry points, 10 local-agent protocol tests, TypeScript, production build and packaging. An isolated macOS Vault covered save settings and reload, original EPUB import, your words, a live Pi answer, confirmed notes, export and source return. API image routes and native PNG storage used original deterministic fixtures. All live image providers, other platforms and autonomous-task upgrade migration are outside this verification.
 
-[Release notes](docs/RELEASE_NOTES_5.8.5.md) · [Guide](docs/READING_GUIDE.md) · [Workflow tutorials](runtime-workflow-pack/) · [Distribution terms](COMMERCIAL_LICENSE.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.txt)
+[Release notes](docs/RELEASE_NOTES_5.8.10.md) · [Guide](docs/READING_GUIDE.md) · [Workflow tutorials](runtime-workflow-pack/) · [Distribution terms](COMMERCIAL_LICENSE.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.txt)
