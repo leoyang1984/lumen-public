@@ -38,7 +38,7 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 **BRAT**：安装 Obsidian 42 - BRAT → Add Beta plugin → 输入 `leoyang1984/lumen-public` → 启用 Lumen。已有用户在 BRAT 中检查更新。
 
-**手动安装**：从 [5.8.4 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.4) 下载 ZIP 或三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。ZIP 还包含指南与第三方声明；只需复制三个运行文件。
+**手动安装**：从 [5.8.4 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.4) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
 
 **升级先备份，只替换三个运行文件**。保留 `data.json`、阅读状态和历史，重载 Lumen 或重开 Obsidian。首次升级到 5.8.4，所有已有自主员工（包括此前正在使用的员工）会保持暂停；请在“白板与自动化”检查配置并逐个确认恢复，避免取消授权后突然开始任务。新员工默认关闭自主工作。
 
@@ -74,7 +74,7 @@ CLI chat does not require extra MCP setup. Existing Canvas and employee API feat
 
 **BRAT**: install Obsidian 42 - BRAT, choose Add Beta plugin, enter `leoyang1984/lumen-public`, then enable Lumen. Existing BRAT users can check for updates.
 
-**Manual**: download the [5.8.4 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.4). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The ZIP also includes the guide and third-party notices.
+**Manual**: download the [5.8.4 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.4). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
 
 Back up first. Replace only the three runtime files; keep settings, reading state and history. Reload Lumen or reopen Obsidian. All existing autonomous employees, including previously active ones, stay paused on the first 5.8.4 upgrade. Review and confirm them under Canvas and automation before resuming. New employees retain opt-in autonomy.
 

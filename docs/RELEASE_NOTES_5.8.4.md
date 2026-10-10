@@ -28,7 +28,7 @@ Lumen 是 Obsidian 中的 EPUB 阅读、AI 对话、笔记与白板助手。本�
 
 Pi 通用搜索需要兼容第三方扩展，推荐评估仍待完成。Pi 扩展不是沙箱，其直接文件操作未必经过 Lumen 确认；复杂 Skill 和终端交互不保证兼容。其他系统、实体移动设备与所有服务商组合未完整实测。原生 Codex 图片支持 PNG 生成，不含原生编辑；未发送输入不保证跨重载恢复。
 
-分发仅含运行文件、指南、第三方声明及校验和，不含登录文件、API key、个人配置、笔记、书籍或测试 Vault。
+Release 只上传三个安装文件：`main.js`、`manifest.json`、`styles.css`，供 BRAT 或手动安装使用。指南和第三方声明保留在仓库，更新说明直接显示在发布正文中。安装文件不含登录文件、API key、个人配置、笔记、书籍或测试 Vault。
 
 ## English
 
@@ -54,4 +54,4 @@ Reading works offline. AI requires your own API or an installed/configured/signe
 
 Pi search requires a compatible third-party extension; recommendations remain pending. Extensions are not sandboxed and their direct writes may bypass Lumen confirmation. Complex Skills and terminal-only interactions are not guaranteed. Other OS/device/provider combinations remain unverified. Native Codex images support PNG generation, not native editing; unsent input may not survive reload.
 
-Distribution includes runtime files, guide, notices and checksums only. It excludes personal configuration, API keys, login files, notes, books and test Vaults.
+Release uploads contain only `main.js`, `manifest.json` and `styles.css` for BRAT or manual installation. Guides and third-party notices stay in the repository; release notes appear in the release body. Installation files exclude personal configuration, API keys, login files, notes, books and test Vaults.
