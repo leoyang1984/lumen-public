@@ -173,6 +173,21 @@
 }
 
 .lumen-chat-container {
+    /* Chat follows the active Obsidian theme; canvas role colors remain separate. */
+    --lumen-bg-main: var(--background-primary);
+    --lumen-bg-surface: var(--background-secondary);
+    --lumen-bg-input: var(--background-primary-alt);
+    --lumen-raise: var(--background-secondary);
+    --lumen-raise-2: var(--background-modifier-hover);
+    --lumen-text-normal: var(--text-normal);
+    --lumen-text-prio: var(--text-normal);
+    --lumen-text-muted: var(--text-muted);
+    --lumen-text-faint: var(--text-muted);
+    --lumen-border: var(--background-modifier-border);
+    --lumen-brand-key: var(--interactive-accent);
+    --lumen-action-primary: var(--text-accent);
+    container-type: inline-size;
+    container-name: lumen-chat;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -214,7 +229,7 @@
 
 .lumen-header-title {
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--lumen-text-muted);
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -223,7 +238,54 @@
 .lumen-header-right {
     display: flex;
     gap: 4px;
+    align-items: center;
 }
+
+.lumen-ui-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.lumen-ui-icon svg { width: 16px; height: 16px; }
+
+.lumen-chat-container .lumen-toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 30px;
+    height: 30px;
+    padding: 0 8px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--text-muted);
+    box-shadow: none;
+    font-family: inherit;
+    font-size: var(--font-ui-small);
+    white-space: nowrap;
+}
+
+.lumen-chat-container .lumen-toolbar-btn:hover:not(:disabled) {
+    color: var(--text-normal);
+    background: var(--background-modifier-hover);
+}
+
+.lumen-chat-container .lumen-toolbar-btn.is-selected {
+    color: var(--text-accent);
+    background: color-mix(in srgb, var(--interactive-accent) 12%, var(--background-secondary));
+}
+
+.lumen-chat-container button:focus-visible {
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: 2px;
+}
+
+.lumen-chat-container button:disabled { cursor: default; opacity: 0.45; }
 
 /* ── Shared button token ─────────────────────── */
 .lumen-icon-btn {
@@ -350,11 +412,11 @@
     position: relative; /* Anchor for slash-suggestions */
     display: flex;
     flex-direction: column;
-    min-height: 92px;
+    min-height: 0;
     background: var(--lumen-raise);
-    border: none;
-    border-radius: 14px;
-    padding: 10px 10px 52px 14px;
+    border: 1px solid var(--lumen-border);
+    border-radius: 12px;
+    padding: 12px 12px 10px;
     box-shadow: none;
     transition: box-shadow 0.2s;
 }
@@ -373,7 +435,7 @@
     padding: 0;
     color: var(--lumen-text-normal);
     font-family: inherit;
-    font-size: 13.5px;
+    font-size: var(--font-ui-medium);
     line-height: 1.6;
     resize: none;
     outline: none !important;
@@ -389,7 +451,7 @@
 .lumen-input-field:empty::before {
     content: attr(data-placeholder);
     color: var(--lumen-text-muted);
-    opacity: 0.5;
+    opacity: 1;
     pointer-events: none;
 }
 
@@ -399,28 +461,46 @@
 }
 
 .lumen-suggested-reply-hint {
-    position: absolute;
-    left: 14px;
-    bottom: 16px;
-    max-width: calc(100% - 76px);
+    position: static;
+    margin-top: 6px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--lumen-text-muted);
     font-size: 11px;
     line-height: 1;
-    opacity: 0.62;
+    opacity: 1;
     pointer-events: none;
 }
 
 .lumen-input-controls {
-    position: absolute;
-    right: 12px;
-    bottom: 12px;
+    position: static;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
-    margin-top: 0;
+    gap: 4px;
+    margin-top: 10px;
+    min-width: 0;
+}
+
+.lumen-input-controls > button { flex-shrink: 0; }
+.lumen-input-controls .lumen-send-btn { margin-left: auto; }
+.lumen-turn-summary {
+    margin: 6px 2px 0;
+    color: var(--text-muted);
+    font-size: var(--font-ui-smaller);
+    overflow-wrap: anywhere;
+}
+
+@container lumen-chat (max-width: 270px) {
+    .lumen-input-controls .lumen-toolbar-btn > span:not(.lumen-ui-icon) { display: none; }
+    .lumen-input-controls .lumen-toolbar-btn { width: 30px; padding: 0; }
+}
+
+@media (pointer: coarse) {
+    .lumen-chat-container .lumen-icon-btn,
+    .lumen-chat-container .lumen-toolbar-btn,
+    .lumen-chat-container .lumen-send-btn { min-width: 40px; min-height: 40px; }
 }
 
 .lumen-input-right-group {
@@ -472,14 +552,14 @@
 
 .lumen-send-btn:not(:disabled) {
     background: var(--lumen-brand-key);
-    color: #fff;
+    color: var(--text-on-accent);
     box-shadow: none;
 }
 
 .lumen-send-btn:not(:disabled):hover {
     background: var(--lumen-brand-key);
     filter: brightness(1.12);
-    color: #fff;
+    color: var(--text-on-accent);
 }
 
 .lumen-send-btn:disabled {
@@ -1202,24 +1282,7 @@ body.lumen-is-ai-thinking .canvas-node.is-selected .canvas-node-container {
     }
 }
 
-.lumen-pro-badge {
-    display: inline-flex;
-    align-items: center;
-    min-height: 17px;
-    padding: 0 6px;
-    border: 1px solid color-mix(in srgb, var(--interactive-accent) 32%, transparent);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--interactive-accent) 10%, transparent);
-    color: var(--interactive-accent);
-    font-size: 9px;
-    font-weight: 700;
-    line-height: 15px;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    vertical-align: 1px;
-    margin-left: 7px;
-    white-space: nowrap;
-}
+
 
 .lumen-settings-root > h2.lumen-settings-page-title {
     margin: 2px 0 18px;
@@ -3324,3 +3387,65 @@ textarea.lumen-reader-editor { min-height: 160px; resize: vertical; }
     width: fit-content; max-width: calc(100% - 32px); border: 1px solid #deddd3;
     border-radius: 8px; background: #f7f5ef; box-shadow: 0 3px 14px #0002;
 }
+/* Task-based settings navigation, scoped to this plugin's settings page. */
+.lumen-settings-root .lumen-settings-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 16px;
+}
+.lumen-settings-root .lumen-settings-nav button {
+    box-shadow: none;
+    background: var(--background-secondary);
+    color: var(--text-muted);
+    font-size: var(--font-ui-small);
+    min-height: 32px;
+}
+.lumen-settings-root .lumen-settings-nav button.is-selected {
+    color: var(--text-accent);
+    background: color-mix(in srgb, var(--interactive-accent) 12%, var(--background-primary));
+}
+.lumen-settings-root .lumen-settings-nav button:focus-visible,
+.lumen-settings-root .lumen-settings-subsection summary:focus-visible {
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: 2px;
+}
+.lumen-settings-root .lumen-settings-panel[hidden] { display: none; }
+.lumen-settings-root .lumen-settings-page-intro {
+    color: var(--text-muted);
+    font-size: var(--font-ui-small);
+    line-height: 1.6;
+    margin: 0 0 16px;
+}
+.lumen-settings-root .lumen-settings-subsection {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+.lumen-settings-root .lumen-settings-subsection summary {
+    color: var(--text-muted);
+    font-size: var(--font-ui-small);
+    cursor: pointer;
+}
+
+.lumen-reader-context-detail { flex: 1 0 100%; min-width: 0; }
+.lumen-reader-context-detail summary { cursor: pointer; overflow-wrap: anywhere; }
+.lumen-reader-context-detail blockquote {
+    margin: 10px 0; padding-inline-start: 10px;
+    border-inline-start: 2px solid var(--background-modifier-border);
+    max-height: 140px; overflow: auto; white-space: pre-wrap;
+}
+.lumen-reader-context-detail p, .lumen-reader-form-hint {
+    color: var(--text-muted); font-size: var(--font-ui-small); line-height: 1.6;
+}
+.lumen-send-feedback {
+    margin-top: 10px; font-size: var(--font-ui-small); line-height: 1.5;
+}
+.lumen-send-feedback p { margin: 0 0 6px; }
+.lumen-send-feedback button { font-size: var(--font-ui-small); margin: 0 6px 4px 0; }
+.lumen-reader-form-feedback:not(:empty) { color: var(--text-error); font-size: var(--font-ui-small); }
+
+.lumen-api-status {
+    margin-inline-start: auto; flex-shrink: 0;
+    color: var(--text-muted); font-size: var(--font-ui-small); font-weight: normal;
+}
+.lumen-api-status[data-state="configured"] { color: var(--text-success); }
