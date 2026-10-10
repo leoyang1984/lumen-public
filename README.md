@@ -1,6 +1,6 @@
-# Lumen 5.8.4 — 阅读、笔记与 AI / Reading, notes and AI
+# Lumen 5.8.5 — 阅读、笔记与 AI / Reading, notes and AI
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.4) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.5) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 Lumen 在 Obsidian 中提供 EPUB 阅读、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex 或 pi，不需要一直打开终端窗口。
 
@@ -12,7 +12,29 @@ Lumen brings EPUB reading, AI chat, note organization and Canvas workflows into 
 
 ## 中文
 
-### 5.8.4 更新了什么？
+### 5.8.5 更新了什么？
+
+**保存在哪里，由你决定。** 在“设置 → Lumen → 阅读与保存 → 保存位置”集中设置书籍、笔记、图片和对话的目录。默认设置可以直接使用，也可以选择已有文件夹、填写新文件夹，或明确选择笔记库根目录。
+
+- 所有路径相对于当前笔记库。例如笔记库叫 A，填写 `B/笔记`，文件就保存到 A 内的 B/笔记；无需填写电脑绝对路径。
+- 点击“应用”才生效；每项可恢复默认。新文件夹在实际保存时创建。空的自定义目录、越界路径、内部目录及文件冲突会提示错误。
+- 修改位置只影响新文件，不搬动已有书籍、笔记或图片。旧 API 图片目录继续沿用，旧文件与原文回跳保持原记录。
+- 保存确认显示目标位置；全局设置变化不会改变已打开确认窗口的目标。失败保留草稿或预览，不覆盖同名文件。
+- 阅读笔记可单次另选目录或追加已有笔记；对话导出默认集中到 `Reading/Conversations`，旧导出保持原样。
+
+| 保存内容 | 默认目录 |
+| --- | --- |
+| 导入 EPUB | `Reading/Books` |
+| 阅读笔记与确认想法 | `Reading/Notes` |
+| Codex 原生图片 | `attachments/lumen-generated` |
+| 图片说明笔记 | `Reading/Images` |
+| 粘贴／上传图片 | `attachments/lumen-input-images` |
+| API 图片 | `attachments/ai-gen` |
+| 导出对话 | `Reading/Conversations` |
+
+图片说明笔记、上传图片和 API 图片目录在“高级保存位置”中展开。内部历史、缓存、阅读关联和撤销数据的位置固定。详见[保存位置指南](docs/READING_GUIDE.md)。
+
+### 延续的界面与交互改进
 
 - **更自然的对话界面**：输入框底部只有一排操作；联网直接可见，生图、Skill 和扩展放入工具菜单。历史、新对话、更多操作分清用途；诊断日志不再混在历史旁边。
 - **联网开一次，连续使用**：设置和输入框控制同一个开关。发送、追问、新对话和重启后仍保留，直到自行关闭。开启表示允许按需搜索，不强制每次搜索；生图仍需明确要求，Skill 和扩展的显式选择仍按消息使用。
@@ -38,9 +60,9 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 **BRAT**：安装 Obsidian 42 - BRAT → Add Beta plugin → 输入 `leoyang1984/lumen-public` → 启用 Lumen。已有用户在 BRAT 中检查更新。
 
-**手动安装**：从 [5.8.4 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.4) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
+**手动安装**：从 [5.8.5 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.5) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
 
-**升级先备份，只替换三个运行文件**。保留 `data.json`、阅读状态和历史，重载 Lumen 或重开 Obsidian。首次升级到 5.8.4，所有已有自主员工（包括此前正在使用的员工）会保持暂停；请在“白板与自动化”检查配置并逐个确认恢复，避免取消授权后突然开始任务。新员工默认关闭自主工作。
+**升级先备份，只替换三个运行文件**。保留 `data.json`、阅读状态和历史，重载 Lumen 或重开 Obsidian。从 5.8.4 之前的版本首次升级时，所有已有自主员工（包括此前正在使用的员工）会保持暂停；请在“白板与自动化”检查配置并逐个确认恢复，避免取消授权后突然开始任务。新员工默认关闭自主工作。
 
 ### 条件与已知范围
 
@@ -49,13 +71,35 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 - Codex 搜索需要联网。Pi 搜索还需要自行安装、选中并启用兼容的搜索扩展；Lumen 不内置通用 Pi 搜索扩展，第三方推荐与兼容性评估仍待完成。
 - Pi 扩展运行可信本机代码，不是沙箱；扩展自己写文件不保证经过 Lumen 笔记确认。复杂 Skill、纯终端交互扩展和任意扩展不保证兼容。
 - 原生 Codex 图片目前支持 PNG 生成，不含原生编辑；API 图片生成／编辑是独立功能。未发送输入不保证跨插件重载恢复。
-- 5.8.4 已通过类型检查、生产构建和分发隐私检查。此前阅读与保存改动有集中验收记录；本轮 API 页面、取消激活及自主任务升级迁移尚未完成桌面验收。
+- 5.8.5 已通过 36 个自动回归入口、10 项本机协议测试、类型检查、生产构建和打包。独立 macOS 测试库走通保存位置配置与恢复、原创 EPUB 导入、原话保存、真实 Pi 回答确认、对话导出和引用回跳。API 图片路由与原生 PNG 存储使用原创模拟数据；本轮未覆盖所有真实生图服务、其他系统及自主任务升级迁移。
 
-[中英文更新说明](docs/RELEASE_NOTES_5.8.4.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
+[中英文更新说明](docs/RELEASE_NOTES_5.8.5.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
 
 ## English
 
-### What changed in 5.8.4?
+### What changed in 5.8.5?
+
+**Choose where your files go.** Seven save locations are grouped under **Settings → Lumen → Reading and saving → Save locations**. Defaults work without setup. Pick an existing folder, type a new folder, or explicitly choose Vault root.
+
+- Paths are relative to your current Vault: `B/Notes` means that folder inside the Vault, not an absolute computer path.
+- Choose a mode and click **Apply**. Reset each location independently. Folders are created on actual saves. Empty custom paths, paths outside the Vault, internal folders and file conflicts are reported.
+- Changes affect new files only. Existing books, notes and images keep their locations and source links. Existing API image folders are retained.
+- Save confirmations show their destination and retain it even if global settings change. Failed saves keep drafts/previews; filename conflicts never overwrite existing files.
+- Reading notes can choose a different folder for one save or append to a note. Conversation exports default to `Reading/Conversations`; old exports remain in place.
+
+| Content | Default folder |
+| --- | --- |
+| Imported EPUBs | `Reading/Books` |
+| Reading notes and confirmed ideas | `Reading/Notes` |
+| Native Codex images | `attachments/lumen-generated` |
+| Image notes | `Reading/Images` |
+| Pasted/uploaded images | `attachments/lumen-input-images` |
+| API images | `attachments/ai-gen` |
+| Conversation exports | `Reading/Conversations` |
+
+Image notes, uploads and API images are under **Advanced locations**. Internal history, caches, reading metadata and undo storage remain fixed. See the [save locations guide](docs/READING_GUIDE.md).
+
+### Existing UI and interaction improvements
 
 - **A clearer chat layout**: one composer toolbar. Search stays visible; images, Skills and extensions use the tools menu. History, new chat and more actions have distinct roles. Diagnostic logs are separate from conversation history.
 - **Persistent search permission**: settings and the composer share one switch. It survives messages, follow-ups, new conversations and reopening until you turn it off. Search is available as needed, not mandatory for every answer. Images need explicit requests; explicit Skill and extension selections remain per-message.
@@ -74,9 +118,9 @@ CLI chat does not require extra MCP setup. Existing Canvas and employee API feat
 
 **BRAT**: install Obsidian 42 - BRAT, choose Add Beta plugin, enter `leoyang1984/lumen-public`, then enable Lumen. Existing BRAT users can check for updates.
 
-**Manual**: download the [5.8.4 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.4). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
+**Manual**: download the [5.8.5 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.5). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
 
-Back up first. Replace only the three runtime files; keep settings, reading state and history. Reload Lumen or reopen Obsidian. All existing autonomous employees, including previously active ones, stay paused on the first 5.8.4 upgrade. Review and confirm them under Canvas and automation before resuming. New employees retain opt-in autonomy.
+Back up first. Replace only the three runtime files; keep settings, reading state and history. Reload Lumen or reopen Obsidian. All existing autonomous employees, including previously active ones, stay paused when first upgrading from a version before 5.8.4. Review and confirm them under Canvas and automation before resuming. New employees retain opt-in autonomy.
 
 ### Requirements and limits
 
@@ -84,6 +128,6 @@ Reading works offline. AI needs a configured API or installed/configured/signed-
 
 Pi web search needs an installed, selected and enabled compatible extension. Lumen does not bundle a general Pi search provider; third-party recommendations remain pending. Extensions run trusted local code, not a sandbox; their direct writes can bypass Lumen note confirmation. Complex Skills and terminal-only or arbitrary extensions are not guaranteed. Native Codex images currently support PNG generation, not native editing; API image generation/editing is separate. Unsent input may not survive reload.
 
-5.8.4 passed TypeScript, production build and distribution privacy checks. Earlier reading/save refinements have focused acceptance evidence. The latest API page, activation removal and automatic-task upgrade migration have not completed desktop acceptance.
+5.8.5 passed 36 regression entry points, 10 local-agent protocol tests, TypeScript, production build and packaging. An isolated macOS Vault covered save settings and reload, original EPUB import, your words, a live Pi answer, confirmed notes, export and source return. API image routes and native PNG storage used original deterministic fixtures. All live image providers, other platforms and autonomous-task upgrade migration are outside this verification.
 
-[Release notes](docs/RELEASE_NOTES_5.8.4.md) · [Guide](docs/READING_GUIDE.md) · [Workflow tutorials](runtime-workflow-pack/) · [Distribution terms](COMMERCIAL_LICENSE.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.txt)
+[Release notes](docs/RELEASE_NOTES_5.8.5.md) · [Guide](docs/READING_GUIDE.md) · [Workflow tutorials](runtime-workflow-pack/) · [Distribution terms](COMMERCIAL_LICENSE.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.txt)

@@ -3449,3 +3449,12 @@ textarea.lumen-reader-editor { min-height: 160px; resize: vertical; }
     color: var(--text-muted); font-size: var(--font-ui-small); font-weight: normal;
 }
 .lumen-api-status[data-state="configured"] { color: var(--text-success); }
+
+/* Storage fields wrap in narrow settings panes; uncommon locations stay folded. */
+.lumen-storage-row { flex-wrap: wrap; gap: 12px; }
+.lumen-storage-row .setting-item-control { flex-wrap: wrap; justify-content: flex-start; gap: 8px; }
+.lumen-storage-row .setting-item-control input { max-width: 100%; min-width: 150px; }
+.lumen-storage-feedback { color: var(--text-muted); }
+.lumen-storage-feedback:not(:empty) { margin-bottom: 4px; }
+.lumen-storage-advanced { margin-top: 16px; }
+.lumen-storage-advanced > summary { cursor: pointer; padding: 8px 0; font-weight: 600; }
