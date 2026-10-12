@@ -1,28 +1,27 @@
-# Lumen 5.8.10 — 阅读、笔记与 AI / Reading, notes and AI
+# Lumen 5.9.0 — 阅读、翻译与 AI / Reading, translation and AI
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.10) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.9.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
-Lumen 在 Obsidian 中提供 EPUB 阅读、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex 或 pi，不需要一直打开终端窗口。
+Lumen 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex 或 pi，不需要一直打开终端窗口。
 
-Lumen brings EPUB reading, AI chat, note organization and Canvas workflows into Obsidian. Use an API provider or an installed local Codex/pi CLI without keeping a terminal window open.
+Lumen brings EPUB reading, full-book AI translation, AI chat, note organization and Canvas workflows into Obsidian. Use an API provider or an installed local Codex/pi CLI without keeping a terminal window open.
 
-![Lumen 5.8.10：双栏阅读与 AI 助手 / Two-column reading and AI companion](docs/images/reader-5.8.10.jpg)
+![Lumen：双栏阅读与 AI 助手 / Two-column reading and AI companion](docs/images/reader-5.8.10.jpg)
 
-*Lumen 5.8.10 实际界面：双栏阅读、划线与右侧助手，统一纸色和对齐的简洁顶栏。书籍与对话来自原创测试材料；右侧展示已恢复的历史对话。 / Actual Lumen 5.8.10 interface: two-column reading, highlights and a companion panel, with a shared paper background and aligned, minimal toolbars. The book and conversation use original test material; the panel shows restored chat history.*
+*Lumen 实际界面：双栏阅读、划线与右侧助手，统一纸色和对齐的简洁顶栏。书籍与对话来自原创测试材料；右侧展示已恢复的历史对话。 / Actual Lumen interface: two-column reading, highlights and a companion panel, with a shared paper background and aligned, minimal toolbars. The book and conversation use original test material; the panel shows restored chat history.*
 
 ## 中文
 
-### 5.8.10 更新了什么？
+### 5.9.0 更新了什么？
 
-**安静的书页，同屏的助手。** 阅读器、外围留白和助手采用当前书页底色；顶栏对齐，连接状态收进助手顶栏，输入框沿用纸色。去掉书页阴影与中缝渐变，左右比例仍由你拖动调整。
+**整书 AI 翻译，标准 EPUB 导出。** 在阅读器中直接针对当前 EPUB 书籍创建翻译任务，支持整书或自定义章节范围、翻译风格和专属术语表，并将翻译成果一键打包导出为标准 EPUB 电子书。
 
-- **简洁导航**：目录、书名、Aa、单／双栏、助手、专注与更多集中在顶部；翻页和阅读进度在底部。重复的 Obsidian 标题栏与正文、翻页按钮悬停提示已去掉。
-- **排版集中调整**：Aa 提供暖纸、纸白、夜读主题，以及字体、字号、行距、页边留白与沿用书籍排版。外观随阅读标签页保存，不修改 EPUB。
-- **专注阅读**：隐藏阅读器工具栏，保留轻量进度和退出入口；鼠标靠近顶部或通过键盘导航可唤出控件。
-- **跨章连续翻页**：单／双栏的翻页按钮与 PageUp／PageDown 继续到下一章，反向返回上一章末尾；双栏滚轮也支持。全书首尾不循环。上下键仍在同章内移动，左右键翻章。
-- **助手融入书页**：阅读时与书页同色，切回普通笔记后恢复常规样式；空对话中的长书名改为低调的一行。选文提问、引用和保存逻辑继续沿用。
-
-本轮类型检查与生产构建通过，本地使用者已确认整体视觉效果。未新增自动化测试；三主题、多窗口宽度、特殊 EPUB、连接与恢复流程的全面回归仍待完成。前序测试记录见下方，不能替代本轮验收。
+- **整书与章节翻译**：阅读器直接发起全书或选定章节的 AI 翻译任务，草稿分段独立落盘，支持随时暂停、断点无损续翻。
+- **空章节智能跳过**：无文字内容的章节（如纯图片插画页、特殊版权页）自动标记为 `skipped` 并继续，杜绝整书翻译因空章节抛错中断。
+- **多段合批降级与退避重试**：多段打包翻译若遇到超长段落或模型格式异常，自动拆解降级为单段请求，配合同段重试，彻底解决长难段落卡住死锁。
+- **全结构自适应宽容 JSON 解析**：三级容错提取器，全面兼容顶层数组、单数对象、缺失 ID 单段保护、未转义引号正则修复及纯文本兜底。
+- **EPUB 电子书导出**：支持“仅中文译稿”与“双语对照”两种排版模式，自动处理伪图片引用，支持非关键资源缺失优雅降级。
+- **延续安静阅读体验**：保留 5.8.10 的书页与助手统一纸色、Aa 排版集中调节、专注阅读、跨章连续翻页与白板工作流。
 
 ### 保存位置（延续 5.8.5）
 
@@ -72,7 +71,7 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 **BRAT**：安装 Obsidian 42 - BRAT → Add Beta plugin → 输入 `leoyang1984/lumen-public` → 启用 Lumen。已有用户在 BRAT 中检查更新。
 
-**手动安装**：从 [5.8.10 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.10) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
+**手动安装**：从 [5.9.0 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.9.0) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
 
 **升级先备份，只替换三个运行文件**。保留 `data.json`、阅读状态和历史，重载 Lumen 或重开 Obsidian。从 5.8.4 之前的版本首次升级时，所有已有自主员工（包括此前正在使用的员工）会保持暂停；请在“白板与自动化”检查配置并逐个确认恢复，避免取消授权后突然开始任务。新员工默认关闭自主工作。
 
@@ -85,21 +84,20 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 - 原生 Codex 图片目前支持 PNG 生成，不含原生编辑；API 图片生成／编辑是独立功能。未发送输入不保证跨插件重载恢复。
 - 5.8.5 已通过 36 个自动回归入口、10 项本机协议测试、类型检查、生产构建和打包。独立 macOS 测试库走通保存位置配置与恢复、原创 EPUB 导入、原话保存、真实 Pi 回答确认、对话导出和引用回跳。API 图片路由与原生 PNG 存储使用原创模拟数据；本轮未覆盖所有真实生图服务、其他系统及自主任务升级迁移。
 
-[中英文更新说明](docs/RELEASE_NOTES_5.8.10.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
+[中英文更新说明](docs/RELEASE_NOTES_5.9.0.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
 
 ## English
 
-### What changed in 5.8.10?
+### What changed in 5.9.0?
 
-**Quiet pages with a companion assistant.** Reading, surrounding space and chat use the current paper background. Toolbars align; connection status sits inside the chat toolbar. The input uses paper color. Page shadows and gutter shading are removed, while pane widths remain under your control.
+**Full-book AI translation and standard EPUB export.** Translate entire EPUB books or custom chapter ranges directly from the reader with custom styles and glossaries, and export completed drafts into standard EPUB publications.
 
-- **Simpler navigation**: Contents, book title, Aa, layout, Assistant, Focus and More in the header; paging and progress in the footer. Remove the redundant Obsidian view header and repeated reading/page hover hints.
-- **Typography together**: Aa provides Warm/Paper/Night, font, size, line height, margins and publisher typography. Preferences follow the reading tab without changing EPUB bytes.
-- **Focus reading**: hide reader toolbars, keeping lightweight progress and an exit. Reveal controls near the top edge or through keyboard navigation.
-- **Continuous chapter paging**: page buttons and PageUp/PageDown continue across chapters in either layout; backward paging opens the previous chapter’s end. Two-column wheel paging also continues. Book ends do not wrap. Up/down remain chapter-local; left/right change chapters.
-- **Companion chat**: chat follows paper color while reading and returns to its usual appearance with ordinary notes. Empty chat shows long book titles on one quiet line. Passage context, citations and saving keep their existing behavior.
-
-TypeScript checking and production building passed; a local user confirmed the overall appearance. No new automated tests were run. Full regression across themes, widths, unusual EPUBs, connections and recovery remains pending. Earlier tests below do not certify the new UI.
+- **Book and chapter translation**: launch translation tasks for whole books or selected chapters directly inside the reader. Drafts are safely persisted passage by passage with pause and breakpoint resumption.
+- **Empty chapter skip**: non-text chapters (e.g. image-only plates, copyright pages) are automatically skipped without interrupting translation progress.
+- **Batch fallback and retries**: batch translations automatically degrade to single-unit requests upon encountering extra-long passages or formatting anomalies, paired with exponential backoff retries.
+- **Resilient JSON parsing**: multi-tier parser supporting top-level arrays, singular objects, single-unit ID tolerance, unescaped quote repair, and prose fallbacks.
+- **Standard EPUB export**: export "Chinese Translation Only" and "Bilingual Aligned" EPUB publications with sanitized citation links and graceful image fallbacks.
+- **Quiet reading retained**: retains unified paper backgrounds, typography controls, focus mode, continuous cross-chapter paging, and Canvas workflows from 5.8.10.
 
 ### Save locations (retained from 5.8.5)
 
@@ -142,7 +140,7 @@ CLI chat does not require extra MCP setup. Existing Canvas and employee API feat
 
 **BRAT**: install Obsidian 42 - BRAT, choose Add Beta plugin, enter `leoyang1984/lumen-public`, then enable Lumen. Existing BRAT users can check for updates.
 
-**Manual**: download the [5.8.10 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.8.10). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
+**Manual**: download the [5.9.0 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.9.0). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
 
 Back up first. Replace only the three runtime files; keep settings, reading state and history. Reload Lumen or reopen Obsidian. All existing autonomous employees, including previously active ones, stay paused when first upgrading from a version before 5.8.4. Review and confirm them under Canvas and automation before resuming. New employees retain opt-in autonomy.
 
@@ -154,4 +152,4 @@ Pi web search needs an installed, selected and enabled compatible extension. Lum
 
 5.8.5 passed 36 regression entry points, 10 local-agent protocol tests, TypeScript, production build and packaging. An isolated macOS Vault covered save settings and reload, original EPUB import, your words, a live Pi answer, confirmed notes, export and source return. API image routes and native PNG storage used original deterministic fixtures. All live image providers, other platforms and autonomous-task upgrade migration are outside this verification.
 
-[Release notes](docs/RELEASE_NOTES_5.8.10.md) · [Guide](docs/READING_GUIDE.md) · [Workflow tutorials](runtime-workflow-pack/) · [Distribution terms](COMMERCIAL_LICENSE.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.txt)
+[Release notes](docs/RELEASE_NOTES_5.9.0.md) · [Guide](docs/READING_GUIDE.md) · [Workflow tutorials](runtime-workflow-pack/) · [Distribution terms](COMMERCIAL_LICENSE.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.txt)
