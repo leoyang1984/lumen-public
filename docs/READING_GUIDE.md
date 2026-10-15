@@ -2,14 +2,14 @@
 
 ## 中文
 
-Lumen 5.8.10 在 Obsidian 中阅读无 DRM、可重排 EPUB，并沿用现有助手。书籍与 Markdown 在笔记库中，阅读进度和引用关联保存在插件目录。离线也能阅读；问答需要配置 API 或安装并登录 Codex CLI / pi。
+Lumen 5.10.0 在 Obsidian 中阅读无 DRM、可重排 EPUB，并沿用现有助手。书籍与 Markdown 在笔记库中，阅读进度和引用关联保存在插件目录。离线也能阅读；问答需要配置 API 或安装并登录 Codex CLI / pi / Antigravity（agy）。
 
-1. 命令面板选择“阅读：打开笔记库中的 EPUB”，或在 EPUB 文件菜单选择“使用 Lumen 阅读”。也可导入外部 EPUB；副本默认存入 `Reading/Books`（可在保存位置设置中修改），同名不覆盖。原创样书无需模型连接。
+1. 命令面板选择“阅读：打开笔记库中的 EPUB”，或在 EPUB 文件菜单选择“使用 Lumen 阅读”。也可导入外部 EPUB；副本存入 `Reading/Books`，同名不覆盖。原创样书无需模型连接。
 2. 在顶部“目录”中选章节，或用其中的“上一章／下一章”。左右方向键翻章；单栏中上下方向键滚动，PageUp／PageDown 与“上翻一页／下翻一页”连续翻页：章末继续到下一章开头，章首返回上一章末尾；全书首尾不循环。输入、选文和组合快捷键不会触发阅读导航。
 3. 点击“单栏／双栏”切换。双栏空间不足时显示单栏，变宽后恢复。双栏中上下键在同章内翻页；翻页按钮、PageUp／PageDown 和滚轮可跨章连续阅读。单栏普通滚动仍限于当前章。字号与布局随 Obsidian 工作区恢复。
 4. 顶部“助手”收起或展开右侧助手。拖动右侧栏边界调整宽度。改变布局会尽量保留当前原文位置；重排后页码会变化，选区会清除，已经发送的引用保持不变。
 5. 选中原文，点击“提问”，明确输入问题再发送。助手使用选文与有限邻近文字，不上传整书。追问继续使用已固定来源，翻章、切书不会改变旧回答归属。新话题可结束选文讨论或新建对话。
-6. 选文可划线或存为人工笔记。AI 回答通过“确认想法”编辑、预览再确认，默认写入 `Reading/Notes`（可修改）或追加已有 Markdown。追加目标已被修改时会阻止覆盖。保存笔记和导出对话均带原文与来源链接；点击可回跳。
+6. 选文可划线或存为人工笔记。AI 回答通过“确认想法”编辑、预览再确认，写入 `Reading/Notes` 或追加已有 Markdown。追加目标已被修改时会阻止覆盖。保存笔记和导出对话均带原文与来源链接；点击可回跳。
 7. 关闭再打开继续阅读。助手历史可恢复；未完成回答保留中断状态。连接失败时重新连接，不能恢复原模型会话时以已保存历史继续。
 8. 在 Obsidian 内移动 EPUB、笔记或所在文件夹，关联会跟随；删除文件会提示缺失。外部修改书籍后需明确重开，旧引用必须通过内容校验。跨笔记库复制不保证原引用可用。
 9. 阅读数据损坏或替换被中断时，在阅读器“更多”中选择“恢复阅读数据”，或在命令面板执行同名命令。窗口列出通过格式检查的备份及数量，确认后恢复。所有原始状态文件先归档到插件目录的 `reader-recovery-*` 文件夹；不改动 EPUB 或 Markdown。旧备份可能缺少最新划线和位置。没有有效备份时不会清空数据。
@@ -66,7 +66,7 @@ Pi 联网需要另外安装兼容的搜索扩展，再在 Lumen 中选中并开�
 
 ### 明确要求时生成图片
 
-在 Codex 设置中开启生图，然后明确说“请生成一张图片……”、使用 `/image 描述`，或选择本轮“Codex 生图”按钮。普通解释和历史内容不会触发生图。原生模型、账号或 CLI 不支持时显示失败，不换用 API。现有 API 生图沿用原配置。
+在当前 Codex 或 Antigravity 连接的“助手能力”中开启生图，然后明确说“请生成一张图片……”、使用 `/image 描述`，或选择本轮“生成配图”选项。普通解释和历史内容不会触发生图。原生模型、账号或 CLI 不支持时显示失败，不换用 API。现有 API 生图沿用原配置。
 
 成功图片先在对话中预览，保存在 Vault 外的本机私有缓存。点击确认保存后，可以编辑笔记文字；此时才写入 `attachments/lumen-generated` 和 `Reading/Images`，并保留发送时的原文回跳。重复确认打开同一份笔记，不覆盖已编辑内容。历史只保存图片引用；文件缺失时提示不可用，不重新生成。缓存不会随删除对话自动清理。本版原生路径支持 PNG 生成，不包含原生图片编辑。
 
@@ -80,14 +80,14 @@ Pi 联网需要另外安装兼容的搜索扩展，再在 Lumen 中选中并开�
 
 ## English
 
-Lumen 5.8.10 reads DRM-free, reflowable EPUBs in Obsidian and uses the existing assistant. Books and Markdown remain in your Vault. Reading positions and source references stay in plugin storage. Reading works offline; chat requires an API provider or an installed, signed-in Codex CLI / pi.
+Lumen 5.10.0 reads DRM-free, reflowable EPUBs in Obsidian and uses the existing assistant. Books and Markdown remain in your Vault. Reading positions and source references stay in plugin storage. Reading works offline; chat requires an API provider or an installed, signed-in Codex CLI / pi / Antigravity (agy).
 
-1. Run **Reader: Open EPUB from Vault**, use **Read with Lumen** in an EPUB file menu, or import an external book. Imports create a copy in the configured folder (default `Reading/Books`) without overwriting a namesake. Try the original sample without connecting a model.
+1. Run **Reader: Open EPUB from Vault**, use **Read with Lumen** in an EPUB file menu, or import an external book. Imports create a copy in `Reading/Books` without overwriting a namesake. Try the original sample without connecting a model.
 2. Use the top Contents panel or its chapter buttons. Left/right arrows change chapters. In single-column mode, up/down scroll within the chapter. PageUp/PageDown and page buttons continue to the next chapter’s beginning at chapter end, or the previous chapter’s end at chapter start. Book ends never wrap. Typing, selections and modified shortcuts do not trigger reading navigation.
 3. Toggle single/two columns. A narrow pane falls back to one column and returns to two when widened. In two-column mode, up/down remain within the chapter; page buttons, PageUp/PageDown and wheel continue across chapter boundaries. Ordinary single-column scrolling remains within the chapter. Text size and layout persist with the workspace.
 4. The top **Assistant** button shows or hides the right dock. Drag its native boundary to resize. Reflow keeps the current text anchor where possible, changes visual page numbers and clears the selection. Sent citations remain fixed.
 5. Select text, choose **Ask**, enter a question and send. The assistant gets the selection and bounded neighbouring text, not the whole book. Follow-ups retain the pinned source; changing chapters or books does not change old answers. Detach the source or start a new chat for a new topic.
-6. Highlight text or save your words. Edit and preview AI output before confirming a note. Save in the configured folder (default `Reading/Notes`) or append to an existing Markdown note. Concurrent edits block a stale append. Saved notes and exported conversations include quotes and return-to-source links.
+6. Highlight text or save your words. Edit and preview AI output before confirming a note. Save in `Reading/Notes` or append to an existing Markdown note. Concurrent edits block a stale append. Saved notes and exported conversations include quotes and return-to-source links.
 7. Reopen to resume reading and discussion. Interrupted answers remain marked. Reconnect after connection failures; saved history provides a continuation when the original model session cannot resume.
 8. Moves within Obsidian update EPUB and note references, including folder moves. Deleted sources show a missing-file message. Reopen an externally modified book explicitly; old citations must pass content checks. Cross-Vault copies may not retain working source links.
 9. For damaged/interrupted state, choose **Recover reading data** in the reader’s More menu or command palette. Inspect a validated backup and confirm. Existing state artifacts are archived in a plugin-local `reader-recovery-*` folder first. EPUB and Markdown remain unchanged. Older backups can omit recent actions. No valid backup means no automatic reset.
@@ -102,7 +102,7 @@ The header contains Contents, the book title, Aa, one/two columns, Assistant, Fo
 
 **Aa** groups Warm, Paper and Night themes, size, serif/sans fonts, line height and margins. Reader typesetting unifies body text. Publisher typesetting retains book fonts and paragraphs while applying the theme; size, font and line-height controls are disabled in this mode. Fonts use local fallbacks without downloading.
 
-Appearance and focus persist with this workspace reading tab and apply to books opened there. New tabs use defaults. These settings do not change the EPUB. Narrow panes use one column; the two-column button’s tooltip explains the fallback. Capped page width and column spacing provide structure without paper textures or page-turn animation.
+Appearance and focus persist with this workspace reading tab and apply to books opened there. New tabs use defaults. These settings do not change the EPUB. Narrow panes use one column; the two-column button’s tooltip explains the fallback. Capped page width and a subtle spread gutter provide structure without paper textures or page-turn animation.
 
 **Focus reading** hides reader navigation and page controls, retaining a small progress line and **Exit focus**. Move the pointer to the top of the reading area or tab into navigation to reveal controls. They hide after leaving. Escape closes an open panel first, then exits focus. Other Obsidian sidebars remain under user control; the reader does not change the workspace layout.
 
@@ -142,7 +142,7 @@ Pi web search needs an installed compatible search extension selected in Lumen, 
 
 ### Images on explicit request
 
-Enable image generation for Codex. Explicitly ask to generate an image, use `/image description`, or select the one-turn Codex image button. Ordinary explanations and history grant no image permission. Unsupported CLI/account/model capabilities show a failure without API fallback. Existing API image generation retains its setup.
+Enable native image generation under Assistant capabilities for Codex or Antigravity. Explicitly ask to generate an image, use `/image description`, or select the one-turn Generate an image option. Ordinary explanations and history grant no image permission. Unsupported CLI/account/model capabilities show a failure without API fallback. Existing API image generation retains its setup.
 
 Successful images appear as previews in a private local cache outside the Vault. Confirm and edit the note before writing to `attachments/lumen-generated` and `Reading/Images`. The saved note retains the original pinned quote and return link. Repeated confirmation opens the same note and does not overwrite edits. History keeps references only; missing files show an unavailable state without regeneration. Deleting a chat does not automatically clean the cache. Native generation currently supports PNG, not native image editing.
 
@@ -165,7 +165,7 @@ Settings → Lumen → Reading and saving → Save locations. Paths are relative
 | --- | --- |
 | 导入 EPUB / Imported EPUBs | `Reading/Books` |
 | 阅读笔记与确认想法 / Reading notes and confirmed ideas | `Reading/Notes` |
-| Codex 原生图片 / Native Codex images | `attachments/lumen-generated` |
+| Codex / Antigravity 原生图片 / Native Codex / Antigravity images | `attachments/lumen-generated` |
 | 图片说明笔记 / Native image notes | `Reading/Images` |
 | 粘贴或上传图片 / Pasted and uploaded images | `attachments/lumen-input-images` |
 | API 图片 / API images | `attachments/ai-gen` |
@@ -178,3 +178,9 @@ The less common image-note, upload and API-image locations are under Advanced lo
 修改目录只影响后续新文件，不移动已有书籍、图片或笔记。旧笔记及图片按原记录打开。阅读笔记确认窗口可单次换目录或追加已有笔记；图片和对话保存前显示目标。打开确认窗口后，修改全局设置不会改变这次的目标。重名不会覆盖已有文件。失败时保留草稿或预览，修正后重试；不会另选目录或重新生成图片。
 
 Changes affect new files only. Existing books, notes and images stay where they are and keep their recorded references. A reading-note confirmation can choose another folder or append to an existing note. Image and conversation confirmations show their destination. Global changes do not redirect an open confirmation. Filename conflicts never overwrite files. Failed saves preserve drafts or previews for retry; they do not choose another folder or regenerate an image.
+
+## Antigravity（agy，5.10.0） / Antigravity (agy, 5.10.0)
+
+在“连接”选择本机 Antigravity（agy），先在终端完成 CLI 登录。支持选区问答、连续追问、受控笔记工具和 EPUB 翻译。在“助手能力”开启“Antigravity 生图”（默认关闭），从输入框工具菜单选择“生成配图”，或明确输入“生成一张图片……”。图片先预览，确认后保存；当前接通文生图，不支持参考图编辑。生图在独立会话中运行，普通对话连接和上下文保持，完成后可直接追问。原生联网、Skill、扩展和图片输入暂未开放。详见 [Antigravity 指南](ANTIGRAVITY_GUIDE.md)。
+
+Select Local Antigravity (agy) under Connection after authenticating the CLI in a terminal. Selected-text chat, followups, governed note tools and EPUB translation use this connection. Enable Antigravity image generation under Assistant capabilities (off by default), choose Generate an image in Tools or make an explicit image request, then review and confirm before saving. This supports text-to-image, not reference-image editing. Generation uses a separate session while ordinary chat stays connected with its context. Native web search, Skills, extensions and image input are unavailable. See the [Antigravity guide](ANTIGRAVITY_GUIDE.md).
