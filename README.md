@@ -1,18 +1,26 @@
-# LUMEN 5.10.1 — 品牌规范升级、模型切换与 Mermaid 原生图表 / Brand unification, model switching and Mermaid visualizations
+# LUMEN 5.10.2 — 全生态本地 Agent MCP 互联与无感连接 / Local Agent MCP ecosystem and seamless connection
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.10.1) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.10.2) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
 LUMEN brings EPUB reading, full-book AI translation, AI chat, note organization and Canvas workflows into Obsidian. Use an API provider or an installed local Codex, pi or Antigravity (agy) CLI without keeping a terminal window open.
 
-![LUMEN：双栏阅读与 AI 助手 / Two-column reading and AI companion](docs/images/reader-5.8.10.jpg)
-
-*LUMEN 实际界面：双栏阅读、划线与右侧助手，统一纸色和对齐的简洁顶栏。书籍与对话来自原创测试材料；右侧展示已恢复的历史对话。 / Actual LUMEN interface: two-column reading, highlights and a companion panel, with a shared paper background and aligned, minimal toolbars. The book and conversation use original test material; the panel shows restored chat history.*
+![LUMEN 5.10.2 标志性海报](docs/images/lumen-5.10.2-poster.jpg)
 
 ## 中文
 
-### 5.10.1 更新了什么？
+### 5.10.2 更新了什么？
+
+**全生态本地 Agent MCP 互联、严格安全门禁与无感连接保活。**
+
+- **全生态本地 Agent MCP 接入（Codex / Pi / Antigravity）**：全面接入 Pi 与 Antigravity 本地引擎的 MCP 协议支持，自动发现本地 MCP 服务器并在输入框下方一键呼出管理面板，自由查看工具明细与按需勾选。
+- **严格的人工确认安全门禁（Human-in-the-Loop）**：所有 MCP 外部调用完整展示工具参数与目标服务，严格遵循运行时显式授权确认，拒绝后安全中断，彻底杜绝未经许可的外部调用。
+- **无感能力配置与连接智能保活**：彻底修复在输入框下方开关 MCP 或勾选工具时连接意外断开（变灰）的问题；动态调整工具、搜索与技能时 Adapter 智能常驻，指示灯持续保持绿色就绪（Ready）。
+
+[5.10.2 更新说明](docs/RELEASE_NOTES_5.10.2.md) · [Antigravity 设置与范围](docs/ANTIGRAVITY_GUIDE.md)
+
+### 5.10.1 功能回顾（品牌规范、模型切换与 Mermaid 原生图表）
 
 **品牌规范升级、模型透明化切换与原生 Mermaid 图表渲染。**
 
@@ -21,7 +29,7 @@ LUMEN brings EPUB reading, full-book AI translation, AI chat, note organization 
 - **全新统一顶栏连接胶囊**：精简下方多余气泡，依靠动态状态圆点（绿/黄/红/灰）与清晰的“连接设置…”导航，操作直观。
 - **原生 Mermaid 语法图表可视化**：完美支持 AI 输出的流程图、时序图、脑图等直接渲染为矢量 SVG，修复安全拦截提示点击无效问题。
 
-[5.10.1 更新说明](docs/RELEASE_NOTES_5.10.1.md) · [Antigravity 设置与范围](docs/ANTIGRAVITY_GUIDE.md)
+[5.10.1 更新说明](docs/RELEASE_NOTES_5.10.1.md)
 
 ### 5.10.0 功能回顾（Antigravity 对话与原生生图）
 
@@ -94,7 +102,7 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 **BRAT**：安装 Obsidian 42 - BRAT → Add Beta plugin → 输入 `leoyang1984/lumen-public` → 启用 Lumen。已有用户在 BRAT 中检查更新。
 
-**手动安装**：从 [5.10.0 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.10.0) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
+**手动安装**：从 [5.10.2 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.10.2) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
 
 **升级先备份，只替换三个运行文件**。保留 `data.json`、阅读状态和历史，重载 Lumen 或重开 Obsidian。从 5.8.4 之前的版本首次升级时，所有已有自主员工（包括此前正在使用的员工）会保持暂停；请在“白板与自动化”检查配置并逐个确认恢复，避免取消授权后突然开始任务。新员工默认关闭自主工作。
 
@@ -114,7 +122,17 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 ## English
 
-### What's new in 5.10.1?
+### What's new in 5.10.2?
+
+**Local Agent MCP ecosystem across Codex, Pi, and Antigravity, safe human-in-the-loop review, and seamless connection keep-alive.**
+
+- **Local Agent MCP Ecosystem (Codex / Pi / Antigravity)**: Extended Model Context Protocol (MCP) support across Codex, Pi, and Antigravity (AGY) local engines. Automatically discovers local MCP configurations and opens the unified MCP manager directly from the composer toolbar to inspect and select tools.
+- **Human-in-the-Loop Safe Execution**: Enforces runtime human review for all external MCP tool calls with full parameter visibility and explicit approval before any external execution.
+- **Seamless Capability Configuration & Keep-Alive**: Fixed connection drops when toggling MCP or capability settings; adapters stay resident and status dot remains ready.
+
+[5.10.2 release notes](docs/RELEASE_NOTES_5.10.2.md) · [Antigravity setup and limits](docs/ANTIGRAVITY_GUIDE.md)
+
+### 5.10.1 Retrospective (Brand unification, model switching, and Mermaid charts)
 
 **LUMEN brand unification, active model switching, and native Mermaid diagram visualizations.**
 
@@ -123,7 +141,7 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 - **Unified Header Connection Pill**: Removed redundant banners below the header; intuitive status dot colors (green/yellow/red/gray) and clear settings navigation.
 - **Native Mermaid Diagram Support**: Automatically trusts vault rendering for AI-generated Mermaid flowcharts, sequence diagrams, and architecture charts, rendering them into interactive, clean SVGs directly inside chat bubbles.
 
-[5.10.1 release notes](docs/RELEASE_NOTES_5.10.1.md) · [Antigravity setup and limits](docs/ANTIGRAVITY_GUIDE.md)
+[5.10.1 release notes](docs/RELEASE_NOTES_5.10.1.md)
 
 ### 5.10.0 Retrospective (Antigravity chat and images)
 

@@ -4877,3 +4877,8 @@ textarea.lumen-reader-editor { min-height: 160px; resize: vertical; }
     .lumen-translation-export-format { flex-wrap: wrap; }
     .lumen-translation-export-format select { max-width: 100%; }
 }
+.lumen-mcp-server { border-top: 1px solid var(--background-modifier-border); padding: 8px 0; }
+.lumen-mcp-server details { padding: 0 0 10px; }
+.lumen-mcp-server summary { cursor: pointer; color: var(--text-muted); }
+.lumen-mcp-tool { padding: 8px 0; }
+.lumen-mcp-tool p { margin: 4px 0; font-size: var(--font-ui-small); color: var(--text-muted); white-space: pre-wrap; }
