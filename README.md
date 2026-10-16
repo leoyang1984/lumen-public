@@ -1,18 +1,29 @@
-# Lumen 5.10.0 — Antigravity 对话与生图 / Antigravity chat and native images
+# LUMEN 5.10.1 — 品牌规范升级、模型切换与 Mermaid 原生图表 / Brand unification, model switching and Mermaid visualizations
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.10.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.10.1) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
-Lumen 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
+LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
-Lumen brings EPUB reading, full-book AI translation, AI chat, note organization and Canvas workflows into Obsidian. Use an API provider or an installed local Codex, pi or Antigravity (agy) CLI without keeping a terminal window open.
+LUMEN brings EPUB reading, full-book AI translation, AI chat, note organization and Canvas workflows into Obsidian. Use an API provider or an installed local Codex, pi or Antigravity (agy) CLI without keeping a terminal window open.
 
-![Lumen：双栏阅读与 AI 助手 / Two-column reading and AI companion](docs/images/reader-5.8.10.jpg)
+![LUMEN：双栏阅读与 AI 助手 / Two-column reading and AI companion](docs/images/reader-5.8.10.jpg)
 
-*Lumen 实际界面：双栏阅读、划线与右侧助手，统一纸色和对齐的简洁顶栏。书籍与对话来自原创测试材料；右侧展示已恢复的历史对话。 / Actual Lumen interface: two-column reading, highlights and a companion panel, with a shared paper background and aligned, minimal toolbars. The book and conversation use original test material; the panel shows restored chat history.*
+*LUMEN 实际界面：双栏阅读、划线与右侧助手，统一纸色和对齐的简洁顶栏。书籍与对话来自原创测试材料；右侧展示已恢复的历史对话。 / Actual LUMEN interface: two-column reading, highlights and a companion panel, with a shared paper background and aligned, minimal toolbars. The book and conversation use original test material; the panel shows restored chat history.*
 
 ## 中文
 
-### 5.10.0 更新了什么？
+### 5.10.1 更新了什么？
+
+**品牌规范升级、模型透明化切换与原生 Mermaid 图表渲染。**
+
+- **LUMEN 品牌规范与视觉进化**：全界面与设置页统一为大写 LUMEN，移除冗余星标符号，简化欢迎页信息层级，去除多余模型气泡与孤立小灰框，带来通透呼吸感与卡片微质感。
+- **本地 Agent 模型透明化与快速切换**：实时感知并显示 Codex（`gpt-6-luna` 等）、Antigravity（`gemini-4-argon-medium` 等）、Pi（OpenRouter 预设模型）及 API 活跃模型，支持在顶栏胶囊中一键切换。
+- **全新统一顶栏连接胶囊**：精简下方多余气泡，依靠动态状态圆点（绿/黄/红/灰）与清晰的“连接设置…”导航，操作直观。
+- **原生 Mermaid 语法图表可视化**：完美支持 AI 输出的流程图、时序图、脑图等直接渲染为矢量 SVG，修复安全拦截提示点击无效问题。
+
+[5.10.1 更新说明](docs/RELEASE_NOTES_5.10.1.md) · [Antigravity 设置与范围](docs/ANTIGRAVITY_GUIDE.md)
+
+### 5.10.0 功能回顾（Antigravity 对话与原生生图）
 
 **新增本机 Antigravity 对话与原生生图。** 在“连接”中选择已安装并登录的 `agy`，可讨论笔记和 EPUB 选文、连续追问、检索笔记、确认修改与撤销，并使用该连接翻译 EPUB。
 
@@ -103,7 +114,18 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 ## English
 
-### What changed in 5.10.0?
+### What's new in 5.10.1?
+
+**LUMEN brand unification, active model switching, and native Mermaid diagram visualizations.**
+
+- **LUMEN Brand Unification & UI Polish**: All surfaces unified under the uppercase LUMEN logo; removed distracting decorative asterisks; refined empty-state launchpad with unboxed clean notes and enhanced starter cards.
+- **Model Transparency & Quick Switching**: Real-time display of active models for Codex (`gpt-6-luna`), Antigravity (`gemini-4-argon-medium`), Pi (OpenRouter presets), and API connections, with direct switching in the header dropdown.
+- **Unified Header Connection Pill**: Removed redundant banners below the header; intuitive status dot colors (green/yellow/red/gray) and clear settings navigation.
+- **Native Mermaid Diagram Support**: Automatically trusts vault rendering for AI-generated Mermaid flowcharts, sequence diagrams, and architecture charts, rendering them into interactive, clean SVGs directly inside chat bubbles.
+
+[5.10.1 release notes](docs/RELEASE_NOTES_5.10.1.md) · [Antigravity setup and limits](docs/ANTIGRAVITY_GUIDE.md)
+
+### 5.10.0 Retrospective (Antigravity chat and images)
 
 **Local Antigravity chat and native image generation.** Select an installed, authenticated `agy` under Connection for notes and EPUB passages, followups, governed retrieval, confirmed note changes and undo, and EPUB translation.
 
