@@ -1,16 +1,25 @@
-# LUMEN 5.10.2 — 全生态本地 Agent MCP 互联与无感连接 / Local Agent MCP ecosystem and seamless connection
+# LUMEN 5.11.0 — Pele 图表主题、Codex 推理强度与 CLI 识图 / Pele themes, Codex reasoning controls and CLI image input
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.10.2) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.11.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
 LUMEN brings EPUB reading, full-book AI translation, AI chat, note organization and Canvas workflows into Obsidian. Use an API provider or an installed local Codex, pi or Antigravity (agy) CLI without keeping a terminal window open.
 
-![LUMEN 5.10.2 标志性海报](docs/images/lumen-5.10.2-poster.jpg)
+
 
 ## 中文
 
-### 5.10.2 更新了什么？
+### v5.11.0：Pele 图表主题、Codex 推理强度与 CLI 识图
+
+- **Pele 图表与主题**：聊天中的 Mermaid 支持源码切换、复制、缩放和平移。Auto 默认继承 Obsidian 字体与配色；Paper 固定暖白纸张风格。设置持久保存，切换即时更新已有图表，样式仅作用于 LUMEN。
+- **Codex 模型与强度分开选择**：动态获取 CLI 模型和可用档位，支持默认、轻量、中等、高、极高、最大，并按模型记住选择；切换强度保留会话。Ultra 暂未接入委派，显示说明并禁用。
+- **发送图片提问**：Codex 与支持视觉的 Pi 模型原生接收图片，无需开启图片生成、联网或 MCP；AGY 通过已配置的视觉接口解析后转接并标明来源。每次最多 4 张，单张 10MB、总计 20MB，支持连续追问和重连恢复最近附件。
+- **修复与使用**：修复 Mermaid 提示词被误判为识图及笼统能力错误。图表主题在“设置 → LUMEN → 高级”，模型和强度在顶部连接菜单；目标图片需先附加到输入框。
+
+[5.11.0 更新说明](docs/RELEASE_NOTES_5.11.0.md) · [图表、推理与识图使用指南](docs/QUICK_GUIDE_5.11.0.md)
+
+### 5.10.2 功能回顾（MCP 互联与连接保活）
 
 **全生态本地 Agent MCP 互联、严格安全门禁与无感连接保活。**
 
@@ -102,14 +111,14 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 **BRAT**：安装 Obsidian 42 - BRAT → Add Beta plugin → 输入 `leoyang1984/lumen-public` → 启用 Lumen。已有用户在 BRAT 中检查更新。
 
-**手动安装**：从 [5.10.2 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.10.2) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
+**手动安装**：从 [5.11.0 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.11.0) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
 
 **升级先备份，只替换三个运行文件**。保留 `data.json`、阅读状态和历史，重载 Lumen 或重开 Obsidian。从 5.8.4 之前的版本首次升级时，所有已有自主员工（包括此前正在使用的员工）会保持暂停；请在“白板与自动化”检查配置并逐个确认恢复，避免取消授权后突然开始任务。新员工默认关闭自主工作。
 
 ### 条件与已知范围
 
-- 本轮 42 个自动测试文件、类型检查与生产构建通过。macOS 本机 agy 实测覆盖问答、受控读取、1024×1024 生图、停止恢复及“生图后直接追问”；Chromium 验证 JPEG 转 PNG 预览。
-- Antigravity 的原生联网、Skill、扩展与图片输入暂未接通；本次支持文生图，不支持参考图编辑。
+- 本次 49 个自动化测试入口、18 项模型设置与 39 项 Pele 浏览器检查、类型检查及构建通过。真实 Codex/Pi 多图、追问与重连恢复通过，用户已确认本地 Obsidian 图片提问可用。
+- Antigravity 联网、指令型 Skill 和 MCP 沿用现有受控入口；图片输入通过配置的视觉接口转接，真实视觉服务尚未实测。参考图编辑、脚本型 Skill 与任意扩展不包含在本次范围。
 
 - EPUB 可离线阅读；AI 需要 API 配置，或已安装、配置并登录的 Codex CLI / pi / Antigravity（agy）。CLI 原生能力需要桌面 Obsidian，并要求模型与账号支持相应能力。
 - 前序实测环境：macOS、Obsidian 1.14.4、Codex CLI 0.160.1、pi 1.1.0。这些是验证记录，不是强制锁定版本。其他系统、实体移动设备和所有服务商组合未完整实测。
@@ -122,7 +131,16 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 ## English
 
-### What's new in 5.10.2?
+### v5.11.0: Pele themes, Codex reasoning controls and CLI image input
+
+- **Pele diagrams and themes**: Mermaid chat previews offer source/copy controls, zoom and pan. Auto inherits Obsidian fonts and colors; Paper keeps a warm paper palette. Preferences persist and update existing previews, with styles scoped to LUMEN.
+- **Separate Codex model and effort controls**: Discover CLI models and supported efforts dynamically. Choose Default, low, medium, high, xhigh or max; remember preferences per model and retain the conversation when changing effort. Ultra is explained but disabled pending delegation support.
+- **Ask about attached images**: Codex and vision-capable Pi models receive native images without enabling image generation, search or MCP. AGY uses its configured vision API with explicit attribution. Send up to four images, 10MB each and 20MB total, with follow-ups and recent-image replay after reconnecting.
+- **Fixes and setup**: Fixes Mermaid prompts incorrectly triggering image-reading checks and replaces generic capability errors with specific image guidance. Themes are under Settings → LUMEN → Advanced; model and effort are in the header connection menu. Attach the intended picture before asking.
+
+[5.11.0 release notes](docs/RELEASE_NOTES_5.11.0.md) · [Diagrams, reasoning and image guide](docs/QUICK_GUIDE_5.11.0.md)
+
+### 5.10.2 retrospective: MCP ecosystem and connection keep-alive
 
 **Local Agent MCP ecosystem across Codex, Pi, and Antigravity, safe human-in-the-loop review, and seamless connection keep-alive.**
 
@@ -207,13 +225,13 @@ CLI chat does not require extra MCP setup. Existing Canvas and employee API feat
 
 **BRAT**: install Obsidian 42 - BRAT, choose Add Beta plugin, enter `leoyang1984/lumen-public`, then enable Lumen. Existing BRAT users can check for updates.
 
-**Manual**: download the [5.10.0 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.10.0). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
+**Manual**: download the [5.11.0 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.11.0). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
 
 Back up first. Replace only the three runtime files; keep settings, reading state and history. Reload Lumen or reopen Obsidian. All existing autonomous employees, including previously active ones, stay paused when first upgrading from a version before 5.8.4. Review and confirm them under Canvas and automation before resuming. New employees retain opt-in autonomy.
 
 ### Requirements and limits
 
-This update passed 42 automated test files, TypeScript and production build. Live macOS agy checks covered chat, governed reads, a 1024×1024 image, stop/recovery and direct followups after generation. Chromium verified JPEG-to-PNG previews. Antigravity native web search, Skills, extensions and image input are unavailable; the integration supports text-to-image, not reference-image edits.
+This update passed 49 automated test entries, 18 model-control and 39 Pele browser checks, TypeScript and production build. Live Codex/Pi multi-image, follow-up and reconnect checks passed; the user confirmed image questions in local Obsidian. AGY uses the configured vision service for image evidence; that bridge was fixture-tested, not tested with a live vision provider. Existing governed AGY web search, instruction Skills and MCP remain available. Native reference-image editing and arbitrary extensions are not included.
 
 Reading works offline. AI needs a configured API or installed/configured/signed-in Codex CLI/pi/Antigravity (agy). Native CLI capabilities require desktop Obsidian and a suitable model/account. Earlier acceptance used macOS, Obsidian 1.14.4, Codex CLI 0.160.1 and pi 1.1.0; these are tested versions, not exact version locks. Other OS/device/provider combinations are not fully verified.
 
@@ -221,4 +239,14 @@ Pi web search needs an installed, selected and enabled compatible extension. Lum
 
 5.8.5 passed 36 regression entry points, 10 local-agent protocol tests, TypeScript, production build and packaging. An isolated macOS Vault covered save settings and reload, original EPUB import, your words, a live Pi answer, confirmed notes, export and source return. API image routes and native PNG storage used original deterministic fixtures. All live image providers, other platforms and autonomous-task upgrade migration are outside this verification.
 
-[Release notes](docs/RELEASE_NOTES_5.10.0.md) · [Guide](docs/READING_GUIDE.md) · [Workflow tutorials](runtime-workflow-pack/) · [Distribution terms](COMMERCIAL_LICENSE.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.txt)
+[Release notes](docs/RELEASE_NOTES_5.11.0.md) · [Guide](docs/READING_GUIDE.md) · [Workflow tutorials](runtime-workflow-pack/) · [Distribution terms](COMMERCIAL_LICENSE.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.txt)
+
+
+
+## Changelog / 更新日志
+
+### 5.11.0 · 2026-10-18
+
+Pele Auto/Paper 主题、Codex 动态模型与推理强度、CLI 图片输入。 / Pele Auto/Paper themes, dynamic Codex reasoning controls and CLI image input.
+
+[完整发布说明 / Full release notes](docs/RELEASE_NOTES_5.11.0.md).
