@@ -1,6 +1,6 @@
-# LUMEN 5.11.0 — Pele 图表主题、Codex 推理强度与 CLI 识图 / Pele themes, Codex reasoning controls and CLI image input
+# LUMEN 5.12.0 — 跨知识库持续对话与图表导出 / Cross-Vault discussions and diagram export
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.11.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.12.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
@@ -10,7 +10,19 @@ LUMEN brings EPUB reading, full-book AI translation, AI chat, note organization 
 
 ## 中文
 
-### v5.11.0：Pele 图表主题、Codex 推理强度与 CLI 识图
+### v5.12.0：跨知识库持续对话与图表导出
+
+- **先说目标，再选知识库**：输入“哪些知识库安装了 LUMEN，并可以连接？”或 `/vaults`，查看真实本机候选卡；也可用 `@` 选库、按 B 手动公开的用途文字筛选，或粘贴完整引用 ID。检查和选择不会自动执行任务。
+- **向目标库委托并持续追问**：选择 B 后开启“与此库持续对话”，目标持续可见，默认“仅回答”，无需每轮生成文件。B 使用自己的本地 Agent 和私有上下文；每次发送仍核对共享范围，并遵循 B 的来源许可。
+- **需要成果时再保存**：本轮可切换“生成笔记”，B 确认写入预览后才报告保存成功；A 采纳摘要或全文也需预览确认。回到本库保留文字，结束讨论关闭旧续接入口。
+- **草稿与恢复**：私有跨库草稿支持显式恢复，目标身份重新检查。离线、忙碌、撤销或上下文丢失不会静默转到 A；停止和崩溃恢复不会自动重放。
+- **图表直接变成图片**：Pele 工具栏支持复制 PNG、保存到当前 Markdown 笔记、导出独立 SVG，保留完整图表和当前 Auto/Paper 配色，不受缩放或平移裁切。
+
+**跨库功能目前是 macOS 本机预览**：两端安装 LUMEN 5.12.0；B 需要已配置的本地 Codex、pi 或 Antigravity，以及登录 PATH 中可用的 Node.js。A 可使用 API。仅回答模式不开放笔记写入、命令、MCP 或扩展工具，pi 扩展联网暂不提供。Windows/Linux 和移动端不提供跨库功能；原有功能保持可用。
+
+[5.12.0 发布说明](docs/RELEASE_NOTES_5.12.0.md) · [跨库使用指南](docs/CROSS_VAULT_GUIDE.md) · [图表导出指南](docs/DIAGRAM_EXPORT_GUIDE.md)
+
+### 5.11.0 功能回顾（Pele 主题、推理强度与 CLI 识图）
 
 - **Pele 图表与主题**：聊天中的 Mermaid 支持源码切换、复制、缩放和平移。Auto 默认继承 Obsidian 字体与配色；Paper 固定暖白纸张风格。设置持久保存，切换即时更新已有图表，样式仅作用于 LUMEN。
 - **Codex 模型与强度分开选择**：动态获取 CLI 模型和可用档位，支持默认、轻量、中等、高、极高、最大，并按模型记住选择；切换强度保留会话。Ultra 暂未接入委派，显示说明并禁用。
@@ -102,6 +114,8 @@ LUMEN brings EPUB reading, full-book AI translation, AI chat, note organization 
 | 边读边聊 | API / Codex / pi / Antigravity 对话、连续追问、人工笔记检索、带出处的笔记与原文回跳 |
 | 使用本机能力 | Codex 搜索、可信独立指令型 Skill、兼容 Pi 工具扩展、明确请求的 Codex / Antigravity 原生生图 |
 | 整理笔记 | 原话保存、AI 草稿编辑确认、历史与导出、受控修改与撤销 |
+| 跨库协作 | macOS 本机发现与选库、持续纯问答、确认保存成果、显式恢复 |
+| 图表分享 | Mermaid 预览与主题、复制 PNG、保存到笔记、导出 SVG |
 | 白板思考 | Canvas 算子与连线、文字／图片工作流、API 图片生成和编辑 |
 | 自动任务 | 员工定义、技能与知识边界、手动／文件监控／定时触发、预算及运行记录 |
 
@@ -111,27 +125,39 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 **BRAT**：安装 Obsidian 42 - BRAT → Add Beta plugin → 输入 `leoyang1984/lumen-public` → 启用 Lumen。已有用户在 BRAT 中检查更新。
 
-**手动安装**：从 [5.11.0 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.11.0) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
+**手动安装**：从 [5.12.0 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.12.0) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
 
 **升级先备份，只替换三个运行文件**。保留 `data.json`、阅读状态和历史，重载 Lumen 或重开 Obsidian。从 5.8.4 之前的版本首次升级时，所有已有自主员工（包括此前正在使用的员工）会保持暂停；请在“白板与自动化”检查配置并逐个确认恢复，避免取消授权后突然开始任务。新员工默认关闭自主工作。
 
 ### 条件与已知范围
 
-- 本次 49 个自动化测试入口、18 项模型设置与 39 项 Pele 浏览器检查、类型检查及构建通过。真实 Codex/Pi 多图、追问与重连恢复通过，用户已确认本地 Obsidian 图片提问可用。
+- 本次 65 个自动测试入口、66 项跨库浏览器检查、类型检查和生产构建通过。隔离 Obsidian 合成双库验证了持续问答、整应用重启、回退再升级和 7 类停止/崩溃清理；跨库真实账户模型、Windows/Linux 和移动真机尚未全面实测。图表导出通过浏览器验证，宿主剪贴板与下载行为依系统权限。
 - Antigravity 联网、指令型 Skill 和 MCP 沿用现有受控入口；图片输入通过配置的视觉接口转接，真实视觉服务尚未实测。参考图编辑、脚本型 Skill 与任意扩展不包含在本次范围。
 
 - EPUB 可离线阅读；AI 需要 API 配置，或已安装、配置并登录的 Codex CLI / pi / Antigravity（agy）。CLI 原生能力需要桌面 Obsidian，并要求模型与账号支持相应能力。
 - 前序实测环境：macOS、Obsidian 1.14.4、Codex CLI 0.160.1、pi 1.1.0。这些是验证记录，不是强制锁定版本。其他系统、实体移动设备和所有服务商组合未完整实测。
 - Codex 搜索需要联网。Pi 搜索还需要自行安装、选中并启用兼容的搜索扩展；Lumen 不内置通用 Pi 搜索扩展，第三方推荐与兼容性评估仍待完成。
 - Pi 扩展运行可信本机代码，不是沙箱；扩展自己写文件不保证经过 Lumen 笔记确认。复杂 Skill、纯终端交互扩展和任意扩展不保证兼容。
-- 原生 Codex / Antigravity 图片支持文生图并保存为 PNG，不含参考图编辑；API 图片生成／编辑是独立功能。未发送输入不保证跨插件重载恢复。
+- 原生 Codex / Antigravity 图片支持文生图并保存为 PNG，不含参考图编辑；API 图片生成／编辑是独立功能。普通未发送输入不保证跨重载恢复；跨库文字草稿有独立的显式恢复入口。
 - 5.8.5 已通过 36 个自动回归入口、10 项本机协议测试、类型检查、生产构建和打包。独立 macOS 测试库走通保存位置配置与恢复、原创 EPUB 导入、原话保存、真实 Pi 回答确认、对话导出和引用回跳。API 图片路由与原生 PNG 存储使用原创模拟数据；本轮未覆盖所有真实生图服务、其他系统及自主任务升级迁移。
 
-[中英文更新说明](docs/RELEASE_NOTES_5.10.0.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
+[中英文更新说明](docs/RELEASE_NOTES_5.12.0.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
 
 ## English
 
-### v5.11.0: Pele themes, Codex reasoning controls and CLI image input
+### v5.12.0: Cross-Vault discussions and diagram export
+
+- **Choose a Vault for your goal**: ask which Vaults have LUMEN and can connect, or use `/vaults`, `@` selection or a full reference ID. Purpose matching uses text explicitly shared by B. Discovery and selection never dispatch tasks.
+- **Delegate and keep talking**: the selected destination stays visible. Answer-only turns return replies without creating a report. B uses its own local assistant and isolated context; each send reviews the sharing scope and follows B's permission policy.
+- **Save when you need a deliverable**: select Create a note for one turn and confirm B's write preview. Adopting the result in A also requires a preview. Return locally without ending, or explicitly close the discussion's continuation entries.
+- **Restore deliberately**: private cross-Vault drafts require explicit restoration and destination checks. Offline, busy, revoked or missing-context failures never fall back to A. Recovery queries do not replay work.
+- **Export diagrams**: copy PNG, save to the active Markdown note or download standalone SVG. Exports keep the complete diagram and current Auto/Paper colors independently of zoom/pan.
+
+**Cross-Vault work is a macOS local preview**. Install LUMEN 5.12.0 in both Vaults. B needs a configured Codex, pi or Antigravity CLI and Node.js on its login PATH; A may use API chat. Answer-only mode excludes note writes, commands, MCP and extensions, so Pi extension-based web search is unavailable. Cross-Vault work is unavailable on Windows/Linux/mobile; existing features remain available.
+
+[5.12.0 release notes](docs/RELEASE_NOTES_5.12.0.md) · [Cross-Vault guide](docs/CROSS_VAULT_GUIDE.md) · [Diagram export guide](docs/DIAGRAM_EXPORT_GUIDE.md)
+
+### 5.11.0 retrospective: Pele themes, reasoning controls and CLI image input
 
 - **Pele diagrams and themes**: Mermaid chat previews offer source/copy controls, zoom and pan. Auto inherits Obsidian fonts and colors; Paper keeps a warm paper palette. Preferences persist and update existing previews, with styles scoped to LUMEN.
 - **Separate Codex model and effort controls**: Discover CLI models and supported efforts dynamically. Choose Default, low, medium, high, xhigh or max; remember preferences per model and retain the conversation when changing effort. Ultra is explained but disabled pending delegation support.
@@ -225,25 +251,30 @@ CLI chat does not require extra MCP setup. Existing Canvas and employee API feat
 
 **BRAT**: install Obsidian 42 - BRAT, choose Add Beta plugin, enter `leoyang1984/lumen-public`, then enable Lumen. Existing BRAT users can check for updates.
 
-**Manual**: download the [5.11.0 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.11.0). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
+**Manual**: download the [5.12.0 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.12.0). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
 
 Back up first. Replace only the three runtime files; keep settings, reading state and history. Reload Lumen or reopen Obsidian. All existing autonomous employees, including previously active ones, stay paused when first upgrading from a version before 5.8.4. Review and confirm them under Canvas and automation before resuming. New employees retain opt-in autonomy.
 
 ### Requirements and limits
 
-This update passed 49 automated test entries, 18 model-control and 39 Pele browser checks, TypeScript and production build. Live Codex/Pi multi-image, follow-up and reconnect checks passed; the user confirmed image questions in local Obsidian. AGY uses the configured vision service for image evidence; that bridge was fixture-tested, not tested with a live vision provider. Existing governed AGY web search, instruction Skills and MCP remain available. Native reference-image editing and arbitrary extensions are not included.
+This update passed 65 automated test entries, 66 cross-Vault browser checks, TypeScript and production build. Isolated Obsidian Vaults verified Q&A, whole-app restart, rollback/re-upgrade and seven stop/crash scenarios with synthetic CLI fixtures. Cross-Vault live-account models, Windows/Linux and physical mobile devices are not fully verified. Diagram exports were browser-tested; host clipboard and downloads depend on system permissions. AGY uses the configured vision service for image evidence; that bridge was fixture-tested, not tested with a live vision provider. Existing governed AGY web search, instruction Skills and MCP remain available. Native reference-image editing and arbitrary extensions are not included.
 
 Reading works offline. AI needs a configured API or installed/configured/signed-in Codex CLI/pi/Antigravity (agy). Native CLI capabilities require desktop Obsidian and a suitable model/account. Earlier acceptance used macOS, Obsidian 1.14.4, Codex CLI 0.160.1 and pi 1.1.0; these are tested versions, not exact version locks. Other OS/device/provider combinations are not fully verified.
 
-Pi web search needs an installed, selected and enabled compatible extension. Lumen does not bundle a general Pi search provider; third-party recommendations remain pending. Extensions run trusted local code, not a sandbox; their direct writes can bypass Lumen note confirmation. Complex Skills and terminal-only or arbitrary extensions are not guaranteed. Native Codex / Antigravity images currently support PNG generation, not native editing; API image generation/editing is separate. Unsent input may not survive reload.
+Pi web search needs an installed, selected and enabled compatible extension. Lumen does not bundle a general Pi search provider; third-party recommendations remain pending. Extensions run trusted local code, not a sandbox; their direct writes can bypass Lumen note confirmation. Complex Skills and terminal-only or arbitrary extensions are not guaranteed. Native Codex / Antigravity images currently support PNG generation, not native editing; API image generation/editing is separate. Ordinary unsent input may not survive reload; cross-Vault text drafts have a separate explicit restore flow.
 
 5.8.5 passed 36 regression entry points, 10 local-agent protocol tests, TypeScript, production build and packaging. An isolated macOS Vault covered save settings and reload, original EPUB import, your words, a live Pi answer, confirmed notes, export and source return. API image routes and native PNG storage used original deterministic fixtures. All live image providers, other platforms and autonomous-task upgrade migration are outside this verification.
 
-[Release notes](docs/RELEASE_NOTES_5.11.0.md) · [Guide](docs/READING_GUIDE.md) · [Workflow tutorials](runtime-workflow-pack/) · [Distribution terms](COMMERCIAL_LICENSE.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.txt)
+[Release notes](docs/RELEASE_NOTES_5.12.0.md) · [Guide](docs/READING_GUIDE.md) · [Workflow tutorials](runtime-workflow-pack/) · [Distribution terms](COMMERCIAL_LICENSE.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.txt)
 
 
 
 ## Changelog / 更新日志
+
+### 5.12.0 · 2026-10-20
+
+- 本机跨库发现、用途名片、引用 ID、委托与持续问答，按需确认保存成果；图表 PNG 复制/保存和 SVG 导出。 / Local Vault discovery, purpose cards, references, delegated Q&A and confirmed reports; diagram PNG copy/save and SVG export.
+- [完整发布说明 / Full release notes](docs/RELEASE_NOTES_5.12.0.md)。
 
 ### 5.11.0 · 2026-10-18
 

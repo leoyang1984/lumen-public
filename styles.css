@@ -1084,6 +1084,8 @@
     box-shadow: none;
     white-space: normal;
 }
+.lumen-pele .lumen-pele-toolbar button:disabled { opacity: 0.45; cursor: not-allowed; }
+.lumen-pele[aria-busy="true"] .lumen-pele-toolbar button:disabled { cursor: progress; }
 .lumen-pele .lumen-pele-viewport {
     position: relative;
     width: 100%;
@@ -4933,3 +4935,38 @@ textarea.lumen-reader-editor { min-height: 160px; resize: vertical; }
 .lumen-mcp-server summary { cursor: pointer; color: var(--text-muted); }
 .lumen-mcp-tool { padding: 8px 0; }
 .lumen-mcp-tool p { margin: 4px 0; font-size: var(--font-ui-small); color: var(--text-muted); white-space: pre-wrap; }
+
+/* Linked Vault sender cards: plain data, real ledger state. */
+.lumen-delegation-card { margin: 12px 0; padding: 14px; border: 1px solid var(--background-modifier-border); border-radius: 10px; background: var(--background-secondary); }
+.lumen-delegation-card p { margin: 8px 0; }
+.lumen-delegation-summary { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 28em; overflow-y: auto; }
+.lumen-delegation-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+.lumen-delegation-actions span { overflow-wrap: anywhere; }
+.lumen-vault-picker { border:1px solid var(--background-modifier-border); border-radius:10px; padding:12px; margin:8px 0; min-width:0; }
+.lumen-vault-picker-header,.lumen-vault-choice-row { display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+.lumen-vault-picker-hint,.lumen-vault-choice p,.lumen-vault-choice summary { color:var(--text-muted); font-size:var(--font-ui-small); margin:6px 0; overflow-wrap:anywhere; }
+.lumen-vault-picker-items { display:grid; gap:8px; }
+.lumen-vault-choice { border:1px solid var(--background-modifier-border); border-radius:8px; padding:10px; min-width:0; }
+.lumen-vault-choice.is-selected { border-color:var(--interactive-accent); background:var(--background-secondary); }
+.lumen-vault-choice-row label { display:flex; align-items:center; gap:8px; min-width:0; overflow-wrap:anywhere; }
+.lumen-vault-availability { font-size:var(--font-ui-small); color:var(--text-muted); }
+.lumen-vault-availability[data-status="ready"] { color:var(--text-success); }
+.lumen-vault-picker.is-compact { max-height:340px; overflow:auto; background:var(--background-primary); }
+.lumen-vault-target { display:flex; gap:8px; align-items:center; justify-content:space-between; flex-wrap:wrap; padding:6px 10px; margin:6px 0; border:1px solid var(--interactive-accent); border-radius:8px; overflow-wrap:anywhere; }
+.lumen-vault-target span { min-width:0; }
+.lumen-vault-discussion > strong, .lumen-vault-discussion > label { width:100%; }
+.lumen-vault-discussion .lumen-delegation-actions { margin-top:0; }
+.lumen-vault-discussion p { margin:4px 0; font-size:var(--font-ui-small); }
+.lumen-vault-discussion select { max-width:100%; }
+.lumen-vault-purpose { padding:6px 0; overflow-wrap:anywhere; }
+.lumen-vault-purpose small { color:var(--text-muted); font-size:var(--font-ui-smaller); }
+.lumen-vault-choice .lumen-vault-match { border-left:2px solid var(--interactive-accent); padding-left:8px; color:var(--text-normal); }
+.lumen-vault-match-method { font-size:var(--font-ui-small); color:var(--text-muted); overflow-wrap:anywhere; }
+.lumen-vault-purpose-editor textarea { min-height:88px; max-width:100%; }
+.lumen-vault-reference { display:block; white-space:pre-wrap; overflow-wrap:anywhere; max-width:100%; user-select:text; margin:6px 0; }
+.lumen-vault-reference-preview,.lumen-delegation-draft-offer { border:1px solid var(--background-modifier-border); border-radius:8px; padding:10px; margin:6px 0; overflow-wrap:anywhere; }
+.lumen-vault-reference-preview p,.lumen-delegation-draft-offer p { margin:6px 0; font-size:var(--font-ui-small); }
+.lumen-vault-reference-preview button,.lumen-delegation-draft-offer button { margin:4px 4px 4px 0; white-space:normal; height:auto; min-height:28px; }
+.lumen-delegation-draft-shelf { font-size:var(--font-ui-small); color:var(--text-muted); margin:4px 0; }
+.lumen-delegation-draft-shelf button { display:block; white-space:normal; height:auto; margin:5px 0; overflow-wrap:anywhere; max-width:100%; }
+@media (max-width:600px) { .lumen-vault-purpose-editor .setting-item { flex-direction:column; align-items:stretch; gap:8px; } .lumen-vault-purpose-editor .setting-item-control { justify-content:flex-start; } }
