@@ -1,6 +1,6 @@
-# LUMEN 5.12.0 — 跨知识库持续对话与图表导出 / Cross-Vault discussions and diagram export
+# LUMEN 5.13.0 — Liveboard 动态研究画布 / Liveboard Dynamic Research Canvas
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.12.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.13.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
@@ -10,7 +10,18 @@ LUMEN brings EPUB reading, full-book AI translation, AI chat, note organization 
 
 ## 中文
 
-### v5.12.0：跨知识库持续对话与图表导出
+### v5.13.0：Liveboard 动态研究画布与思维流转
+
+- **全新 Liveboard 动态研究画布**：为深度阅读、笔记综合与多轮思考提供沉浸式全景工作台。聊天面板的每轮问答、思考过程、证据提炼与结论沉淀自动映射并投射为画布卡片。
+- **对话与画布自动关联与持久化**：切换历史对话时画布自动同步切换至对应会话，重启 Obsidian 内容自动恢复。
+- **机械/科幻同心环吸附连线（Plan A）**：流畅能量流动感渐变连线，搭配精致同心圆环吸附与机械挂钩美学，拖动卡片自适应平滑吸附。
+- **画布漫游与视口控制**：提供放大、缩小、双击归中（Reset View）与全景自由平移。
+- **观点送回对话与多轮血缘演进**：卡片支持一键“送回对话 ↗”，内置继续深入、质疑反驳、举例落地、综合观点等结构化意图；自动抽取卡片源笔记作为 `@提及`，新回答在画布上自动继承父卡片血缘连线。
+- **Antigravity 多轮工具协议加固**：彻底修复本地 Agent 连续工具调用时因缺少 schema 约束引起的 Gemini API 崩溃，增强 Markdown 代码块封套容错。
+
+[5.13.0 发布说明](docs/RELEASE_NOTES_5.13.0.md)
+
+### 5.12.0 功能回顾（跨知识库持续对话与图表导出）
 
 - **先说目标，再选知识库**：输入“哪些知识库安装了 LUMEN，并可以连接？”或 `/vaults`，查看真实本机候选卡；也可用 `@` 选库、按 B 手动公开的用途文字筛选，或粘贴完整引用 ID。检查和选择不会自动执行任务。
 - **向目标库委托并持续追问**：选择 B 后开启“与此库持续对话”，目标持续可见，默认“仅回答”，无需每轮生成文件。B 使用自己的本地 Agent 和私有上下文；每次发送仍核对共享范围，并遵循 B 的来源许可。
@@ -145,7 +156,18 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 ## English
 
-### v5.12.0: Cross-Vault discussions and diagram export
+### v5.13.0: Liveboard Dynamic Research Canvas & Thought Flow
+
+- **All-New Liveboard Dynamic Research Canvas**: An immersive, panoramic canvas workbench for deep reading, note synthesis, and multi-turn research. Automatically projects chat Q&A, reasoning steps, evidence citations, and conclusions into interactive cards.
+- **Auto Conversation Association & Persistence**: Switching chat conversations automatically synchronizes the active canvas; state persists across Obsidian restarts.
+- **Cyber / Mechanical Hook-and-Ring Connector Aesthetics (Plan A)**: Fluid gradient connectors with concentric anchor rings and mechanical hooks that smoothly follow cards during drag-and-drop.
+- **Canvas Navigation & Zoom Controls**: Floating controls with Zoom In (+), Zoom Out (-), Double-Click to Center, and freeform canvas panning.
+- **Send Cards Back to Chat with Lineage Continuity**: One-click "Send to Chat ↗" on any canvas card with structured intents (Deepen, Challenge, Apply & Execute, Synthesize). Automatically preserves source note citations as `@mentions` in the composer and links new answers back to parent cards on the canvas.
+- **Antigravity Multi-Turn Tool Protocol Hardening**: Eliminates function-calling parse failures and Gemini API crashes during multi-round local tool execution by strictly enforcing response schemas across all turns.
+
+[5.13.0 release notes](docs/RELEASE_NOTES_5.13.0.md)
+
+### 5.12.0 retrospective: Cross-Vault discussions and diagram export
 
 - **Choose a Vault for your goal**: ask which Vaults have LUMEN and can connect, or use `/vaults`, `@` selection or a full reference ID. Purpose matching uses text explicitly shared by B. Discovery and selection never dispatch tasks.
 - **Delegate and keep talking**: the selected destination stays visible. Answer-only turns return replies without creating a report. B uses its own local assistant and isolated context; each send reviews the sharing scope and follows B's permission policy.
