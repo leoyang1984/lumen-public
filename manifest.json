@@ -1,7 +1,7 @@
 {
     "id": "lumen",
     "name": "LUMEN",
-    "version": "5.14.0",
+    "version": "5.14.1",
     "minAppVersion": "0.15.0",
     "description": "AI reading and writing agent in Obsidian. EPUB and YouTube learning, source-linked notes, API/Codex/pi/Antigravity chat, and visual workflows.",
     "author": "leoyang1984",

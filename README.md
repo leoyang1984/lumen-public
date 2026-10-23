@@ -1,6 +1,6 @@
-# LUMEN 5.14.0 — YouTube 视频学习 / YouTube Video Learning
+# LUMEN 5.14.1 — 伴读发光水母与视频学习 / Thinking Jellyfish Companion & Video Learning
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.14.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.14.1) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、YouTube 视频学习、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
@@ -9,6 +9,14 @@ LUMEN brings EPUB reading, full-book AI translation, YouTube video learning, AI 
 
 
 ## 中文
+
+### v5.14.1：伴读发光水母与多色外观
+
+- **输出前的深海陪伴**：在用户提问至助手首个字输出前的等待阶段，呈现纯数学计算、轻量流体游动的 ASCII 生物发光水母，消解推理与知识库检索时的等待焦虑。
+- **海萤微光浮空状态字**：无边框等宽微光排版，呼吸频率与水母游动共振（3.6s 周期），优雅联动展示思考、工具执行与检索状态；首字到达即自然退场。
+- **四款主题色调**：在“设置 → LUMEN → 高级”中可切换为 Obsidian 幻紫、流明金辉（Amber Gold）、深海幽蓝与生物荧光绿。
+
+[5.14.1 更新说明](docs/RELEASE_NOTES_5.14.1.md)
 
 ### v5.14.0：YouTube 视频学习
 
@@ -167,6 +175,23 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 [中英文更新说明](docs/RELEASE_NOTES_5.12.0.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
 
 ## English
+
+### v5.14.1: Thinking Jellyfish Companion
+
+- **Bioluminescent companion before output**: An organic, pure-math ASCII jellyfish swims and breathes while the model is reasoning, retrieving notes or calling tools, easing pre-output latency anxiety.
+- **Luminous floating status line**: Borderless, monospace ambient status text breathing in sync with the jellyfish (3.6s cycle), naturally dissolving the moment the first response token arrives.
+- **Four color themes**: Choose from Obsidian Violet, Lumen Amber Gold, Deepsea Cyan, or Bioluminescent Emerald under Settings → LUMEN → Advanced.
+
+[5.14.1 release notes](docs/RELEASE_NOTES_5.14.1.md)
+
+### v5.14.0: YouTube Video Learning
+
+- **Start by pasting a link**: Send a YouTube URL in ordinary chat to open a learning page with in-video captions and a right-side transcript.
+- **Synchronized transcript & controls**: Pause by sentence, replay, seek, and adjust playback speed.
+- **Translate with your active connection**: Translate in resumable batches using API, Codex, pi or Antigravity; progress persists across reloads.
+- **Learn and capture**: Ask timestamped questions, attach screenshots, and save answers as structured video notes.
+
+[5.14.0 release notes](docs/RELEASE_NOTES_5.14.0.md)
 
 ### v5.13.0: Liveboard Dynamic Research Canvas & Thought Flow
 
