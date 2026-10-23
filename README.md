@@ -1,14 +1,26 @@
-# LUMEN 5.13.0 — Liveboard 动态研究画布 / Liveboard Dynamic Research Canvas
+# LUMEN 5.14.0 — YouTube 视频学习 / YouTube Video Learning
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.13.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.14.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
-LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
+LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、YouTube 视频学习、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
-LUMEN brings EPUB reading, full-book AI translation, AI chat, note organization and Canvas workflows into Obsidian. Use an API provider or an installed local Codex, pi or Antigravity (agy) CLI without keeping a terminal window open.
+LUMEN brings EPUB reading, full-book AI translation, YouTube video learning, AI chat, note organization and Canvas workflows into Obsidian. Use an API provider or an installed local Codex, pi or Antigravity (agy) CLI without keeping a terminal window open.
 
 
 
 ## 中文
+
+### v5.14.0：YouTube 视频学习
+
+- **粘贴 YouTube 链接**：在普通对话中发送链接，直接进入视频学习页。播放器、字幕与助手属于同一段对话。
+- **字幕贴着视频读**：画面内字幕配合右侧原文、中文或双语瀑布字幕，支持按句暂停、重听、跳转和调速。
+- **用现有连接翻译**：沿用 API、Codex、pi 或 Antigravity，按批保存和续接字幕翻译；暂停、重开后可继续。
+- **理解后沉淀**：引用带时间点的字幕向助手提问、附加截图、保存回答为视频笔记，或记录自己的想法。
+- **字幕导入导出**：支持获取公开视频字幕以及 SRT/VTT 和旧版字幕 Markdown 导入；获取受限时保留已有内容。
+
+桌面优先。部分视频或网络环境会限制播放器嵌入或字幕抓取；可导入 SRT/VTT。长字幕支持保存和续接，但本版不保证所有本地模型都能稳定完成任意长度的视频翻译。复习计划、应用练习和学习画布尚未包含。
+
+[5.14.0 更新说明](docs/RELEASE_NOTES_5.14.0.md)
 
 ### v5.13.0：Liveboard 动态研究画布与思维流转
 
