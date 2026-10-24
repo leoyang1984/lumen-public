@@ -1,6 +1,6 @@
-# LUMEN 5.14.1 — 伴读发光水母与视频学习 / Thinking Jellyfish Companion & Video Learning
+# LUMEN 5.14.2 — 水母淡入淡出动效优化 / Smooth Jellyfish Transition
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.14.1) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.14.2) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、YouTube 视频学习、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
@@ -9,6 +9,14 @@ LUMEN brings EPUB reading, full-book AI translation, YouTube video learning, AI 
 
 
 ## 中文
+
+### v5.14.2：水母淡入淡出动效优化
+
+- **平滑淡入淡出**：重构了输出前发光水母伴读状态的过渡，平滑缓动曲线同步控制透明度与高度收放（进入 450ms，淡出 600ms）。
+- **告别突兀闪烁与视口跳动**：首个内容 Token 到达时，水母自然柔和淡出，高度平滑收回，彻底消除界面闪断感与消息跳动。
+- **状态行衔接优化**：水母淡出期间抑制普通思考闪烁行出现，保持过渡期纯粹干净的视觉体验。
+
+[5.14.2 更新说明](docs/RELEASE_NOTES_5.14.2.md)
 
 ### v5.14.1：伴读发光水母与多色外观
 
@@ -175,6 +183,14 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 [中英文更新说明](docs/RELEASE_NOTES_5.12.0.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
 
 ## English
+
+### v5.14.2: Smooth Transition for Thinking Companion
+
+- **Smooth fade-in & fade-out**: Re-engineered the transition lifecycle of the pre-output ASCII jellyfish companion with synchronized opacity and height easing (450ms in, 600ms out).
+- **Eliminated abrupt layout jumps**: When response streaming begins, the jellyfish smoothly fades and collapses its height gracefully, preventing sudden visual interruptions.
+- **Seamless status-line handoff**: Suppressed secondary thinking indicator lines during the jellyfish fade-out window for a clean and unified visual flow.
+
+[5.14.2 release notes](docs/RELEASE_NOTES_5.14.2.md)
 
 ### v5.14.1: Thinking Jellyfish Companion
 
