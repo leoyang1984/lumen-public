@@ -1,6 +1,6 @@
-# LUMEN 5.14.2 — 水母淡入淡出动效优化 / Smooth Jellyfish Transition
+# LUMEN 5.14.3 — 中文图表与导出优化 / Better Chinese Diagrams and Exports
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.14.2) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.14.3) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、YouTube 视频学习、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
@@ -9,6 +9,16 @@ LUMEN brings EPUB reading, full-book AI translation, YouTube video learning, AI 
 
 
 ## 中文
+
+### v5.14.3：中文图表与导出优化
+
+- **中文长标签换行**：升级至 Pele 1.10.0，没有空格的中文标签也可换行，适应窄侧栏。
+- **复杂图表与桑基渐变**：减少子图连线交叉，桑基图支持中文节点和来源到目标的颜色渐变。
+- **丰富标签与导出修复**：上下标、行内代码、快捷键、下划线和引用斜体；SVG/PNG 导出保留上下标位置与渐变。
+- **使用方式保持一致**：继续使用 Auto/Paper、源码复制、缩放和平移；数学公式排版器暂未接入。
+
+[5.14.3 更新说明](docs/RELEASE_NOTES_5.14.3.md) · [图表导出指南](docs/DIAGRAM_EXPORT_GUIDE.md) · [测试提示词](docs/PELE_UPGRADE_TEST_PROMPT.md)
+
 
 ### v5.14.2：水母淡入淡出动效优化
 
@@ -183,6 +193,16 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 [中英文更新说明](docs/RELEASE_NOTES_5.12.0.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
 
 ## English
+
+### v5.14.3: Better Chinese Diagrams and Exports
+
+- **Wrap Chinese labels**: Pele 1.10.0 wraps long Chinese labels without spaces to fit narrow sidebars.
+- **Complex layouts and Sankey gradients**: fewer crossings between subgraphs, Chinese Sankey labels and source-to-target color gradients.
+- **Rich labels and export fixes**: subscripts, superscripts, code, keyboard labels, underlining and italic citations; SVG/PNG exports preserve baseline offsets and gradients.
+- **Familiar controls**: Auto/Paper, source copying, zoom and pan continue to work. No math typesetter is connected yet.
+
+[5.14.3 release notes](docs/RELEASE_NOTES_5.14.3.md) · [Diagram export guide](docs/DIAGRAM_EXPORT_GUIDE.md) · [Test prompt](docs/PELE_UPGRADE_TEST_PROMPT.md)
+
 
 ### v5.14.2: Smooth Transition for Thinking Companion
 

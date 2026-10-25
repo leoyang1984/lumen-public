@@ -2,6 +2,8 @@
 
 ## 中文
 
+5.14.3 使用 Pele 1.10.0：支持中文长标签换行、桑基图渐变及上下标等标签样式。PNG 和 SVG 导出保留渐变、上下标偏移、代码等宽字体与下划线。数学公式排版器暂未接入，`$$...$$` 仍显示源码。[测试提示词](PELE_UPGRADE_TEST_PROMPT.md)。
+
 让助手输出独立 `mermaid` 代码块。成功渲染后，Pele 图表工具栏提供：
 
 - **复制图片（PNG）**：复制完整图表，可粘贴到接受图片的应用。需要宿主支持并允许图片剪贴板；不可用时可保存到笔记。
@@ -15,6 +17,8 @@
 Auto/Paper 主题仍在 **设置 → LUMEN → 高级 → 图表主题** 中选择；Auto 跟随宿主字体和配色，Paper 使用暖白纸张风格。原 Mermaid/Markdown 复制与源码切换继续保留。
 
 ## English
+
+Version 5.14.3 uses Pele 1.10.0 for Chinese label wrapping, Sankey gradients and rich labels. PNG and SVG retain gradients, subscript/superscript offsets, monospace code and underlining. No math typesetter is connected; `$$...$$` remains source text. [Test prompt](PELE_UPGRADE_TEST_PROMPT.md).
 
 Ask the assistant for a standalone `mermaid` fence. Once rendered, the Pele toolbar offers:
 
