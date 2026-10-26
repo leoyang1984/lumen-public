@@ -2,9 +2,9 @@
 
 ## 中文
 
-5.14.3 使用 Pele 1.10.0：支持中文长标签换行、桑基图渐变及上下标等标签样式。PNG 和 SVG 导出保留渐变、上下标偏移、代码等宽字体与下划线。数学公式排版器暂未接入，`$$...$$` 仍显示源码。[测试提示词](PELE_UPGRADE_TEST_PROMPT.md)。
+5.15.0 已接入离线公式和 26 个图标，并使用右上角「⋯」菜单收纳操作。PNG 和 SVG 保留公式、图标、渐变及上下标。最低 Obsidian 1.5.7。[使用指南](DIAGRAM_GUIDE.md) · [测试提示词](DIAGRAM_TEST_PROMPT.md)。
 
-让助手输出独立 `mermaid` 代码块。成功渲染后，Pele 图表工具栏提供：
+让助手输出独立 `mermaid` 代码块。成功渲染后，点击 Pele 图表右上角「⋯」可选择：
 
 - **复制图片（PNG）**：复制完整图表，可粘贴到接受图片的应用。需要宿主支持并允许图片剪贴板；不可用时可保存到笔记。
 - **保存到笔记**：先打开目标 Markdown。编辑模式在点击时的光标处插入图片引用；阅读模式追加到末尾。使用 Obsidian 附件位置，唯一命名，不覆盖已有文件。需要 Obsidian 1.5.7+ 的附件接口，旧版本会提示升级。
@@ -18,9 +18,9 @@ Auto/Paper 主题仍在 **设置 → LUMEN → 高级 → 图表主题** 中选�
 
 ## English
 
-Version 5.14.3 uses Pele 1.10.0 for Chinese label wrapping, Sankey gradients and rich labels. PNG and SVG retain gradients, subscript/superscript offsets, monospace code and underlining. No math typesetter is connected; `$$...$$` remains source text. [Test prompt](PELE_UPGRADE_TEST_PROMPT.md).
+Version 5.15.0 adds offline formulas and 26 icons, with actions in the top-right ellipsis menu. PNG and SVG retain formulas, icons, gradients and baseline offsets. Requires Obsidian 1.5.7+. [Guide](DIAGRAM_GUIDE.md) · [Test prompt](DIAGRAM_TEST_PROMPT.md).
 
-Ask the assistant for a standalone `mermaid` fence. Once rendered, the Pele toolbar offers:
+Ask the assistant for a standalone `mermaid` fence. Once rendered, the Pele ellipsis menu offers:
 
 - **Copy image (PNG)**: copy the full diagram to an application accepting PNG. Requires a supported, permitted image clipboard; use Save to note if unavailable.
 - **Save to note**: open a Markdown note first. Source mode inserts at the captured cursor; reading mode appends. It follows Obsidian attachment settings, uses unique names and never overwrites an existing file. Requires Obsidian 1.5.7+ attachment APIs; older hosts show an upgrade prompt.

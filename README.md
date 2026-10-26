@@ -1,6 +1,6 @@
-# LUMEN 5.14.3 — 中文图表与导出优化 / Better Chinese Diagrams and Exports
+# LUMEN 5.15.0 — 公式、图标与图表导航 / Math, Icons and Diagram Navigation
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.14.3) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.15.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、YouTube 视频学习、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
@@ -9,6 +9,16 @@ LUMEN brings EPUB reading, full-book AI translation, YouTube video learning, AI 
 
 
 ## 中文
+
+### v5.15.0：公式、图标与图表导航
+
+- **离线公式与图标**：常用 TeX/AMS 数学表达式及 26 个 Lucide SVG 图标，随主题变化并保留在 PNG/SVG 中。
+- **更清爽的菜单**：右上角「⋯」收纳源码、复制、保存和导出，新增图表设置入口。
+- **节点导航**：点击打开已有 Markdown 笔记或 HTTP/HTTPS 网页；缺失或歧义目标提示，不自动创建笔记。
+- **阅读设置**：自适应／保持源码方向，14／16／20 px 基础字号，3×／5×／8× 最大缩放；保存后即时应用并保留。
+- **升级与验收**：最低 Obsidian 1.5.7；71 个回归入口与隔离桌面 Computer Use 验收通过。移动端触控／剪贴板尚未做真机验收。
+
+[5.15.0 更新说明](docs/RELEASE_NOTES_5.15.0.md) · [图表使用指南](docs/DIAGRAM_GUIDE.md) · [测试提示词](docs/DIAGRAM_TEST_PROMPT.md)
 
 ### v5.14.3：中文图表与导出优化
 
@@ -193,6 +203,16 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 [中英文更新说明](docs/RELEASE_NOTES_5.12.0.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
 
 ## English
+
+### v5.15.0: Math, Icons and Diagram Navigation
+
+- **Offline formulas and icons**: common TeX/AMS expressions and 26 Lucide SVG icons follow themes and remain in PNG/SVG exports.
+- **Compact actions**: a top-right ellipsis groups source, copying, saving and export, with a Diagram settings shortcut.
+- **Node navigation**: open existing Markdown notes or HTTP/HTTPS websites. Missing/ambiguous targets report a message without creating notes.
+- **Reading preferences**: adaptive/source direction, 14/16/20 px base sizes and 3×/5×/8× maximum zoom; saved preferences update existing charts and survive reload.
+- **Upgrade and validation**: Obsidian 1.5.7+; 71 regression entrypoints and isolated desktop Computer Use acceptance passed. Physical mobile touch/clipboard behavior remains unverified.
+
+[5.15.0 release notes](docs/RELEASE_NOTES_5.15.0.md) · [Diagram guide](docs/DIAGRAM_GUIDE.md) · [Test prompt](docs/DIAGRAM_TEST_PROMPT.md)
 
 ### v5.14.3: Better Chinese Diagrams and Exports
 

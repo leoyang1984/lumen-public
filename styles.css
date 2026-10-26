@@ -1067,23 +1067,28 @@
 .lumen-pele [hidden] { display: none !important; }
 .lumen-pele .lumen-pele-toolbar {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 8px;
-    border-bottom: 1px solid var(--pele-border);
+    justify-content: flex-end;
+    padding: 0 2px;
 }
 .lumen-pele .lumen-pele-toolbar button {
-    height: auto;
-    min-height: 30px;
-    padding: 4px 9px;
+    width: 40px;
+    height: 40px;
+    min-height: 40px;
+    padding: 8px;
     font-size: 12px;
     color: var(--pele-fg);
-    background: var(--pele-surface);
-    border: 1px solid var(--pele-border);
+    background: transparent;
+    border: none;
     border-radius: 6px;
     box-shadow: none;
     white-space: normal;
 }
+.lumen-pele .lumen-pele-menu:hover,
+.lumen-pele .lumen-pele-menu[aria-expanded="true"] { background: var(--pele-surface); }
+.lumen-pele .lumen-pele-menu:focus-visible { outline: 2px solid var(--pele-accent); outline-offset: -3px; }
+.lumen-pele .lumen-pele-link { cursor: pointer; }
+.lumen-pele .lumen-pele-link:is(:hover, :focus-visible) > g { filter: brightness(0.92); }
+.lumen-pele .lumen-pele-link:focus-visible { outline: 2px solid var(--pele-accent); outline-offset: 3px; }
 .lumen-pele .lumen-pele-toolbar button:disabled { opacity: 0.45; cursor: not-allowed; }
 .lumen-pele[aria-busy="true"] .lumen-pele-toolbar button:disabled { cursor: progress; }
 .lumen-pele .lumen-pele-viewport {
@@ -1099,6 +1104,8 @@
     max-width: 100%;
     height: auto;
     margin: 0 auto;
+    user-select: none;
+    -webkit-user-select: none;
 }
 .lumen-pele .lumen-pele-status,
 .lumen-pele .lumen-pele-error {

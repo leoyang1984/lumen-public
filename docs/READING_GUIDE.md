@@ -76,7 +76,7 @@ Pi 联网需要另外安装兼容的搜索扩展，再在 Lumen 中选中并开�
 
 将发布包的 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，重新加载插件或重启 Obsidian。升级前备份插件目录，保留 `data.json`、`reader-state.v1.json*` 和历史文件。安装包不含登录配置、API key、个人书籍或笔记。
 
-最低 Obsidian 版本由 manifest 声明为 0.15.0；EPUB 首轮验收限定当前 Mac 桌面版。Windows、Linux、移动端、固定版式与 DRM 书籍不属于本轮验收。CLI 兼容版本、实际通过项与限制见验收记录；不要将声明最低版本理解为全部旧版均已实测。
+最低 Obsidian 版本由 manifest 声明为 1.5.7；EPUB 首轮验收限定当前 Mac 桌面版。Windows、Linux、移动端、固定版式与 DRM 书籍不属于本轮验收。CLI 兼容版本、实际通过项与限制见验收记录；不要将声明最低版本理解为全部旧版均已实测。
 
 ## English
 
@@ -152,7 +152,7 @@ Stop a request or disable its capability; nothing is resent automatically. Teste
 
 Copy release `main.js`, `manifest.json` and `styles.css` to `.obsidian/plugins/lumen/`, then reload the plugin or restart Obsidian. Back up the plugin folder first. Preserve `data.json`, `reader-state.v1.json*` and history files. Distribution excludes credentials and personal reading data.
 
-The manifest declares Obsidian 0.15.0 as the minimum. Initial EPUB acceptance covers the current Mac desktop only. Windows, Linux, mobile, fixed-layout and DRM books are outside this acceptance. See the acceptance report for tested CLI versions and limitations; the declared minimum does not mean every old version was tested.
+The manifest declares Obsidian 1.5.7 as the minimum. Initial EPUB acceptance covers the current Mac desktop only. Windows, Linux, mobile, fixed-layout and DRM books are outside this acceptance. See the acceptance report for tested CLI versions and limitations; the declared minimum does not mean every old version was tested.
 
 
 ## 保存位置（5.8.5） / Save locations
