@@ -1023,6 +1023,8 @@
 .lumen-pele {
     --pele-bg: var(--background-primary, #fff);
     --pele-fg: var(--text-normal, #1f1f1f);
+    --pele-fg-on-light: #1f1f1f;
+    --pele-fg-on-dark: #ffffff;
     --pele-muted: var(--text-muted, #6e6e6e);
     --pele-line: var(--text-normal, #1f1f1f);
     --pele-surface: var(--background-secondary, #f3f3f3);
@@ -1046,6 +1048,8 @@
 .lumen-pele[data-pele-theme="paper"] {
     --pele-bg: #fffcf0;
     --pele-fg: #100f0f;
+    --pele-fg-on-light: #100f0f;
+    --pele-fg-on-dark: #fffcf0;
     --pele-muted: #6f6e69;
     --pele-line: #100f0f;
     --pele-surface: #f2f0e5;

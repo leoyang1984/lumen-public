@@ -1,0 +1,12 @@
+{
+  "version": "5.15.1",
+  "title": "LUMEN 5.15.1 — 图表排版与连接恢复 / Diagram Typography and Connection Recovery",
+  "notesFile": "docs/RELEASE_NOTES_5.15.1.md",
+  "notesSha256": "c14ee0f15127e37ab242cac4f209a48dc1856a9a76306d67ff28fce6dfb43ef6",
+  "prerelease": false,
+  "sha256": {
+    "main.js": "4e07caa7970febcea3d5aabc7cd1732664122e7a161d115e15298e1b17da546b",
+    "manifest.json": "1a3a2290e54e3e2016c2dbf4444526e14ce3fabbeaa780c68b060f78d2378b51",
+    "styles.css": "f5053527afd7d46a0153f0beee7de0bfdc438354be2faa9f34a186660bf96a41"
+  }
+}

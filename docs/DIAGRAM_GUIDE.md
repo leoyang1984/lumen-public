@@ -1,6 +1,6 @@
 # 图表使用指南 / Diagram Guide
 
-适用版本 / Version: **LUMEN 5.15.0**, Obsidian **1.5.7+**.
+适用版本 / Version: **LUMEN 5.15.1**, Obsidian **1.5.7+**. Renderer: **Pele 1.13.0**.
 
 ## 中文
 
@@ -43,8 +43,29 @@ architecture-beta
 | 基础字号 | 小 14 px、标准 16 px、大 20 px | 标准 |
 | 最大缩放 | 3×、5×、8×，相对自然尺寸 | 3× |
 | 图表主题 | Auto、Paper | Auto |
+| 技术标签使用等宽字体 | 开启、关闭 | 关闭 |
 
 设置作用于所有 LUMEN 图表，保存成功后更新已有图表。布局／字号／缩放上限变化可能恢复适配视图。窄栏中的宽图仍可能缩小，可配合缩放阅读。普通滚轮滚动聊天，Ctrl/⌘＋滚轮或双指用于缩放，放大后可拖动。
+
+开启「技术标签使用等宽字体」后，类图属性与方法、ER 图字段、目录树文件与目录名使用 Obsidian 编辑器的等宽字体，按实际字体测量布局并保留到导出。时序图消息继续使用普通字体；源码明确设置的字体仍优先。旧设置默认关闭。
+
+### 源码配色
+
+未指定配色时继续遵循 Auto/Paper。可在 Mermaid 代码块内部使用 YAML frontmatter 指定系列颜色，例如：
+
+```mermaid
+---
+config:
+  themeVariables:
+    pie1: "#ffffcc"
+    pie2: "#001144"
+---
+pie
+ "输入": 2
+ "输出": 3
+```
+
+支持 `pie1–pie8`、`git0–git7`、时间轴／雷达图／矩形树图的 `cScale0–cScale7`、思维导图的 `cScale1–cScale8`、`venn1–venn8`，以及 `xyChart.plotColorPalette` 的前八种颜色。非所有 Mermaid 主题变量都受支持。源码指定的固定颜色优先于主题，不随深浅色切换；未指定或无效颜色回退到主题。需要跟随主题时可使用 `var(--pele-accent)` 等 `--pele-*` 变量。自定义底色上的标签会尽可能选择对比色；明确指定的文字颜色仍由源码决定。
 
 PNG 和独立 SVG 保留完整图表、图标、公式及当前配色。先打开 Markdown 笔记再选择「保存到笔记」；生成期间改变目标、光标或内容会阻止过期插入。SVG 去除活动导航和外部引用；PNG 是静态图片。[详细导出规则](DIAGRAM_EXPORT_GUIDE.md)。
 
@@ -59,6 +80,10 @@ Use paired `$$` delimiters for common TeX/AMS expressions; single `$` is not a d
 Flowchart `fa:fa-` names are Mermaid syntax aliases rendering bundled Lucide artwork, not Font Awesome. Architecture services use names such as `lumen:database`. Unknown icons retain readable labels; icon syntax is not universal across diagram types.
 
 Under **ellipsis → Diagram settings…**, or **Settings → LUMEN → Advanced and diagnostics**, choose adaptive/source direction, 14/16/20 px base size, 3×/5×/8× maximum zoom and Auto/Paper. Defaults are adaptive, 16 px, 3× and Auto. Preferences apply to all LUMEN diagrams after saving and survive reload. Layout/font/zoom changes may reset the fitted view. A wide diagram can still appear small in a narrow pane; zoom to read it. The ordinary wheel scrolls chat; Ctrl/⌘+wheel or pinch zooms, and dragging pans an enlarged diagram.
+
+**Monospace technical labels** is off by default, including for existing settings. Enable it to measure and draw class members, ER attributes and file/directory names using the editor's monospace font, including exports. Sequence messages keep their regular font; explicit source fonts remain authoritative.
+
+**Source palettes:** the Mermaid frontmatter example above overrides the host palette. Supported series variables are `pie1–pie8`, `git0–git7`, `cScale0–cScale7` for timelines/radar/treemaps, `cScale1–cScale8` for mindmaps, `venn1–venn8`, and the first eight colors in `xyChart.plotColorPalette`. Other Mermaid theme colors may not apply. Explicit fixed colors do not change with the host theme; omitted/invalid entries use the host palette. Use `--pele-*` variables such as `var(--pele-accent)` to follow the theme. Labels on supported fills choose contrasting text unless the source specifies its own text color.
 
 PNG and standalone SVG retain the full chart, icons, formulas and palette. Open a Markdown note before Save to note. Changes to the target note, cursor or content during export invalidate insertion. Exported SVG removes active navigation and external references; PNG is static. [Detailed export rules](DIAGRAM_EXPORT_GUIDE.md).
 

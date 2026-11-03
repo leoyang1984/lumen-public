@@ -1,6 +1,6 @@
-# LUMEN 5.15.0 — 公式、图标与图表导航 / Math, Icons and Diagram Navigation
+# LUMEN 5.15.1 — 图表排版与连接恢复 / Diagram Typography and Connection Recovery
 
-[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.15.0) · [完整指南 / Guide](docs/READING_GUIDE.md)
+[中文](#中文) · [English](#english) · [下载 / Download](https://github.com/leoyang1984/lumen-public/releases/tag/v5.15.1) · [完整指南 / Guide](docs/READING_GUIDE.md)
 
 LUMEN 在 Obsidian 中提供 EPUB 阅读、整书 AI 翻译、YouTube 视频学习、AI 对话、笔记整理和白板工作流。你可以使用 API，也可以调用电脑上已安装的 Codex、pi 或 Antigravity（agy），不需要一直打开终端窗口。
 
@@ -9,6 +9,17 @@ LUMEN brings EPUB reading, full-book AI translation, YouTube video learning, AI 
 
 
 ## 中文
+
+<!-- current-release:zh:start -->
+### v5.15.1
+
+- **图表内核升级**：Pele 1.13.0 改善复杂子图、长标签与触控，支持源码系列配色。
+- **技术标签等宽字体**：图表设置新增可选开关，默认关闭；作用于类图成员、ER 字段和目录树，并保留到导出。
+- **深浅底色更清楚**：Auto/Paper 为支持的自定义背景选择对比色文字，SVG/PNG 保留当前配色与字体。
+- **AGY 连接恢复**：明确的传输异常在尚无正文和工具活动时自动重连并重试一次；请求详情保留脱敏原因和尝试次数。
+
+[更新说明](docs/RELEASE_NOTES_5.15.1.md) · [图表指南](docs/DIAGRAM_GUIDE.md)
+<!-- current-release:zh:end -->
 
 ### v5.15.0：公式、图标与图表导航
 
@@ -184,7 +195,7 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 
 **BRAT**：安装 Obsidian 42 - BRAT → Add Beta plugin → 输入 `leoyang1984/lumen-public` → 启用 Lumen。已有用户在 BRAT 中检查更新。
 
-**手动安装**：从 [5.12.0 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.12.0) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
+**手动安装**：从 [5.15.1 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.15.1) 下载三个运行文件，将 `main.js`、`manifest.json`、`styles.css` 放入笔记库的 `.obsidian/plugins/lumen/`，然后启用插件。指南与第三方声明放在本仓库文档中，无需复制到插件目录。
 
 **升级先备份，只替换三个运行文件**。保留 `data.json`、阅读状态和历史，重载 Lumen 或重开 Obsidian。从 5.8.4 之前的版本首次升级时，所有已有自主员工（包括此前正在使用的员工）会保持暂停；请在“白板与自动化”检查配置并逐个确认恢复，避免取消授权后突然开始任务。新员工默认关闭自主工作。
 
@@ -203,6 +214,17 @@ CLI 对话不需要额外配置 MCP。白板、员工等原有 API 功能仍使�
 [中英文更新说明](docs/RELEASE_NOTES_5.12.0.md) · [使用指南](docs/READING_GUIDE.md) · [运行时工作流教程](runtime-workflow-pack/) · [分发协议](COMMERCIAL_LICENSE.md) · [第三方声明](docs/THIRD_PARTY_NOTICES.txt)
 
 ## English
+
+<!-- current-release:en:start -->
+### v5.15.1
+
+- **Pele 1.13.0** improves complex subgraphs, long labels and touch behavior, with source-defined series palettes.
+- **Monospace technical labels** is a new opt-in setting for class members, ER attributes and file trees, including exports. It is off by default.
+- **Readable fills**: Auto/Paper supply contrasting text on supported custom fills; standalone SVG/PNG retain current colors and fonts.
+- **AGY recovery**: a known transport failure can reconnect and retry once before any answer text or tool activity. Request details retain sanitized reasons and attempt counts.
+
+[Release notes](docs/RELEASE_NOTES_5.15.1.md) · [Diagram guide](docs/DIAGRAM_GUIDE.md)
+<!-- current-release:en:end -->
 
 ### v5.15.0: Math, Icons and Diagram Navigation
 
@@ -366,7 +388,7 @@ CLI chat does not require extra MCP setup. Existing Canvas and employee API feat
 
 **BRAT**: install Obsidian 42 - BRAT, choose Add Beta plugin, enter `leoyang1984/lumen-public`, then enable Lumen. Existing BRAT users can check for updates.
 
-**Manual**: download the [5.12.0 release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.12.0). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
+**Manual**: download the [5.15.1 Release](https://github.com/leoyang1984/lumen-public/releases/tag/v5.15.1). Copy only `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lumen/` in your Vault and enable the plugin. The guide and third-party notices are in this repository; they are not installation files.
 
 Back up first. Replace only the three runtime files; keep settings, reading state and history. Reload Lumen or reopen Obsidian. All existing autonomous employees, including previously active ones, stay paused when first upgrading from a version before 5.8.4. Review and confirm them under Canvas and automation before resuming. New employees retain opt-in autonomy.
 
